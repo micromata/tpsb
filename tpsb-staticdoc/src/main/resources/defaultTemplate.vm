@@ -1,0 +1,242 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>TPSB Test-Report</title>
+</head>
+
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+}
+
+html {
+	font-size: 70%;	
+}
+
+body {
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+}
+
+.table {
+    border-left: 1px solid #6699CC;
+    border-collapse: collapse;
+    text-align: left;
+	width: 90%;
+	font-size: 95%;
+	table-layout:fixed;
+}
+
+.table th {
+    color: #003399;
+    background-color: #E8E8E4;
+    padding: 3px 5px;
+}
+
+.table td {
+    color: #666666;
+    padding: 3px 5px;
+}
+
+tr:hover td {
+    color: #000099;
+	background-color:#E8E8E4;
+}
+
+h1 {
+	color: #003399;
+	font-weight: normal;
+	padding-bottom: 10px;
+}
+
+h2 {
+	color: #003399;
+	font-weight: bold;
+	padding-bottom: 0.2em;
+}
+
+h3 {
+	color: #000;
+	position: relative;
+}
+
+h4 {
+	padding-bottom: 0.2em;
+	color: #666;
+}
+
+hr {
+	display: block;
+	margin: 0 0 1.2em 0;
+	height: 3px;
+}
+
+div {
+	padding: 10px;
+}
+
+div.fileContent {
+	border-left: 3px solid lightgrey;
+	margin-bottom: 25px;
+}
+
+p {
+	font-style: italic;
+	margin-bottom: 5px;
+	color: #003399;
+}
+
+a {
+	text-decoration: none;
+}
+
+.half {
+	width: 50%;
+}
+
+.quarter {
+	width: 25%;
+}
+
+#main {
+	padding: 30px;
+}
+
+#head {
+	border-left: 3px solid grey;
+	margin-bottom: 20px;
+}
+</style>
+
+
+<div id="main">
+	<a href="javascript:history.back()">Zur&uuml;ck</a>
+	<br/>
+	<br/>
+	<div id="head">
+		<h1>$projectName - Test Report</h1>
+		<h4>Erzeugungsdatum</h4>
+		<p>$date</p>
+	</div>
+	<div class="fileContent">
+		<a name="$fInfo.className" />
+	    <h2><i>$fInfo.className</i></h2>
+	    #if ($fInfo.javaDocInfo && ($fInfo.javaDocInfo.title || $fInfo.javaDocInfo.description))  
+	    <h4>Beschreibung:</h4>
+		<p>
+		  #if ($fInfo.javaDocInfo.title) 
+		    $fInfo.javaDocInfo.title
+		  #end
+      #if ($fInfo.javaDocInfo.description) 
+		    <br/> $fInfo.javaDocInfo.description
+		  #end
+		</p>
+		#end
+	    <h4>Anzahl Tests</h4>
+	    <p>$fInfo.methodInfos.size()</p>
+	    #if ($fInfo.javaDocInfo && $fInfo.javaDocInfo.getTagInfo('@author'))
+	    	<h4>Autoren</h4>
+	    	#foreach($author in $fInfo.javaDocInfo.getTagInfo('@author'))
+		    	<p>$author.getSecond()</p>
+	        #end
+	    #end
+	    #if ($fInfo.javaDocInfo && $fInfo.javaDocInfo.getUniqueTagInfo('@since'))
+	    	<h4>Seit</h4>
+	    	<p>$fInfo.javaDocInfo.getUniqueTagInfo('@since').getSecond()</p>
+	    #end
+	    
+	    #foreach($mInfo in $fInfo.methodInfos)
+			<div class="methodContent">
+	    	<a name="$fInfo.className.$mInfo.methodName"/>
+			<h2>$mInfo.methodName</h2>
+		  #if ($mInfo.javaDocInfo && ($mInfo.javaDocInfo.title || $mInfo.javaDocInfo.description))  
+      <h4>Testbeschreibung:</h4>
+      <p>
+      #if ($mInfo.javaDocInfo.title) 
+        $mInfo.javaDocInfo.title
+      #end
+      #if ($mInfo.javaDocInfo.description) 
+        <br/> $mInfo.javaDocInfo.description
+      #end
+      </p>
+			#end
+			#if ($mInfo.javaDocInfo && $mInfo.javaDocInfo.getTagInfo('@author').isEmpty() == false)
+		    	<h4>Autoren</h4>
+		    	#foreach($author in $mInfo.javaDocInfo.getTagInfo('@author'))
+			    	<p>$author.getSecond()</p>
+		        #end
+	    	#end
+	    	#if ($mInfo.javaDocInfo && $mInfo.javaDocInfo.getUniqueTagInfo('@since'))
+		    	<h4>Seit</h4>
+		    	<p>$mInfo.javaDocInfo.getUniqueTagInfo('@since').getSecond()</p>
+		    #end
+			<h4>Testablauf</h4>
+			<table width="100%" class="table">
+				<tr>
+					<th style="width:1%;">#</th>
+					<th style="width:15%;">Name</th>
+					<th style="width:24%;">Beschreibung</th>
+					<th style="width:60%;">Parameter</th>
+				</tr>
+				#if ($mInfo.testSteps.size() == 0)
+					<tr>
+						<td colspan="3">Keine Daten</td>
+					</tr>
+				#else
+		    		#foreach($testStep in $mInfo.testSteps)
+		    		<tr>
+		    			<td style="font-weight: bold;">$testStep.testStep</td>
+		    			<td>$testStep.tbMethodName</td>
+		    			<td>
+		    				#if ($testStep.tbJavaDocInfo.title)
+                  $testStep.tbJavaDocInfo.title 
+                #end
+		    				#if ($testStep.tbJavaDocInfo.description)
+			    				<br/> $testStep.tbJavaDocInfo.description
+			    			#end		
+		    				#if ($testStep.inlineJavaDocInfo && $testStep.inlineJavaDocInfo.description)  
+		    					<br/>$testStep.inlineJavaDocInfo.description
+		    				#end
+		    			</td>
+		    			<td style="padding-right: 0;">
+		    				#if ($testStep.parameters.size() > 0)    			
+		    				<table style="width:100%;" class="table">
+		    					<tr>
+									<th style="width:20%;">Name</th>    					
+									<th style="width:30%;">Beschreibung</th>    					
+									<th style="width:15%;">Datentyp</th>    					
+									<th style="width:40%;">Wert</th>    					
+		    					</tr>
+					    		#foreach($param in $testStep.parameters)
+								<tr>
+									<td>$param.paramName</td>
+									<td>
+										#if ($param.javaDoc)
+											$param.javaDoc
+										#else
+											
+										#end
+									</td>
+									<td>$param.paramType</td>
+									<td>$param.paramValue</td>
+								</tr>			    		
+					    		#end
+		    				</table>
+		    				#else
+		    				<table style="width:100%;" class="table">
+		    				<tr><td>keine</td></tr>
+		    				</table>
+		    				#end
+		    			</td>
+		    		</tr>
+		    		#end
+		    	#end
+			</table>
+			</div>
+	    #end
+	</div>
+</div>
+</html>

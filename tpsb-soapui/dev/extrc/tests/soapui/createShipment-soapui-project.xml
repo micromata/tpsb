@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="createShipment" resourceRoot="" soapui-version="4.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="TestSuite" value="createShipment"/>
+  <con:entry key="Report to Generate" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="soapui-setings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="createShipmentOk"/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+</xml-fragment>]]></con:setting><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.ProTestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="TestSuite" value="createShipment"/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="soapui-setings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="createShipmentOk"/>
+  <con:entry key="Print Report" value="true"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+  <con:entry key="Select Report Type" value="TestSuite Report"/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="VlsShipmentWebServicePortBinding" type="wsdl" bindingName="{http://shipment.webservice.vls.dhl.de/}VlsShipmentWebServicePortBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/roger/d/dhl/DHL-VLS/src/plugins/com.dpdhl.vls.shpmtws/src/main/resources/com/dpdhl/vls/shipmentWS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/roger/d/dhl/DHL-VLS/src/plugins/com.dpdhl.vls.shpmtws/src/main/resources/com/dpdhl/vls/shipmentWS.wsdl"><con:part><con:url>file:/C:/Users/roger/d/dhl/DHL-VLS/src/plugins/com.dpdhl.vls.shpmtws/src/main/resources/com/dpdhl/vls/shipmentWS.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://shipment.webservice.vls.dhl.de/" name="shipmentWs" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://shipment.webservice.vls.dhl.de/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://shipment.webservice.vls.dhl.de/" schemaLocation="shipmentWs.xsd"/>
+    </xsd:schema>
+  </types>
+  <!--SOAP methods and responses-->
+  <!--3.4.5 validateShipment-->
+  <message name="ValidateShipmentRequest">
+    <part name="parameters" element="tns:ValidateShipmentRequest"/>
+  </message>
+  <message name="ValidateShipmentResponse">
+    <part name="parameters" element="tns:ValidateShipmentResponse"/>
+  </message>
+  <!--3.4.7 createShipment-->
+  <message name="CreateShipmentRequest">
+    <part name="parameters" element="tns:CreateShipmentRequest"/>
+  </message>
+  <message name="CreateShipmentResponse">
+    <part name="parameters" element="tns:CreateShipmentResponse"/>
+  </message>
+  <!--3.4.9 cancelShipment-->
+  <message name="CancelShipmentRequest">
+    <part name="parameters" element="tns:CancelShipmentRequest"/>
+  </message>
+  <message name="CancelShipmentResponse">
+    <part name="parameters" element="tns:CancelShipmentResponse"/>
+  </message>
+  <!--3.4.11 updateShipment-->
+  <message name="UpdateShipmentRequest">
+    <part name="parameters" element="tns:UpdateShipmentRequest"/>
+  </message>
+  <message name="UpdateShipmentResponse">
+    <part name="parameters" element="tns:UpdateShipmentResponse"/>
+  </message>
+  <!--3.4.13 getDocuments-->
+  <message name="GetDocumentsRequest">
+    <part name="parameters" element="tns:GetDocumentsRequest"/>
+  </message>
+  <message name="GetDocumentsResponse">
+    <part name="parameters" element="tns:GetDocumentsResponse"/>
+  </message>
+  <!--3.4.15 doManifest-->
+  <message name="DoManifestRequest">
+    <part name="parameters" element="tns:DoManifestRequest"/>
+  </message>
+  <message name="DoManifestResponse">
+    <part name="parameters" element="tns:DoManifestResponse"/>
+  </message>
+  <!--3.4.17 getManifest-->
+  <message name="GetManifestRequest">
+    <part name="parameters" element="tns:GetManifestRequest"/>
+  </message>
+  <message name="GetManifestResponse">
+    <part name="parameters" element="tns:GetManifestResponse"/>
+  </message>
+  <!--EO SOAP methods and responses-->
+  <!--Operation mapping-->
+  <portType name="VlsShipmentWebService">
+    <!--3.4.5 validateShipment-->
+    <operation name="ValidateShipmentOperation">
+      <input message="tns:ValidateShipmentRequest"/>
+      <output message="tns:ValidateShipmentResponse"/>
+    </operation>
+    <!--3.4.7 createShipment-->
+    <operation name="CreateShipmentOperation">
+      <input message="tns:CreateShipmentRequest"/>
+      <output message="tns:CreateShipmentResponse"/>
+    </operation>
+    <!--3.4.9 cancelShipment-->
+    <operation name="CancelShipmentOperation">
+      <input message="tns:CancelShipmentRequest"/>
+      <output message="tns:CancelShipmentResponse"/>
+    </operation>
+    <!--3.4.11 updateShipment-->
+    <operation name="UpdateShipmentOperation">
+      <input message="tns:UpdateShipmentRequest"/>
+      <output message="tns:UpdateShipmentResponse"/>
+    </operation>
+    <!--3.4.13 getDocuments-->
+    <operation name="GetDocumentsOperation">
+      <input message="tns:GetDocumentsRequest"/>
+      <output message="tns:GetDocumentsResponse"/>
+    </operation>
+    <!--3.4.15 doManifest-->
+    <operation name="DoManifestOperation">
+      <input message="tns:DoManifestRequest"/>
+      <output message="tns:DoManifestResponse"/>
+    </operation>
+    <!--3.4.17 getManifest-->
+    <operation name="GetManifestOperation">
+      <input message="tns:GetManifestRequest"/>
+      <output message="tns:GetManifestResponse"/>
+    </operation>
+  </portType>
+  <binding name="VlsShipmentWebServicePortBinding" type="tns:VlsShipmentWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <!--3.4.5 validateShipment-->
+    <operation name="ValidateShipmentOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <!--3.4.7 createShipment-->
+    <operation name="CreateShipmentOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <!--3.4.9 cancelShipment-->
+    <operation name="CancelShipmentOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <!--3.4.11 updateShipment-->
+    <operation name="UpdateShipmentOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <!--3.4.13 getDocuments-->
+    <operation name="GetDocumentsOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <!--3.4.15 doManifest-->
+    <operation name="DoManifestOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <!--3.4.17 getManifest-->
+    <operation name="GetManifestOperation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="VlsService">
+    <port name="VlsWebServicePort" binding="tns:VlsShipmentWebServicePortBinding">
+      <soap:address location="http://localhost:8080/vls/gw/shpmntws"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Users\roger\d\dhl\DHL-VLS\src\plugins\com.dpdhl.vls.shpmtws\src\main\resources\com\dpdhl\vls\shipmentWs.xsd</con:url><con:content><![CDATA[<xs:schema version="1.0" targetNamespace="http://shipment.webservice.vls.dhl.de/" xmlns:tns="http://shipment.webservice.vls.dhl.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--3.4.5 validateShipment-->
+  <xs:element name="ValidateShipmentRequest" type="tns:ValidateShipmentRequestType"/>
+  <xs:complexType name="ValidateShipmentRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:CreateOrValidateShipmentRequestType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ValidateShipmentResponse" type="tns:ValidateShipmentResponseType"/>
+  <xs:complexType name="ValidateShipmentResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ShipmentResponseType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.5 validateShipment-->
+  <!--3.4.7 createShipment-->
+  <xs:element name="CreateShipmentRequest" type="tns:CreateShipmentRequestType"/>
+  <xs:element name="CreateShipmentResponse" type="tns:CreateShipmentResponseType"/>
+  <xs:complexType name="CreateShipmentRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:CreateOrValidateShipmentRequestType"></xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CreateOrValidateShipmentRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:RequestWithGroupProfileType">
+        <xs:sequence>
+          <xs:element name="Shipment" type="tns:ShipmentRequestType" minOccurs="1" maxOccurs="50"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CreateShipmentResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ShipmentResponseType"></xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.7  createShipment-->
+  <!--3.4.9 cancelShipment-->
+  <xs:element name="CancelShipmentRequest" type="tns:CancelShipmentRequestType"/>
+  <xs:element name="CancelShipmentResponse" type="tns:CancelShipmentResponseType"/>
+  <xs:complexType name="CancelShipmentRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:RequestWithGroupProfileType">
+        <xs:sequence>
+          <xs:element ref="tns:ShipmentNumber" minOccurs="1" maxOccurs="50"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CancelShipmentStatusType">
+    <xs:complexContent>
+      <xs:extension base="tns:ResponseStatusType">
+        <xs:attribute name="shipmentNumber" type="tns:ShipmentNumberType" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CancelShipmentResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ResponseWithStatusCodeType">
+        <xs:sequence>
+          <xs:element name="ShipmentStatus" minOccurs="1" maxOccurs="50" type="tns:CancelShipmentStatusType"></xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.9 cancelShipment-->
+  <!--3.4.11 updateShipment-->
+  <xs:element name="UpdateShipmentRequest" type="tns:UpdateShipmentRequestType"/>
+  <xs:element name="UpdateShipmentResponse" type="tns:UpdateShipmentResponseType"/>
+  <xs:complexType name="UpdateShipmentRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:RequestWithGroupProfileType">
+        <xs:sequence>
+          <xs:element name="NewShipment" type="tns:ShipmentRequestType" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="shipmentNumber" type="tns:ShipmentNumberType" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="UpdateShipmentResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ResponseWithStatusCodeType">
+        <xs:sequence>
+          <xs:element name="Shipment" type="tns:ShipmentType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.11 updateShipment-->
+  <!--3.4.13 getDocuments-->
+  <xs:element name="GetDocumentsRequest" type="tns:GetDocumentsRequestType"/>
+  <xs:element name="GetDocumentsResponse" type="tns:GetDocumentsResponseType"/>
+  <xs:complexType name="GetDocumentsRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:RequestWithGroupProfileType">
+        <xs:sequence>
+          <xs:element ref="tns:ShipmentNumber" minOccurs="1" maxOccurs="50"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="GetDocumentsResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ShipmentResponseType"></xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.13 getDocuments-->
+  <!--3.4.15 doManifest-->
+  <xs:element name="DoManifestRequest" type="tns:DoManifestRequestType"/>
+  <xs:element name="DoManifestResponse" type="tns:DoManifestResponseType"/>
+  <xs:complexType name="DoManifestRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:RequestWithGroupProfileType">
+        <xs:sequence>
+          <xs:element ref="tns:ShipmentNumber" minOccurs="0" maxOccurs="50"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DoManifestResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ResponseWithStatusCodeType">
+        <xs:sequence>
+          <xs:element ref="tns:ShipmentNumber" minOccurs="1" maxOccurs="50"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.15 doManifest-->
+  <!--3.4.17 getManifest-->
+  <xs:element name="GetManifestRequest" type="tns:GetManifestRequestType"/>
+  <xs:element name="GetManifestResponse" type="tns:GetManifestResponseType"/>
+  <xs:complexType name="GetManifestRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:RequestWithGroupProfileType">
+        <xs:attribute name="shipmentNumber" type="tns:ShipmentNumberType" use="required"/>
+        <xs:attribute name="manifestDate" type="xs:date" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="GetManifestResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ResponseWithStatusCodeType">
+        <xs:sequence>
+          <xs:element name="ManifestPdf" type="xs:base64Binary" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--EO 3.4.17 getManifest-->
+  <!--request-->
+  <xs:complexType name="RequestWithGroupProfileType">
+    <xs:attribute name="groupProfileName" use="optional" type="xs:string"/>
+  </xs:complexType>
+  <!--response-->
+  <xs:complexType name="ResponseWithStatusCodeType">
+    <xs:sequence>
+      <xs:element name="Status" type="tns:ResponseStatusType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--response for validate and create shipment-->
+  <xs:complexType name="ShipmentResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:ResponseWithStatusCodeType">
+        <xs:sequence>
+          <xs:element name="Shipment" type="tns:ResponseShipmentType" minOccurs="1" maxOccurs="50"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--billingNumber-->
+  <xs:attribute name="billingNumber" type="xs:string"/>
+  <!--shipmentNumber-->
+  <xs:element name="ShipmentNumber" type="tns:ShipmentNumberType"/>
+  <xs:simpleType name="ShipmentNumberType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="10"/>
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--response shipping-->
+  <xs:complexType name="ResponseShipmentType">
+    <xs:sequence>
+      <xs:element name="ShipmentStatus" type="tns:ResponseStatusType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Shipment" type="tns:ShipmentType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--shipment for creation-->
+  <xs:complexType name="ShipmentRequestType">
+    <xs:complexContent>
+      <xs:extension base="tns:ShipmentType">
+        <xs:attribute name="printOnlyIfCodable" type="xs:boolean" use="optional" default="false"/>
+        <xs:attribute name="billingNumber" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:length value="14"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--shipment-->
+  <xs:complexType name="ShipmentType">
+    <xs:sequence>
+      <xs:element name="UsmProp" type="tns:UsmPropType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--USM Property-->
+  <xs:complexType name="UsmPropType">
+    <xs:attribute name="key" type="xs:string" use="required"/>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <!--Status of a soap response-->
+  <xs:complexType name="ResponseStatusType">
+    <xs:attribute name="statusCode" type="xs:int" use="required"/>
+    <xs:attribute name="statusText" type="xs:string" use="required"/>
+    <xs:attribute name="statusMessage" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:element name="ResponseStatus" type="tns:ResponseStatusType"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="CancelShipmentOperation" bindingOperationName="CancelShipmentOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:CancelShipmentRequest groupProfileName="?">
+         <!--1 to 50 repetitions:-->
+         <ship:ShipmentNumber>?</ship:ShipmentNumber>
+      </ship:CancelShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/CancelShipmentOperationRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="CreateShipmentOperation" bindingOperationName="CreateShipmentOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:CreateShipmentRequest groupProfileName="?" ship:billingNumber="?">
+         <!--1 to 50 repetitions:-->
+         <Shipment printOnlyIfCodable="?">
+            <!--1 or more repetitions:-->
+            <UsmProp key="?" value="?"/>
+         </Shipment>
+      </ship:CreateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/CreateShipmentOperationRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="DoManifestOperation" bindingOperationName="DoManifestOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:DoManifestRequest groupProfileName="?">
+         <!--0 to 50 repetitions:-->
+         <ship:ShipmentNumber>?</ship:ShipmentNumber>
+      </ship:DoManifestRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/DoManifestOperationRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="GetDocumentsOperation" bindingOperationName="GetDocumentsOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:GetDocumentsRequest groupProfileName="?">
+         <!--1 to 50 repetitions:-->
+         <ship:ShipmentNumber>?</ship:ShipmentNumber>
+      </ship:GetDocumentsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/GetDocumentsOperationRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="GetManifestOperation" bindingOperationName="GetManifestOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:GetManifestRequest groupProfileName="?" shipmentNumber="?" manifestDate="?"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/GetManifestOperationRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="UpdateShipmentOperation" bindingOperationName="UpdateShipmentOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:UpdateShipmentRequest groupProfileName="?" shipmentNumber="?">
+         <NewShipment groupProfileName="?" ship:billingNumber="?">
+            <!--1 to 50 repetitions:-->
+            <Shipment printOnlyIfCodable="?">
+               <!--1 or more repetitions:-->
+               <UsmProp key="?" value="?"/>
+            </Shipment>
+         </NewShipment>
+      </ship:UpdateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/UpdateShipmentOperationRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="ValidateShipmentOperation" bindingOperationName="ValidateShipmentOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ship:ValidateShipmentRequest groupProfileName="?" ship:billingNumber="?">
+         <!--1 to 50 repetitions:-->
+         <Shipment printOnlyIfCodable="?">
+            <!--1 or more repetitions:-->
+            <UsmProp key="?" value="?"/>
+         </Shipment>
+      </ship:ValidateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://shipment.webservice.vls.dhl.de/VlsShipmentWebService/ValidateShipmentOperationRequest"/></con:call></con:operation></con:interface><con:testSuite name="createShipment" id="cef9cb0d-1347-49be-b7a5-6bba7296f41f"><con:description>Basis Tests für createShipment Webservice</con:description><con:settings><con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">false</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting><con:setting id="GeneratableJUnitReport@Style">Single Page (Print)</con:setting><con:setting id="GeneratableJUnitReport@Folder">C:\Users\roger\d\dhl\DHL-VLS\src\plugins\com.dpdhl.vls.shpmtws\target</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="createShipmentOk" searchProperties="true" id="81d1baa7-4a00-4db3-a505-3d41400eb09d"><con:description>Grundsätzlicher Ablauf von createShipment etc.</con:description><con:settings><con:setting id="IncludeResults">true</con:setting></con:settings><con:testStep type="properties" name="createShipmentOkProps"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>shipmentNumber</con:name><con:value>99990000000000000024</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="createShipment" id="17ee2c9b-c636-4dcc-891a-342ee07cccbd"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>CreateShipmentOperation</con:operation><con:request name="createShipment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+    <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:CreateShipmentRequest >
+         <Shipment printOnlyIfCodable="true" billingNumber="IT_000001A0101">
+	  
+            <UsmProp key="address.sender.name1" value="Micromata GmbH"/>
+            <UsmProp key="address.sender.street" value="Marie-Calm-Str."/>
+            <UsmProp key="address.sender.streetNumber" value="1-5"/>
+            <UsmProp key="address.sender.plz" value="34121"/>
+            <UsmProp key="address.sender.city" value="Kassel"/>
+            <UsmProp key="address.sender.country" value="DEU"/>
+            
+            
+            <UsmProp key="address.receiver.name1" value="Seppel"/>
+            <UsmProp key="address.receiver.street" value="Goethestr."/>
+            <UsmProp key="address.receiver.streetNumber" value="74"/>
+            <UsmProp key="address.receiver.plz" value="34119"/>
+            <UsmProp key="address.receiver.city" value="Kassel"/>
+            <UsmProp key="address.receiver.country" value="DEU"/>
+
+            <UsmProp key="dimension.weight" value="10000"/>
+            
+            <UsmProp key="product.id" value="V01PAK"/>
+          </Shipment>
+      </ship:CreateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance" disabled="true"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="saveShipmentNumber" id="bfae3dd2-7851-4492-a9a8-a81f0ff7d43b"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>createShipment</con:sourceStep><con:sourcePath>declare namespace ns7='http://shipment.webservice.vls.dhl.de/';
+//ns7:CreateShipmentResponse[1]/Shipment[1]/Shipment[1]/UsmProp[@key="codes.shipmentNumber"]/@value</con:sourcePath><con:targetType>shipmentNumber</con:targetType><con:targetStep>createShipmentOkProps</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToGetDocuments" id="21ec12c0-2558-4cc3-a65a-84cac588113d"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getDocuments</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:GetDocumentsRequest[1]/ship:ShipmentNumber[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="getDocuments"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>GetDocumentsOperation</con:operation><con:request name="getDocuments"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+    <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:GetDocumentsRequest>
+         
+         <ship:ShipmentNumber>99990000000000000024</ship:ShipmentNumber>
+      </ship:GetDocumentsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>ShipmentStatus statusCode="0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToCancel" id="e1c9b6a2-e21b-459b-a9f6-18ef445e12b0"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>cancelShipment</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:CancelShipmentRequest[1]/ship:ShipmentNumber[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="cancelShipment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>CancelShipmentOperation</con:operation><con:request name="cancelShipment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:CancelShipmentRequest>
+         <!--1 to 50 repetitions:-->
+         <ship:ShipmentNumber>99990000000000000024</ship:ShipmentNumber>
+      </ship:CancelShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance" disabled="true"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>statusCode="0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToCancelSecond" id="6c12148b-a797-4e46-a2fd-c499d98331fa"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>cancelShipmentTwice</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:CancelShipmentRequest[1]/ship:ShipmentNumber[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="cancelShipmentTwice"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>CancelShipmentOperation</con:operation><con:request name="cancelShipmentTwice"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:CancelShipmentRequest>
+         <!--1 to 50 repetitions:-->
+         <ship:ShipmentNumber>99990000000000000024</ship:ShipmentNumber>
+      </ship:CancelShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>ShipmentStatus statusCode="205"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToGetDocumentOnCanceled" id="2ebd68e3-67c8-4fe5-8217-f30f11af00a6"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getDocumentOnCanceled</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:GetDocumentsRequest[1]/ship:ShipmentNumber[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="getDocumentOnCanceled"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>GetDocumentsOperation</con:operation><con:request name="getDocumentOnCanceled"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+    <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:GetDocumentsRequest>
+        <ship:ShipmentNumber>99990000000000000024</ship:ShipmentNumber>
+      </ship:GetDocumentsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>ShipmentStatus statusCode="205"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>17ee2c9b-c636-4dcc-891a-342ee07cccbd</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>6c12148b-a797-4e46-a2fd-c499d98331fa</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>e1c9b6a2-e21b-459b-a9f6-18ef445e12b0</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>21ec12c0-2558-4cc3-a65a-84cac588113d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2ebd68e3-67c8-4fe5-8217-f30f11af00a6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>bfae3dd2-7851-4492-a9a8-a81f0ff7d43b</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateShipment" searchProperties="true" id="3e55f764-096c-4de7-bde5-b4ab899aad2e"><con:settings/><con:testStep type="properties" name="createShipmentOkProps"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>shipmentNumber</con:name><con:value>99990000000000000047</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="createShipment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>CreateShipmentOperation</con:operation><con:request name="createShipment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+    <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:CreateShipmentRequest>
+         <Shipment printOnlyIfCodable="true" billingNumber="IT_000001A0101">
+	  
+            <UsmProp key="address.sender.name1" value="Micromata GmbH"/>
+            <UsmProp key="address.sender.street" value="Marie-Calm-Str."/>
+            <UsmProp key="address.sender.streetNumber" value="1-5"/>
+            <UsmProp key="address.sender.plz" value="34121"/>
+            <UsmProp key="address.sender.city" value="Kassel"/>
+            <UsmProp key="address.sender.country" value="DEU"/>
+            
+            
+            <UsmProp key="address.receiver.name1" value="Seppel"/>
+            <UsmProp key="address.receiver.street" value="Goethestr."/>
+            <UsmProp key="address.receiver.streetNumber" value="74"/>
+            <UsmProp key="address.receiver.plz" value="34119"/>
+            <UsmProp key="address.receiver.city" value="Kassel"/>
+            <UsmProp key="address.receiver.country" value="DEU"/>
+
+            <UsmProp key="dimension.weight" value="10000"/>
+            
+            <UsmProp key="product.id" value="V01PAK"/>
+          </Shipment>
+      </ship:CreateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance" disabled="true"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="saveShipmentNumber"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>createShipment</con:sourceStep><con:sourcePath>declare namespace ns7='http://shipment.webservice.vls.dhl.de/';
+//ns7:CreateShipmentResponse[1]/Shipment[1]/Shipment[1]/UsmProp[@key="codes.shipmentNumber"]/@value</con:sourcePath><con:targetType>shipmentNumber</con:targetType><con:targetStep>createShipmentOkProps</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToUpdateShipment" id="4894cbd9-0bc0-478b-bad8-7f5852605a9f"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>updateShipment</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:UpdateShipmentRequest[1]/@shipmentNumber</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="updateShipment" id="c1cc922f-7621-4713-b586-2aec228f767e"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>UpdateShipmentOperation</con:operation><con:request name="updateShipment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+  <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:UpdateShipmentRequest shipmentNumber="99990000000000000047">
+         <NewShipment billingNumber="IT_000001A0101">
+            <UsmProp key="address.sender.name1" value="Micromata GmbH"/>
+            <UsmProp key="address.sender.street" value="Marie-Calm-Str."/>
+            <UsmProp key="address.sender.streetNumber" value="3"/>
+            <UsmProp key="address.sender.plz" value="34121"/>
+            <UsmProp key="address.sender.city" value="Kassel"/>
+            <UsmProp key="address.sender.country" value="DEU"/>
+            
+            
+            <UsmProp key="address.receiver.name1" value="Roger"/>
+            <UsmProp key="address.receiver.street" value="Goethestr."/>
+            <UsmProp key="address.receiver.streetNumber" value="74"/>
+            <UsmProp key="address.receiver.plz" value="34119"/>
+            <UsmProp key="address.receiver.city" value="Kassel"/>
+            <UsmProp key="address.receiver.country" value="DEU"/>
+
+            <UsmProp key="dimension.weight" value="10000"/>
+            
+            <UsmProp key="product.id" value="V01PAK"/>
+         </NewShipment>
+      </ship:UpdateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>Status statusCode="0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToGetDocuments"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getDocuments</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:GetDocumentsRequest[1]/ship:ShipmentNumber[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="getDocuments"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>GetDocumentsOperation</con:operation><con:request name="getDocuments"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+    <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:GetDocumentsRequest>
+         
+         <ship:ShipmentNumber>99990000000000000047</ship:ShipmentNumber>
+      </ship:GetDocumentsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>ShipmentStatus statusCode="205"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToUpdateShipmentSecond" id="171d3444-075a-4c86-9f4d-49020a6bcebf"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>updateShipmentSecond</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:UpdateShipmentRequest[1]/@shipmentNumber</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="updateShipmentSecond" id="63b94e3b-7689-4b67-b568-8beb693caf28"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>UpdateShipmentOperation</con:operation><con:request name="updateShipmentSecond"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+  <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:UpdateShipmentRequest shipmentNumber="99990000000000000047">
+         <NewShipment billingNumber="IT_000001A0101">
+            <UsmProp key="address.sender.name1" value="Micromata GmbH"/>
+            <UsmProp key="address.sender.street" value="Marie-Calm-Str."/>
+            <UsmProp key="address.sender.streetNumber" value="3"/>
+            <UsmProp key="address.sender.plz" value="34121"/>
+            <UsmProp key="address.sender.city" value="Kassel"/>
+            <UsmProp key="address.sender.country" value="DEU"/>
+            
+            
+            <UsmProp key="address.receiver.name1" value="Roger"/>
+            <UsmProp key="address.receiver.street" value="Goethestr."/>
+            <UsmProp key="address.receiver.streetNumber" value="74"/>
+            <UsmProp key="address.receiver.plz" value="34119"/>
+            <UsmProp key="address.receiver.city" value="Kassel"/>
+            <UsmProp key="address.receiver.country" value="DEU"/>
+
+            <UsmProp key="dimension.weight" value="10000"/>
+            
+            <UsmProp key="product.id" value="V01PAK"/>
+         </NewShipment>
+      </ship:UpdateShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>Status statusCode="205" </token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="shipmentNumberToCancel"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="false" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>shipmentNumber</con:name><con:sourceType>shipmentNumber</con:sourceType><con:sourceStep>createShipmentOkProps</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>cancelShipment</con:targetStep><con:targetPath>declare namespace ship='http://shipment.webservice.vls.dhl.de/';
+//ship:CancelShipmentRequest[1]/ship:ShipmentNumber[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="cancelShipment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>VlsShipmentWebServicePortBinding</con:interface><con:operation>CancelShipmentOperation</con:operation><con:request name="cancelShipment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/vls/gw/shpmntws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ship="http://shipment.webservice.vls.dhl.de/">
+   <soapenv:Header>
+     <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>USER1</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">4711</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ship:CancelShipmentRequest>
+         <!--1 to 50 repetitions:-->
+         <ship:ShipmentNumber>99990000000000000047</ship:ShipmentNumber>
+      </ship:CancelShipmentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance" disabled="true"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="Simple Contains" name="Contains"><con:configuration><token>ShipmentStatus statusCode="205"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>17ee2c9b-c636-4dcc-891a-342ee07cccbd</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>6c12148b-a797-4e46-a2fd-c499d98331fa</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>e1c9b6a2-e21b-459b-a9f6-18ef445e12b0</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>21ec12c0-2558-4cc3-a65a-84cac588113d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2ebd68e3-67c8-4fe5-8217-f30f11af00a6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>bfae3dd2-7851-4492-a9a8-a81f0ff7d43b</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>c1cc922f-7621-4713-b586-2aec228f767e</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>4894cbd9-0bc0-478b-bad8-7f5852605a9f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>63b94e3b-7689-4b67-b568-8beb693caf28</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>171d3444-075a-4c86-9f4d-49020a6bcebf</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:parameters/></con:reporting><con:sensitiveInformation/></con:soapui-project>

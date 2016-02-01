@@ -1,0 +1,140 @@
+package de.micromata.tpsb.doc.parser.japa;
+
+import japa.parser.JavaParser;
+import japa.parser.ParseException;
+import japa.parser.ast.CompilationUnit;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Transformer;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.CharEncoding;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import de.micromata.tpsb.doc.ParserConfig;
+import de.micromata.tpsb.doc.ParserContext;
+import de.micromata.tpsb.doc.sources.ISourceFileFilter;
+import de.micromata.tpsb.doc.sources.ISourceFileRepository;
+import de.micromata.tpsb.doc.sources.JavaSourceFileHolder;
+
+/**
+ * Java-Code Parser unter Verwendung der japa-library
+ * 
+ * @author Stefan Stützer (s.stuetzer@micromata.com)
+ */
+public class JapaParser
+{
+
+  private static final Logger log = Logger.getLogger(JapaParser.class);
+
+  private TestBuilderVisitor testBuilderVisitor = new TestBuilderVisitor();
+
+  private TestCaseVisitor testCaseVisitor = new TestCaseVisitor();
+
+  public void parseTestBuilders(ParserContext ctx)
+  {
+    try {
+      log.info("\n---------------------------------------------------");
+      log.info("Parse TestBuilder");
+      Collection<JavaSourceFileHolder> sourceFiles = getSourceFiles(ctx.getCfg());
+      for (JavaSourceFileHolder sourceFile : sourceFiles) {
+        log.info("Parse Datei " + sourceFile.getFilename());
+        CompilationUnit cu = JavaParser.parse(sourceFile.getAsInputStream());
+        testBuilderVisitor.visit(cu, ctx);
+      }
+    } catch (ParseException e) {
+      log.error("Fehler beim Parsen", e);
+    }
+  }
+
+  public void parseTestCases(ParserContext ctx)
+  {
+    try {
+      log.info("\n---------------------------------------------------");
+      log.info("Parse JUnit Tests");
+      Collection<JavaSourceFileHolder> sourceFiles = getSourceFiles(ctx.getCfg());
+      for (JavaSourceFileHolder sourceFile : sourceFiles) {
+        log.info("Parse Datei " + sourceFile.getFilename());
+        try {
+          byte[] data = IOUtils.toByteArray(sourceFile.getAsInputStream());
+          String sources = new String(data, CharEncoding.UTF_8);
+          ctx.setSourceText(sources);
+          CompilationUnit cu = JavaParser.parse(new ByteArrayInputStream(data));
+          testCaseVisitor.visit(cu, ctx);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      }
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Collection<JavaSourceFileHolder> getSourceFiles(ParserConfig cfg)
+  {
+    // 1. alle Repositories nach Java-Sourcen durchsuchen
+    List<JavaSourceFileHolder> javaSources = new ArrayList<JavaSourceFileHolder>();
+    loadSourcesFromRepositories(cfg, javaSources);
+
+    // 2. Filtern mit SourceFileFilters
+    filterSoures(cfg, javaSources);
+
+    if (javaSources == null || javaSources.isEmpty() == true) {
+      log.warn("Keine Java-Dateien gefunden.");
+      return Collections.emptyList();
+    }
+
+    Collection<String> sourceFileNames = CollectionUtils.transformedCollection(javaSources,
+        new Transformer<JavaSourceFileHolder, String>() {
+          @Override
+          public String transform(JavaSourceFileHolder f)
+          {
+            return f.toString();
+          }
+        });
+    log.info("Java Dateien gefunden: " + javaSources.size() + ": \n\t" + StringUtils.join(sourceFileNames, "\n\t"));
+    return javaSources;
+  }
+
+  private void loadSourcesFromRepositories(ParserConfig cfg, List<JavaSourceFileHolder> javaSources)
+  {
+    for (ISourceFileRepository srcRepo : cfg.getSourceFileRepos()) {
+      Collection<JavaSourceFileHolder> javaSourcesFromRepo = srcRepo.getSources();
+      if (javaSourcesFromRepo != null && javaSourcesFromRepo.isEmpty() == false) {
+        javaSources.addAll(javaSourcesFromRepo);
+      }
+    }
+  }
+
+  private void filterSoures(ParserConfig cfg, List<JavaSourceFileHolder> javaSources)
+  {
+    List<ISourceFileFilter> sourceFileFilter = cfg.getSourceFileFilter();
+    if (sourceFileFilter == null || sourceFileFilter.isEmpty() == true) {
+      return;
+    }
+
+    Iterator<JavaSourceFileHolder> iter = javaSources.iterator();
+    while (iter.hasNext()) {
+      JavaSourceFileHolder javaSrc = iter.next();
+      boolean matches = false;
+      for (ISourceFileFilter filter : sourceFileFilter) {
+        if (filter.matches(javaSrc) == true) {
+          matches = true;
+          break;
+        }
+      }
+      if (matches == false) {
+        iter.remove();
+      }
+    }
+
+  }
+}

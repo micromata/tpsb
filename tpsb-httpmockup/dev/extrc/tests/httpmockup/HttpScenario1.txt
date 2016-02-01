@@ -1,0 +1,18 @@
+
+Hier kann egal was stehen. z.b. docu.
+
+[HttpRequest]
+POST /one?data=MeineDatensindOK HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de-de,de;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+
+Data
+[/HttpRequest]
+[HttpReponse]
+# Alles OK
+status=200
+# Suche mit Koelnner phonetic.
+body=^uc^*Kommer* or ^uc^*Roger*
+[/HttpReponse]

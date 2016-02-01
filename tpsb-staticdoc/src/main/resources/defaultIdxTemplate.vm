@@ -1,0 +1,157 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>TPSB Test-Report $projectName</title>
+</head>
+
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+}
+
+html {
+	font-size: 70%;	
+}
+
+body {
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+}
+
+.table {
+    border-left: 1px solid #6699CC;
+    border-collapse: collapse;
+    text-align: left;
+	width: 90%;
+	font-size: 95%;
+	table-layout:fixed;
+}
+
+.table th {
+    color: #003399;
+    background-color: #E8E8E4;
+    padding: 3px 5px;
+}
+
+.table td {
+    color: #666666;
+    padding: 3px 5px;
+}
+
+tr:hover td {
+    color: #000099;
+	background-color:#E8E8E4;
+}
+
+h1 {
+	color: #003399;
+	font-weight: normal;
+	padding-bottom: 10px;
+}
+
+h2 {
+	color: #003399;
+	font-weight: bold;
+	padding-bottom: 0.2em;
+}
+
+h3 {
+	color: #000;
+	position: relative;
+}
+
+h4 {
+	padding-bottom: 0.2em;
+	color: #666;
+}
+
+hr {
+	display: block;
+	margin: 0 0 1.2em 0;
+	height: 3px;
+}
+
+div {
+	padding: 10px;
+}
+
+div.fileContent {
+	border-left: 3px solid lightgrey;
+	margin-bottom: 25px;
+}
+
+p {
+	font-style: italic;
+	margin-bottom: 5px;
+	color: #003399;
+}
+
+a {
+	text-decoration: none;
+}
+
+.half {
+	width: 50%;
+}
+
+.quarter {
+	width: 25%;
+}
+
+#main {
+	padding: 30px;
+}
+
+#head {
+	border-left: 3px solid grey;
+	margin-bottom: 20px;
+}
+</style>
+
+<div id="main">
+<div id="head">
+	<h1>$projectName - Test Report</h1>
+	<h4>Erzeugungsdatum</h4>
+	<p>$date</p>
+	<h4>Anzahl Tests</h4>
+	<p>$testCount</p>
+	<h4>Inhalt</h4>
+	<table width="100%" class="table">
+		<tr>
+			<th>Name</th>
+			<th>Beschreibung</th>
+			<th>Link</th>
+		</tr>
+		#foreach($fInfo in $fInfos)
+			<tr>
+				<td style="font-weight:bold;">$fInfo.className</td>
+				<td style="font-weight:bold;">
+				#if ($fInfo.javaDocInfo.description)
+					$fInfo.javaDocInfo.description
+				#end
+				</td>
+				<td><a href="./${fInfo.shortClassName}.html">Aufrufen</a></td>
+			</tr>
+			 #foreach($mInfo in $fInfo.methodInfos)
+				<tr>
+					<td>&nbsp;&nbsp;&nbsp;$mInfo.methodName</td>
+					<td>
+					#if ($mInfo.javaDocInfo && $mInfo.javaDocInfo.title)
+              $mInfo.javaDocInfo.title
+            #end
+						#if ($mInfo.javaDocInfo && $mInfo.javaDocInfo.description)
+							$mInfo.javaDocInfo.description
+						
+						#end
+					</td>
+					<td><!-- <a href="${fInfo.shortClassName}.html#$fInfo.className.$mInfo.methodName">Aufrufen</a>--></td>
+				</tr>
+			 #end
+		#end
+	</table>
+</div>
+</div>
+</html>
