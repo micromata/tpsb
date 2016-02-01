@@ -1,0 +1,15 @@
+Out of section
+[Comment]
+Blabla
+[/Comment]
+[Section 1]
+
+asdfasdf
+asdfasdfasdf
+[/Section 1]
+
+[Section 2]
+Key1=Bla
+# Kommentar
+Key2=Blub
+[/Section 2]

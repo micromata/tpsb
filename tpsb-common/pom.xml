@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>de.micromata.tpsb</artifactId>
+    <groupId>de.micromata.tpsb</groupId>
+    <version>2.1.0-SNAPSHOT</version><!--  TPSBVERSION -->
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>de.micromata.tpsb.common</artifactId>
+
+  <build>
+    <plugins>
+    <!-- 
+      <plugin>
+        <groupId>de.micromata.genome</groupId>
+        <artifactId>genome-mvn2-plugin</artifactId>
+        <version>${genome.mvn.plugin.version}</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Genome-Import-Library>cglib-nodep-${cglib-nodep.version}</Genome-Import-Library>
+            </manifestEntries>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>buildjarmodule</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      -->
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>de.micromata.mgc.common</artifactId>
+      <groupId>de.micromata.mgc</groupId>
+      <version>${mgc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib-nodep</artifactId>
+      <version>${cglib-nodep.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${springframework.spring-aop.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-validator</groupId>
+      <artifactId>commons-validator</artifactId>
+      <version>${commons-validator.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-beanutils</artifactId>
+          <groupId>commons-beanutils</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+</project>
