@@ -19,7 +19,7 @@
 		<!-- GENOME VERSIONS -->
 		<genome.version>2.1.0-SNAPSHOT</genome.version><!-- GENOMEVERSION -->
  		<tpsb.version>${project.version}</tpsb.version>
- 		<mgc.version>1.0.0-SNAPSHOT</mgc.version>
+ 		<mgc.version>2.1.0-SNAPSHOT</mgc.version>
 		<genome.mvn.plugin.version>${genome.version}</genome.mvn.plugin.version>
 		<de.micromata.tpsb.tpsb-common.version>${tpsb.version}</de.micromata.tpsb.tpsb-common.version>
 		<de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
