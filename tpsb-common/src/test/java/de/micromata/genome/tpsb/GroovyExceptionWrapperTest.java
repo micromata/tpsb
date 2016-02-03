@@ -1,10 +1,8 @@
 package de.micromata.genome.tpsb;
 
-import org.junit.Test;
-
 public class GroovyExceptionWrapperTest
 {
-  @Test
+  @Deprecated
   public void testGroovyWrapper()
   {
     MyFoo builder = new MyFoo();
