@@ -11,8 +11,32 @@
 		<name>Micromata GmbH</name>
 		<url>http://www.micromata.de/</url>
 	</organization>
-	<inceptionYear>2012</inceptionYear>
+	<inceptionYear>2016</inceptionYear>
+ <developers>
+    <developer>
+      <id>r.kommer</id>
+      <name>Roger Kommer</name>
+      <email>kommer@extern.micromata.de/kommer@artefaktur.com</email>
+      <organization>Micromata GmbH</organization>
+      <organizationUrl>http://www.micromata.com</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+  </contributors>
 
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>/LICENSE.txt</url>
+      <comments>All rights reserved.</comments>
+      <distribution>manual</distribution>
+    </license>
+  </licenses>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -236,6 +260,20 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+    	<repository>
+			<id>MGC</id>
+			<name>MGC</name>
+			<url>https://labs.micromata.de/nexus/content/repositories/MGC/</url>
+		</repository>
+		<repository>
+			<id>MGC-snapshot</id>
+			<name>MGC-snapshot</name>
+			<url>https://labs.micromata.de/nexus/content/repositories/MGC-snapshot/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+    <!--
 		<repository>
 			<id>genome-deploy</id>
 			<name>genome-deploy</name>
@@ -248,6 +286,8 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+    -->
+    <!--
 		<repository>
 			<id>repo.micromata.priv</id>
 			<url>http://repo.micromata.priv:8081/nexus/content/groups/public/</url>
@@ -255,6 +295,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+    -->
 		<repository>
 			<id>mavenorg</id>
 			<url>http://repo1.maven.org/maven2</url>
@@ -262,7 +303,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-
+  <!--
 		<repository>
 			<id>ulib-release</id>
 			<name>Ulib releases repository</name>
@@ -282,9 +323,11 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
+    -->
 	</repositories>
 
 	<pluginRepositories>
+    <!--
 		<pluginRepository>
 			<id>repo.micromata.priv</id>
 			<url>http://repo.micromata.priv:8081/nexus/content/groups/public/</url>
@@ -296,6 +339,7 @@
 				<enabled>false</enabled>
 			</releases>
 		</pluginRepository>
+    -->
 		<pluginRepository>
 			<id>mavenorg</id>
 			<url>http://repo1.maven.org/maven2</url>
@@ -309,15 +353,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>genome-releases</id>
-			<name>genome-releases</name>
-			<url>http://repo.micromata.priv:8081/nexus/content/repositories/genome
-      </url>
+			<id>TPSB</id>
+			<name>TPSB</name>
+			<url>https://labs.micromata.de/nexus/content/repositories/TPSB/</url>
 		</repository>
 		<snapshotRepository>
-			<id>genome-snapshots</id>
-			<name>genome-snapshots</name>
-			<url>http://repo.micromata.priv:8081/nexus/content/repositories/genome-snapshot/</url>
+			<id>TPSB-snapshot</id>
+			<name>TPSB-snapshot</name>
+			<url>https://labs.micromata.de/nexus/content/repositories/TPSB-snapshot/</url>
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
