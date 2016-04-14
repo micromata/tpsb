@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.micromata.tpsb</groupId>
-	<artifactId>de.micromata.tpsb</artifactId>
-	<version>2.1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.micromata.tpsb</groupId>
+  <artifactId>de.micromata.tpsb</artifactId>
+  <version>2.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-	<organization>
-		<name>Micromata GmbH</name>
-		<url>http://www.micromata.de/</url>
-	</organization>
-	<inceptionYear>2016</inceptionYear>
- <developers>
+  <organization>
+    <name>Micromata GmbH</name>
+    <url>http://www.micromata.de/</url>
+  </organization>
+  <inceptionYear>2016</inceptionYear>
+  <developers>
     <developer>
       <id>r.kommer</id>
       <name>Roger Kommer</name>
@@ -37,49 +37,49 @@
       <distribution>manual</distribution>
     </license>
   </licenses>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<!-- GENOME VERSIONS -->
-		<genome.version>2.1.0-SNAPSHOT</genome.version><!-- GENOMEVERSION -->
- 		<tpsb.version>${project.version}</tpsb.version>
- 		<mgc.version>2.1.0-SNAPSHOT</mgc.version>
-		<genome.mvn.plugin.version>${genome.version}</genome.mvn.plugin.version>
-		<de.micromata.tpsb.tpsb-common.version>${tpsb.version}</de.micromata.tpsb.tpsb-common.version>
-		<de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
-		<de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
-		<de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
-		<de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
-		<de.micromata.tpsb.tpsb-httpmockup.version>${tpsb.version}</de.micromata.tpsb.tpsb-httpmockup.version>
+    <!-- GENOME VERSIONS -->
+    <genome.version>2.1.0-SNAPSHOT</genome.version><!-- GENOMEVERSION -->
+    <tpsb.version>${project.version}</tpsb.version>
+    <mgc.version>2.1.0-SNAPSHOT</mgc.version>
+    <genome.mvn.plugin.version>${genome.version}</genome.mvn.plugin.version>
+    <de.micromata.tpsb.tpsb-common.version>${tpsb.version}</de.micromata.tpsb.tpsb-common.version>
+    <de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
+    <de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
+    <de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
+    <de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
+    <de.micromata.tpsb.tpsb-httpmockup.version>${tpsb.version}</de.micromata.tpsb.tpsb-httpmockup.version>
 
-     <log4j.version>1.2.17</log4j.version>
-     <junit.version>4.11</junit.version>
-		<commons-validator.version>1.5.0</commons-validator.version>
- 		<cglib-nodep.version>2.1_3</cglib-nodep.version>
-		<!-- JAVAX VERSIONS -->
-		<javax.servlet.api.version>3.0.1</javax.servlet.api.version>
-		<javax.servlet.jsp.api.version>2.2.1</javax.servlet.jsp.api.version>
-		<javax.mail.version>1.4.2</javax.mail.version>
-		<javax.servlet.jstl.version>1.1.2</javax.servlet.jstl.version>
-		<javax.activation.version>1.1</javax.activation.version>
+    <log4j.version>1.2.17</log4j.version>
+    <junit.version>4.11</junit.version>
+    <commons-validator.version>1.5.0</commons-validator.version>
+    <cglib-nodep.version>2.1_3</cglib-nodep.version>
+    <!-- JAVAX VERSIONS -->
+    <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
+    <javax.servlet.jsp.api.version>2.2.1</javax.servlet.jsp.api.version>
+    <javax.mail.version>1.4.2</javax.mail.version>
+    <javax.servlet.jstl.version>1.1.2</javax.servlet.jstl.version>
+    <javax.activation.version>1.1</javax.activation.version>
 
-		<com.sun.xml.ws.jaxws-rt.version>2.2.1</com.sun.xml.ws.jaxws-rt.version>
-		<cglib_nodeb.version>2.1_3</cglib_nodeb.version>
-		<asm.version>3.2</asm.version>
-		<net.sourceforge.collections_generic.version>4.01</net.sourceforge.collections_generic.version>
-		<log4j.version>1.2.17</log4j.version>
+    <com.sun.xml.ws.jaxws-rt.version>2.2.1</com.sun.xml.ws.jaxws-rt.version>
+    <cglib_nodeb.version>2.1_3</cglib_nodeb.version>
+    <asm.version>3.2</asm.version>
+    <net.sourceforge.collections_generic.version>4.01</net.sourceforge.collections_generic.version>
+    <log4j.version>1.2.17</log4j.version>
 
-		<javaparser.version>1.0.11</javaparser.version>
-		<velocity.version>1.7</velocity.version>
-		<org.apache.poi.poi-ooxml.version>3.10-beta1</org.apache.poi.poi-ooxml.version>
-		<org.apache.poi.ooxml-schemas.version>1.1</org.apache.poi.ooxml-schemas.version>
+    <javaparser.version>1.0.11</javaparser.version>
+    <velocity.version>1.7</velocity.version>
+    <org.apache.poi.poi-ooxml.version>3.10-beta1</org.apache.poi.poi-ooxml.version>
+    <org.apache.poi.ooxml-schemas.version>1.1</org.apache.poi.ooxml-schemas.version>
     <org.apache.poi.version>3.2-FINAL</org.apache.poi.version>
-		<xstream.version>1.4.8</xstream.version>
- 		<gson.version>2.2.4</gson.version>
-		<soapui.version>4.5.1</soapui.version>
- 		<net.sourceforge.htmlunit.version>2.4</net.sourceforge.htmlunit.version>
-        
-		<xmlbeans.xbeans.version>fixed-2.4.0</xmlbeans.xbeans.version>
+    <xstream.version>1.4.8</xstream.version>
+    <gson.version>2.2.4</gson.version>
+    <soapui.version>4.5.1</soapui.version>
+    <net.sourceforge.htmlunit.version>2.4</net.sourceforge.htmlunit.version>
+
+    <xmlbeans.xbeans.version>fixed-2.4.0</xmlbeans.xbeans.version>
     <commons-digester.version>2.1</commons-digester.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-io.version>2.4</commons-io.version>
@@ -93,218 +93,233 @@
     <commons-httpclient.version>3.1</commons-httpclient.version>
     <commons-dbcp.version>1.4</commons-dbcp.version>
     <commons-fileupload.version>1.2.2</commons-fileupload.version>
-    
-		<taglibs.standard.version>1.1.2</taglibs.standard.version>
-		<spring.version>3.2.13.RELEASE</spring.version>
-		<springframework.spring-aop.version>1.2.6</springframework.spring-aop.version>
 
-		<bouncycastle.version>140</bouncycastle.version>
-		<xerces.xmlParserAPIs.version>2.6.2</xerces.xmlParserAPIs.version>
-		<xerces.xercesImpl.version>2.9.1</xerces.xercesImpl.version>
-		<com.uwyn.jhighlight.version>1.0</com.uwyn.jhighlight.version>
-		<jmimemagic.version>0.1.2</jmimemagic.version>
+    <taglibs.standard.version>1.1.2</taglibs.standard.version>
+    <spring.version>3.2.13.RELEASE</spring.version>
+    <springframework.spring-aop.version>1.2.6</springframework.spring-aop.version>
 
-		<hsqldb.version>1.8.0.10</hsqldb.version>
-		<org.hibernate.hibernate-entitymanager.version>4.1.9.Final</org.hibernate.hibernate-entitymanager.version>
-		<hibernate-bundle.version>4.1.9.Final</hibernate-bundle.version>
-		<org.hibernate.javax.persistence.hibernate-jpa-2.0-api.version>1.0.1.Final</org.hibernate.javax.persistence.hibernate-jpa-2.0-api.version>
-		<org.slf4j.api.version>1.6.4</org.slf4j.api.version>
-		<org.slf4j.log4j12.version>1.6.4</org.slf4j.log4j12.version>
+    <bouncycastle.version>140</bouncycastle.version>
+    <xerces.xmlParserAPIs.version>2.6.2</xerces.xmlParserAPIs.version>
+    <xerces.xercesImpl.version>2.9.1</xerces.xercesImpl.version>
+    <com.uwyn.jhighlight.version>1.0</com.uwyn.jhighlight.version>
+    <jmimemagic.version>0.1.2</jmimemagic.version>
 
-		<net.sourceforge.stripes.version>1.4.3</net.sourceforge.stripes.version>
+    <hsqldb.version>1.8.0.10</hsqldb.version>
+    <org.hibernate.hibernate-entitymanager.version>4.1.9.Final</org.hibernate.hibernate-entitymanager.version>
+    <hibernate-bundle.version>4.1.9.Final</hibernate-bundle.version>
+    <org.hibernate.javax.persistence.hibernate-jpa-2.0-api.version>1.0.1.Final</org.hibernate.javax.persistence.hibernate-jpa-2.0-api.version>
+    <org.slf4j.api.version>1.6.4</org.slf4j.api.version>
+    <org.slf4j.log4j12.version>1.6.4</org.slf4j.log4j12.version>
+
+    <net.sourceforge.stripes.version>1.4.3</net.sourceforge.stripes.version>
     <wicket.version>6.20.0</wicket.version>
     <wicket.select2.version>2.2.3</wicket.select2.version>
-    
-		<!-- ARGLINE -->
-		<argLine>-XX:MaxPermSize=768m</argLine>
+
+    <!-- ARGLINE -->
+    <argLine>-XX:MaxPermSize=768m</argLine>
 
 
-		<!-- Sonar -->
-		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPath>${project.basedir}/../../target/jacoco.exec</sonar.jacoco.reportPath>
-		<sonar.language>java</sonar.language>
-		<org.thymeleaf.thymeleaf.version>2.1.4.RELEASE</org.thymeleaf.thymeleaf.version>
-	</properties>
+    <!-- Sonar -->
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.jacoco.reportPath>${project.basedir}/../../target/jacoco.exec</sonar.jacoco.reportPath>
+    <sonar.language>java</sonar.language>
+    <org.thymeleaf.thymeleaf.version>2.1.4.RELEASE</org.thymeleaf.thymeleaf.version>
+  </properties>
 
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			  <modules>
-    <module>tpsb-common</module>
-    <module>tpsb-staticdoc</module>
-    <!--module>tpsb-mvn2-plugin</module-->
-    <module>tpsb-httpmockup</module>
-    <module>tpsb-soapui</module>
-    <module>wickettestbuilder6</module>
-    <module>tpsb-htmlunit</module>
-  </modules>
-		</profile>
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>tpsb-common</module>
+        <module>tpsb-staticdoc</module>
+        <!--module>tpsb-mvn2-plugin</module -->
+        <module>tpsb-httpmockup</module>
+        <module>tpsb-soapui</module>
+        <module>wickettestbuilder6</module>
+        <module>tpsb-htmlunit</module>
+      </modules>
+    </profile>
 
-		<profile>
-			<id>empty</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<modules>
-			</modules>
-		</profile>
+    <profile>
+      <id>empty</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <modules>
+      </modules>
+    </profile>
 
-		<!--Code quality. -->
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<sonar.jdbc.url>jdbc:oracle:thin:@192.168.76.31/vlsits</sonar.jdbc.url>
-				<sonar.jdbc.username>VLS_SONAR</sonar.jdbc.username>
-				<sonar.jdbc.password>vls_sonar</sonar.jdbc.password>
-				<sonar.host.url>http://vls-its:9000/</sonar.host.url>
-				<!-- use next part when locally installed sonar is running -->
-				<!--<sonar.jdbc.url>jdbc:h2:tcp://localhost:9092/sonar</sonar.jdbc.url>
-					<sonar.jdbc.username>sonar</sonar.jdbc.username> <sonar.jdbc.password>sonar</sonar.jdbc.password>
-					<sonar.host.url>http://localhost:9000/</sonar.host.url> -->
-				<sonar.exclusions>**/src-gen/**/*.java,**/genome-tools/**/*.java,**/plugins/umgmt/**/*,**/plugins/popstats/**/*,**/GenomeDaoManager.java,**/UmgmtDaoManager.java,**/Emgr.java,**/EmgrFactory.java</sonar.exclusions>
-			</properties>
-		  <modules>
-    <module>tpsb-common</module>
-    <!--<module>tpsb-staticdoc</module>
-    <module>tpsb-httpmockup</module>
-    <module>tpsb-soapui</module>
-    <module>wickettestbuilder6</module>
-    <module>tpsb-htmlunit</module>-->
-  </modules>
-		</profile>
-	</profiles>
+    <!--Code quality. -->
+    <profile>
+      <id>sonar</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <sonar.jdbc.url>jdbc:oracle:thin:@192.168.76.31/vlsits</sonar.jdbc.url>
+        <sonar.jdbc.username>VLS_SONAR</sonar.jdbc.username>
+        <sonar.jdbc.password>vls_sonar</sonar.jdbc.password>
+        <sonar.host.url>http://vls-its:9000/</sonar.host.url>
+        <!-- use next part when locally installed sonar is running -->
+        <!--<sonar.jdbc.url>jdbc:h2:tcp://localhost:9092/sonar</sonar.jdbc.url> <sonar.jdbc.username>sonar</sonar.jdbc.username> 
+          <sonar.jdbc.password>sonar</sonar.jdbc.password> <sonar.host.url>http://localhost:9000/</sonar.host.url> -->
+        <sonar.exclusions>**/src-gen/**/*.java,**/genome-tools/**/*.java,**/plugins/umgmt/**/*,**/plugins/popstats/**/*,**/GenomeDaoManager.java,**/UmgmtDaoManager.java,**/Emgr.java,**/EmgrFactory.java</sonar.exclusions>
+      </properties>
+      <modules>
+        <module>tpsb-common</module>
+        <!--<module>tpsb-staticdoc</module> <module>tpsb-httpmockup</module> <module>tpsb-soapui</module> <module>wickettestbuilder6</module> 
+          <module>tpsb-htmlunit</module> -->
+      </modules>
+    </profile>
+  </profiles>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>utf-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.4</version>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>utf-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
 
-				<executions>
-					<execution>
-						<inherited>true</inherited>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<attach>true</attach>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.17</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.surefire</groupId>
-						<artifactId>surefire-junit47</artifactId>
-						<version>2.17</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
-					<!-- <forkCount>0</forkCount> <reuseForks>false</reuseForks> -->
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+        <executions>
+          <execution>
+            <inherited>true</inherited>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <attach>true</attach>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>2.17</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+          <!-- <forkCount>0</forkCount> <reuseForks>false</reuseForks> -->
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- use license:format or license:update to patch java lisence header -->
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>2.11</version>
+        <configuration>
+          <header>distribution/JavaHeader.txt</header>
+          <properties>
+            <owner>Micromata GmbH</owner>
+            <email>info@micromata.de</email>
+          </properties>
+          <mapping>
+            <java>DOUBLESLASH_STYLE</java>
+          </mapping>
+          <includes>
+            <include>**/*.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 
-	<issueManagement>
+  <issueManagement>
     <!-- TODO -->
-		<system>JIRA</system>
-		<url>https://team.micromata.de/jira/</url>
-	</issueManagement>
+    <system>JIRA</system>
+    <url>https://team.micromata.de/jira/</url>
+  </issueManagement>
 
-	<mailingLists>
-		<mailingList>
-			<name>Devmailinglist</name>
-			<post>genome@micromata.de</post>
-		</mailingList>
-	</mailingLists>
-	<scm>
-		<connection>scm:git:ssh://git@git2.micromata.de:7999/genome/genome.git</connection>
-	</scm>
-	<!-- -->
-	<repositories>
-		<repository>
-			<id>Apache Nexus</id>
-			<url>https://repository.apache.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
+  <mailingLists>
+    <mailingList>
+      <name>Devmailinglist</name>
+      <post>genome@micromata.de</post>
+    </mailingList>
+  </mailingLists>
+  <scm>
+    <connection>scm:git:ssh://git@git2.micromata.de:7999/genome/genome.git</connection>
+  </scm>
+  <!-- -->
+  <repositories>
     <repository>
-			<id>MGC</id>
-			<name>MGC</name>
-			<url>https://labs.micromata.de/nexus/content/repositories/MGC/</url>
-		</repository>
-		<repository>
-			<id>MGC-snapshot</id>
-			<name>MGC-snapshot</name>
-			<url>https://labs.micromata.de/nexus/content/repositories/MGC-snapshot/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-    
-		<repository>
-			<id>mavenorg</id>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+      <id>Apache Nexus</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>MGC</id>
+      <name>MGC</name>
+      <url>https://labs.micromata.de/nexus/content/repositories/MGC/</url>
+    </repository>
+    <repository>
+      <id>MGC-snapshot</id>
+      <name>MGC-snapshot</name>
+      <url>https://labs.micromata.de/nexus/content/repositories/MGC-snapshot/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>mavenorg</id>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+    <repository>
+      <id>mavenorg</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
-	<distributionManagement>
-		<repository>
-			<id>TPSB</id>
-			<name>TPSB</name>
-			<url>https://labs.micromata.de/nexus/content/repositories/TPSB/</url>
-		</repository>
-		<snapshotRepository>
-			<id>TPSB-snapshot</id>
-			<name>TPSB-snapshot</name>
-			<url>https://labs.micromata.de/nexus/content/repositories/TPSB-snapshot/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>mavenorg</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <distributionManagement>
+    <repository>
+      <id>TPSB</id>
+      <name>TPSB</name>
+      <url>https://labs.micromata.de/nexus/content/repositories/TPSB/</url>
+    </repository>
+    <snapshotRepository>
+      <id>TPSB-snapshot</id>
+      <name>TPSB-snapshot</name>
+      <url>https://labs.micromata.de/nexus/content/repositories/TPSB-snapshot/</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
 
 
 </project>
