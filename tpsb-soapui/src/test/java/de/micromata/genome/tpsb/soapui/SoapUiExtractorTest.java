@@ -18,7 +18,7 @@ package de.micromata.genome.tpsb.soapui;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.Ignore;
 
 /**
  * 
@@ -27,7 +27,8 @@ import org.junit.Test;
  */
 public class SoapUiExtractorTest
 {
-  @Test
+  //@Test
+  @Ignore
   public void testExtract()
   {
     File f = new File("./dev/extrc/tests/soapui/createShipment-soapui-project.xml");
