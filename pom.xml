@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.micromata.tpsb</groupId>
   <artifactId>de.micromata.tpsb</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <organization>
@@ -41,9 +41,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- GENOME VERSIONS -->
-    <genome.version>2.1.0</genome.version><!-- GENOMEVERSION -->
+    <genome.version>2.1.0-SNAPSHOT</genome.version><!-- GENOMEVERSION -->
     <tpsb.version>${project.version}</tpsb.version>
-    <mgc.version>2.1.0</mgc.version>
+    <mgc.version>2.1.0-SNAPSHOT</mgc.version>
     <genome.mvn.plugin.version>${genome.version}</genome.mvn.plugin.version>
     <de.micromata.tpsb.tpsb-common.version>${tpsb.version}</de.micromata.tpsb.tpsb-common.version>
     <de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
@@ -250,7 +250,7 @@
   <issueManagement>
     <!-- TODO -->
     <system>JIRA</system>
-    <url>https://labs.micromata.de/jira/projects/TPSB</url>
+    <url>https://team.micromata.de/jira/</url>
   </issueManagement>
 
   <mailingLists>
@@ -260,8 +260,7 @@
     </mailingList>
   </mailingLists>
   <scm>
-    <developerConnection>Roger Kommer</developerConnection>
-    <url>https://github.com/micromata/tpsb.git</url>
+    <connection>scm:git:ssh://git@git2.micromata.de:7999/genome/genome.git</connection>
   </scm>
   <!-- -->
   <repositories>
@@ -323,6 +322,4 @@
   </distributionManagement>
 
 
-  <url>https://labs.micromata.de/mgc/tpsb/en/Index</url>
-  <name>TPSB</name>
 </project>
