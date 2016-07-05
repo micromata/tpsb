@@ -48,7 +48,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
@@ -87,10 +87,4 @@
       <version>${commons-io.version}</version>
     </dependency>
   </dependencies>
-  <repositories>
-    <repository>
-      <id>eviware</id>
-      <url>http://www.eviware.com/repository/maven2/</url>
-    </repository>
-  </repositories>
 </project>
