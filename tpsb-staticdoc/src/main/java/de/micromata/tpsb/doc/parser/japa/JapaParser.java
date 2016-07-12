@@ -16,10 +16,6 @@
 
 package de.micromata.tpsb.doc.parser.japa;
 
-import japa.parser.JavaParser;
-import japa.parser.ParseException;
-import japa.parser.ast.CompilationUnit;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +30,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.CharEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
+import com.github.javaparser.ast.CompilationUnit;
 
 import de.micromata.tpsb.doc.ParserConfig;
 import de.micromata.tpsb.doc.ParserContext;
@@ -109,7 +109,8 @@ public class JapaParser
     }
 
     Collection<String> sourceFileNames = CollectionUtils.transformedCollection(javaSources,
-        new Transformer<JavaSourceFileHolder, String>() {
+        new Transformer<JavaSourceFileHolder, String>()
+        {
           @Override
           public String transform(JavaSourceFileHolder f)
           {

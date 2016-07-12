@@ -16,9 +16,6 @@
 
 package de.micromata.tpsb.doc.parser;
 
-
-import japa.parser.ast.comments.Comment;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +30,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.CharEncoding;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import com.github.javaparser.ast.comments.Comment;
 
 import de.micromata.genome.tpsb.builder.PreTextScenarioRenderer;
 import de.micromata.genome.tpsb.builder.ScenarioDescriber;
@@ -301,7 +300,8 @@ public class JavaDocUtil
         AnnotationInfo scenarioAnot = TpsbEnvUtils.getAnnotation(stepInfo.getTestBuilderMethod(), "TpsbScenarioFile");
         content = renderScenarioFile(f, scenarioAnot, content);
         sb.append("\n\n===================================================================================\n")//
-            .append("<h3>Testscenario: ").append(StringUtils.substringBefore(f.getName(), suffixPart)).append("</h3>\n\n")//
+            .append("<h3>Testscenario: ").append(StringUtils.substringBefore(f.getName(), suffixPart))
+            .append("</h3>\n\n")//
             .append(content);
 
       } catch (IOException ex) {

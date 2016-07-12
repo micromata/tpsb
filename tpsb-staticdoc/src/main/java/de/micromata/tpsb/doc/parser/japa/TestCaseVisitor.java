@@ -16,29 +16,6 @@
 
 package de.micromata.tpsb.doc.parser.japa;
 
-import japa.parser.ast.Node;
-import japa.parser.ast.body.ClassOrInterfaceDeclaration;
-import japa.parser.ast.body.FieldDeclaration;
-import japa.parser.ast.body.MethodDeclaration;
-import japa.parser.ast.body.VariableDeclarator;
-import japa.parser.ast.comments.JavadocComment;
-import japa.parser.ast.expr.AnnotationExpr;
-import japa.parser.ast.expr.BooleanLiteralExpr;
-import japa.parser.ast.expr.ClassExpr;
-import japa.parser.ast.expr.DoubleLiteralExpr;
-import japa.parser.ast.expr.Expression;
-import japa.parser.ast.expr.IntegerLiteralExpr;
-import japa.parser.ast.expr.LiteralExpr;
-import japa.parser.ast.expr.LongLiteralExpr;
-import japa.parser.ast.expr.MethodCallExpr;
-import japa.parser.ast.expr.NameExpr;
-import japa.parser.ast.expr.ObjectCreationExpr;
-import japa.parser.ast.expr.StringLiteralExpr;
-import japa.parser.ast.expr.UnaryExpr;
-import japa.parser.ast.expr.VariableDeclarationExpr;
-import japa.parser.ast.type.ClassOrInterfaceType;
-import japa.parser.ast.type.Type;
-
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +23,29 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.comments.JavadocComment;
+import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.expr.BooleanLiteralExpr;
+import com.github.javaparser.ast.expr.ClassExpr;
+import com.github.javaparser.ast.expr.DoubleLiteralExpr;
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.IntegerLiteralExpr;
+import com.github.javaparser.ast.expr.LiteralExpr;
+import com.github.javaparser.ast.expr.LongLiteralExpr;
+import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.NameExpr;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.ast.expr.StringLiteralExpr;
+import com.github.javaparser.ast.expr.UnaryExpr;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.Type;
 
 import de.micromata.tpsb.doc.ParserContext;
 import de.micromata.tpsb.doc.TpsbEnvironment;
@@ -198,7 +198,7 @@ public class TestCaseVisitor extends TestBuilderVisitor
 
     if (reservedMethods.contains(n.getName()) == true) {
       @SuppressWarnings("unchecked")
-      INodeHandler<Node> handler = (INodeHandler<Node>) handlers.get(n.getName());
+      INodeHandler<Node> handler = (INodeHandler) handlers.get(n.getName());
       handler.handle(n, ctx);
       return;
     }
@@ -344,7 +344,8 @@ public class TestCaseVisitor extends TestBuilderVisitor
     if (fi != null) {
       return fi.getClassName();
     }
-    log.error("Cannot resolve testbuilder class: " + returnType + " " + methodInfo.getClassName() + "." + methodInfo.getMethodName());
+    log.error("Cannot resolve testbuilder class: " + returnType + " " + methodInfo.getClassName() + "."
+        + methodInfo.getMethodName());
     // TODO look for fqpath
     return ctx.getCurrentScope();
   }

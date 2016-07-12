@@ -16,20 +16,6 @@
 
 package de.micromata.tpsb.doc.parser.japa;
 
-import japa.parser.JavaParser;
-import japa.parser.ParseException;
-import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.ImportDeclaration;
-import japa.parser.ast.PackageDeclaration;
-import japa.parser.ast.TypeParameter;
-import japa.parser.ast.body.ClassOrInterfaceDeclaration;
-import japa.parser.ast.body.MethodDeclaration;
-import japa.parser.ast.body.Parameter;
-import japa.parser.ast.type.ClassOrInterfaceType;
-import japa.parser.ast.type.ReferenceType;
-import japa.parser.ast.type.Type;
-import japa.parser.ast.visitor.VoidVisitorAdapter;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +28,20 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.ImportDeclaration;
+import com.github.javaparser.ast.PackageDeclaration;
+import com.github.javaparser.ast.TypeParameter;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.Parameter;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.ReferenceType;
+import com.github.javaparser.ast.type.Type;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import de.micromata.tpsb.doc.ParserContext;
 import de.micromata.tpsb.doc.TpsbEnvironment;
@@ -73,18 +73,19 @@ public class TestBuilderVisitor extends VoidVisitorAdapter<ParserContext>
   public final static String IND_4 = "............";
 
   // Liste von source Packages im Maven Layout
-  public static final Set<String> srcPackages = new HashSet<String>(Arrays.asList("", "src/test/java/", "src/main/java/"));
+  public static final Set<String> srcPackages = new HashSet<String>(
+      Arrays.asList("", "src/test/java/", "src/main/java/"));
 
   // Liste "reservierter" Methodennamen
   // TODO das macht das aber gerade kaputt
-//  public static final List<String> reservedMethods = Arrays.asList("addComment");
+  //  public static final List<String> reservedMethods = Arrays.asList("addComment");
   public static final List<String> reservedMethods = Arrays.asList();
   // Liste spezieller Handler von Nodes
-  public static Map<String, INodeHandler< ? >> handlers;
+  public static Map<String, INodeHandler<?>> handlers;
 
   static {
-    handlers = new HashMap<String, INodeHandler< ? >>();
-//    handlers.put("addComment", new AddCommentMethodCallHandler());
+    handlers = new HashMap<String, INodeHandler<?>>();
+    //    handlers.put("addComment", new AddCommentMethodCallHandler());
   }
 
   @Override
@@ -112,7 +113,8 @@ public class TestBuilderVisitor extends VoidVisitorAdapter<ParserContext>
     visitClassOrInterfaceDeclaration(n, ctx, true);
   }
 
-  protected void visitClassOrInterfaceDeclaration(ClassOrInterfaceDeclaration n, ParserContext ctx, boolean parseSuperclass)
+  protected void visitClassOrInterfaceDeclaration(ClassOrInterfaceDeclaration n, ParserContext ctx,
+      boolean parseSuperclass)
   {
 
     FileInfo superClassFileInfo = null;
@@ -204,8 +206,8 @@ public class TestBuilderVisitor extends VoidVisitorAdapter<ParserContext>
   }
 
   /**
-   * Versucht die Superklasse zu finden (auch außerhalb zu parsender Packages) und die zu Parsen. Das Ergebnis des Parserlaufs wird in den
-   * aktuellen ParserContext kopiert
+   * Versucht die Superklasse zu finden (auch außerhalb zu parsender Packages) und die zu Parsen. Das Ergebnis des
+   * Parserlaufs wird in den aktuellen ParserContext kopiert
    * 
    * Hinweis: Die Superklasse muss als Quelldatei vorliegen. Dateien Im Jar werden nicht geparst
    * 
@@ -301,7 +303,9 @@ public class TestBuilderVisitor extends VoidVisitorAdapter<ParserContext>
     log.info(IND_2 + "Analysiere Methode: " + mInfo.getMethodName());
 
     if (reservedMethods.contains(n.getName()) == true) {
-      log.warn(String.format("Methode '%s' ist ein reservierter Methodenname und wird beim Parsen entsprechend interpretiert.", n.getName()));
+      log.warn(String.format(
+          "Methode '%s' ist ein reservierter Methodenname und wird beim Parsen entsprechend interpretiert.",
+          n.getName()));
     }
 
     if (n.getParameters() != null) {

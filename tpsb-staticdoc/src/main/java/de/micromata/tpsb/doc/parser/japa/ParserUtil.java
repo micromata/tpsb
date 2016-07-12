@@ -16,27 +16,27 @@
 
 package de.micromata.tpsb.doc.parser.japa;
 
-import japa.parser.ast.expr.AnnotationExpr;
-import japa.parser.ast.expr.ArrayInitializerExpr;
-import japa.parser.ast.expr.BooleanLiteralExpr;
-import japa.parser.ast.expr.ClassExpr;
-import japa.parser.ast.expr.DoubleLiteralExpr;
-import japa.parser.ast.expr.Expression;
-import japa.parser.ast.expr.IntegerLiteralExpr;
-import japa.parser.ast.expr.LongLiteralExpr;
-import japa.parser.ast.expr.MarkerAnnotationExpr;
-import japa.parser.ast.expr.MemberValuePair;
-import japa.parser.ast.expr.NormalAnnotationExpr;
-import japa.parser.ast.expr.ObjectCreationExpr;
-import japa.parser.ast.expr.SingleMemberAnnotationExpr;
-import japa.parser.ast.expr.StringLiteralExpr;
-
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.expr.ArrayInitializerExpr;
+import com.github.javaparser.ast.expr.BooleanLiteralExpr;
+import com.github.javaparser.ast.expr.ClassExpr;
+import com.github.javaparser.ast.expr.DoubleLiteralExpr;
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.IntegerLiteralExpr;
+import com.github.javaparser.ast.expr.LongLiteralExpr;
+import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
+import com.github.javaparser.ast.expr.MemberValuePair;
+import com.github.javaparser.ast.expr.NormalAnnotationExpr;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
+import com.github.javaparser.ast.expr.StringLiteralExpr;
 
 import de.micromata.genome.tpsb.annotations.TpsbIgnore;
 import de.micromata.tpsb.doc.TpsbEnvUtils;
@@ -49,7 +49,8 @@ public class ParserUtil
 {
   private static Logger log = Logger.getLogger(ParserUtil.class);
 
-  public static String extractScope(FileInfo tbFileInfo, List<Expression> list, String methodName, ParserResult testBuilders,
+  public static String extractScope(FileInfo tbFileInfo, List<Expression> list, String methodName,
+      ParserResult testBuilders,
       String defaultScope)
   {
     MethodInfo methodInfo = tbFileInfo.findMethodInfo(methodName, parseArgs(list));
@@ -181,7 +182,8 @@ public class ParserUtil
   }
 
   /**
-   * org.apache.commons.io.FilenameUtils.concat(String, String) does some normalization, we don't want. here a more simple way.
+   * org.apache.commons.io.FilenameUtils.concat(String, String) does some normalization, we don't want. here a more
+   * simple way.
    * 
    * @param base
    * @param add

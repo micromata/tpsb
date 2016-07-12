@@ -16,13 +16,13 @@
 
 package de.micromata.tpsb.doc;
 
-import japa.parser.ast.comments.JavadocComment;
-import junit.framework.Assert;
-
 import org.junit.Test;
+
+import com.github.javaparser.ast.comments.JavadocComment;
 
 import de.micromata.tpsb.doc.parser.JavaDocInfo;
 import de.micromata.tpsb.doc.parser.JavaDocUtil;
+import junit.framework.Assert;
 
 public class JavaDocUtilTest
 {

@@ -16,12 +16,12 @@
 
 package de.micromata.tpsb.doc.parser.japa.handler;
 
-import japa.parser.ast.expr.Expression;
-import japa.parser.ast.expr.MethodCallExpr;
-
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.MethodCallExpr;
 
 import de.micromata.tpsb.doc.ParserContext;
 
