@@ -40,17 +40,22 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <!-- GENOME VERSIONS -->
-    <genome.version>2.1.0-SNAPSHOT</genome.version><!-- GENOMEVERSION -->
-    <tpsb.version>${project.version}</tpsb.version>
-    <mgc.version>2.2.0-SNAPSHOT</mgc.version>
-    <genome.mvn.plugin.version>${genome.version}</genome.mvn.plugin.version>
+    <!-- TPSB Version -->
+    <tpsb.version>2.2.0-SNAPSHOT</tpsb.version>
     <de.micromata.tpsb.tpsb-common.version>${tpsb.version}</de.micromata.tpsb.tpsb-common.version>
     <de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
     <de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
     <de.micromata.tpsb.tpsb-staticdoc.version>${tpsb.version}</de.micromata.tpsb.tpsb-staticdoc.version>
     <de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
     <de.micromata.tpsb.tpsb-httpmockup.version>${tpsb.version}</de.micromata.tpsb.tpsb-httpmockup.version>
+
+    <!-- Genome Version -->
+    <genome.version>2.2.0-SNAPSHOT</genome.version>
+    <genome.mvn.plugin.version>${genome.version}</genome.mvn.plugin.version>
+
+    <!-- mgc versions -->
+    <mgc.version>2.2.0-SNAPSHOT</mgc.version>
+
 
     <log4j.version>1.2.17</log4j.version>
     <junit.version>4.11</junit.version>
@@ -137,7 +142,6 @@
       <modules>
         <module>tpsb-common</module>
         <module>tpsb-staticdoc</module>
-        <!--module>tpsb-mvn2-plugin</module -->
         <module>tpsb-httpmockup</module>
         <module>tpsb-soapui</module>
         <module>wickettestbuilder6</module>
@@ -166,13 +170,13 @@
         <sonar.jdbc.password>vls_sonar</sonar.jdbc.password>
         <sonar.host.url>http://vls-its:9000/</sonar.host.url>
         <!-- use next part when locally installed sonar is running -->
-        <!--<sonar.jdbc.url>jdbc:h2:tcp://localhost:9092/sonar</sonar.jdbc.url> <sonar.jdbc.username>sonar</sonar.jdbc.username> 
+        <!--<sonar.jdbc.url>jdbc:h2:tcp://localhost:9092/sonar</sonar.jdbc.url> <sonar.jdbc.username>sonar</sonar.jdbc.username>
           <sonar.jdbc.password>sonar</sonar.jdbc.password> <sonar.host.url>http://localhost:9000/</sonar.host.url> -->
         <sonar.exclusions>**/src-gen/**/*.java,**/genome-tools/**/*.java,**/plugins/umgmt/**/*,**/plugins/popstats/**/*,**/GenomeDaoManager.java,**/UmgmtDaoManager.java,**/Emgr.java,**/EmgrFactory.java</sonar.exclusions>
       </properties>
       <modules>
         <module>tpsb-common</module>
-        <!--<module>tpsb-staticdoc</module> <module>tpsb-httpmockup</module> <module>tpsb-soapui</module> <module>wickettestbuilder6</module> 
+        <!--<module>tpsb-staticdoc</module> <module>tpsb-httpmockup</module> <module>tpsb-soapui</module> <module>wickettestbuilder6</module>
           <module>tpsb-htmlunit</module> -->
       </modules>
     </profile>
@@ -180,6 +184,12 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -295,6 +305,11 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+    </repository>
+
+    <repository>
+      <id>eviware</id>
+      <url>http://www.eviware.com/repository/maven2/</url>
     </repository>
   </repositories>
 

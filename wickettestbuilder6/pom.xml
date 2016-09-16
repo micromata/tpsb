@@ -47,9 +47,7 @@
       <artifactId>rhino</artifactId>
       <version>1.7R4</version>
     </dependency>
-
-    <!-- <dependency> <groupId>de.micromata.mwicket</groupId> <artifactId>mwicket</artifactId> <version>${mwicket.version}</version> 
-      </dependency> -->
+    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>

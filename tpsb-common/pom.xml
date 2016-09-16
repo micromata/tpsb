@@ -8,32 +8,6 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>de.micromata.tpsb.common</artifactId>
 
-  <build>
-    <plugins>
-    <!-- 
-      <plugin>
-        <groupId>de.micromata.genome</groupId>
-        <artifactId>genome-mvn2-plugin</artifactId>
-        <version>${genome.mvn.plugin.version}</version>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Genome-Import-Library>cglib-nodep-${cglib-nodep.version}</Genome-Import-Library>
-            </manifestEntries>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>buildjarmodule</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      -->
-    </plugins>
-  </build>
   <dependencies>
     <dependency>
       <artifactId>de.micromata.mgc.common</artifactId>
