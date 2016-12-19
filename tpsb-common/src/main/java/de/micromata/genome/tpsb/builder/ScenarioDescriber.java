@@ -21,6 +21,12 @@ import java.util.Stack;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Describes a scenario.F
+ * 
+ * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
+ *
+ */
 public class ScenarioDescriber
 {
   private StringBuilder sb = new StringBuilder();
@@ -77,7 +83,8 @@ public class ScenarioDescriber
 
   public ScenarioDescriber argLine(String name, String description, String type, String value)
   {
-    code("<tr><td>").text(name).code("</td><td>").text(description).code("</td><td>").text(type).code("</td><td>").text(value)
+    code("<tr><td>").text(name).code("</td><td>").text(description).code("</td><td>").text(type).code("</td><td>")
+        .text(value)
         .code("</td></tr>\n");
     return this;
   }

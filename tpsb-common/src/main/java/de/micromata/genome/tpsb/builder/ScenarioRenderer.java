@@ -19,12 +19,21 @@ package de.micromata.genome.tpsb.builder;
 import java.io.File;
 
 /**
+ * Renders a scenario.
  * 
  * @author Roger Kommer (roger.kommer.extern@micromata.de)
  * 
  */
 public interface ScenarioRenderer
 {
+
+  /**
+   * Render scenario content.
+   *
+   * @param scenarioFile the scenario file
+   * @param content the content
+   * @param out the out
+   */
   void renderScenarioContent(File scenarioFile, String content, ScenarioDescriber out);
 
 }

@@ -17,7 +17,7 @@
 package de.micromata.genome.tpsb.builder;
 
 /**
- * Simple text parser.
+ * Simple text parser used to parse ini-files.
  * 
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  * 
