@@ -128,13 +128,24 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
 
     }
     byte[] reqData = filterRequestData(IOUtils.toByteArray(method.getRequestEntity().getContent()));
-    String soapAction = method.getHeaders("SOAPAction")[0].getValue();
-
-    MockHttpServletResponse httpr = testBuilder//
+    Header[] soaphaedera = method.getHeaders("SOAPAction");
+    String soapAction = "";
+    if (soaphaedera != null && soaphaedera.length > 0) {
+      soapAction = method.getHeaders("SOAPAction")[0].getValue();
+    }
+    String uri = method.getURI().toString();
+    //    testBuilder.initWithUri(uri);
+    testBuilder//
         .createNewPostRequest() //
+        .initWithUri(uri)
         .setRequestData(reqData) //
         .addRequestHeader("SOAPAction", soapAction) //
-        .executeServletRequest() //
+    ;
+    Header[] allHeaders = method.getAllHeaders();
+    for (Header h : allHeaders) {
+      testBuilder.addRequestHeader(h.getName(), h.getValue());
+    }
+    MockHttpServletResponse httpr = testBuilder.executeServletRequest() //
         .getHttpResponse();
 
     byte[] respData = filterResponseData(httpr.getOutputBytes());

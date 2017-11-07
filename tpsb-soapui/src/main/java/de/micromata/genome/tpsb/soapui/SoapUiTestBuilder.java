@@ -56,7 +56,7 @@ import de.micromata.genome.util.types.Holder;
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  */
 @TpsbBuilder
-public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends ServletContextTestBuilder<T>
+public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletContextTestBuilder<T>
 {
   private ScenarioLoaderContext scenarioLoader = new ScenarioLoaderContext("dev/extrc/test/soapui", ".xml");
 
@@ -69,6 +69,8 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
   private byte[] lastRequest;
 
   private byte[] lastResponse;
+  private String baseUrl;
+  private String servletPrefix;
 
   /**
    * Instantiates a new soap ui test builder.
@@ -78,8 +80,66 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
 
   }
 
+  public T initWithUri(String uri)
+  {
+    if (baseUrl == null || uri == null) {
+      return getBuilder();
+    }
+    String urip = uri;
+    int par = urip.indexOf('?');
+    if (par != -1) {
+      String requeststr = urip.substring(par);
+      urip = urip.substring(0, par);
+      httpRequest.setQueryString(requeststr);
+    }
+
+    if (urip.startsWith(baseUrl) == true) {
+      String spath = urip.substring(baseUrl.length());
+
+      String ctxpath = servletContext.getContextPath();
+      if (spath.startsWith(ctxpath) == true) {
+        httpRequest.setServletPath(servletPrefix);
+        String pathInfo = spath;
+        if (ctxpath.length() > 1) {
+          pathInfo = spath.substring(ctxpath.length());
+        }
+        if (servletPrefix.equals("") == false && pathInfo.startsWith(servletPrefix) == true) {
+          pathInfo = pathInfo.substring(servletPrefix.length());
+        }
+        httpRequest.setPathInfo(pathInfo);
+      }
+
+    }
+    //    String ts = urip;
+    //    if (uri.startsWith("http://") == true) {
+    //      ts = ts.substring("http://".length());
+    //    }
+    //    if (uri.startsWith("https://") == true) {
+    //      ts = ts.substring("https://".length());
+    //    }
+    //    int idx = ts.indexOf('/');
+    //    if (idx != -1) {
+    //      ts = ts.substring(idx);
+    //    }
+
+    return getBuilder();
+  }
+
+  public T setBaseUrl(String baseUrl)
+  {
+    this.baseUrl = baseUrl;
+    return getBuilder();
+  }
+
+  public T setServletPrefix(String servletPrefix)
+  {
+    this.servletPrefix = servletPrefix;
+    return getBuilder();
+  }
+
   /**
-   * if disable dispatching to local servlet container, the test will be executed to the http target defined in the SoapUI-Project.
+   * if disable dispatching to local servlet container, the test will be executed to the http target defined in the
+   * SoapUI-Project.
    * 
    * @param disable the disable
    * @return the builder
@@ -155,7 +215,9 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
 
   protected HttpClientRequestTransport createHttpClientRequestTransport(HttpClientRequestTransport previous)
   {
-    return new DelegateToSoapUiTestBuilderHttpClientRequestTransport(previous, this) {
+    DelegateToSoapUiTestBuilderHttpClientRequestTransport ret = new DelegateToSoapUiTestBuilderHttpClientRequestTransport(
+        previous, this)
+    {
 
       @Override
       protected byte[] filterRequestData(byte[] data)
@@ -176,6 +238,8 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
       }
 
     };
+
+    return ret;
   }
 
   protected String getLastRequestReponseString()
@@ -225,7 +289,8 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
         }
       }
     } catch (MissingTransportException ex) {
-      throw new IllegalArgumentException("Cannot get http transport from soapui transport registry: " + ex.getMessage(), ex);
+      throw new IllegalArgumentException("Cannot get http transport from soapui transport registry: " + ex.getMessage(),
+          ex);
     }
   }
 
@@ -291,7 +356,8 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
         if (testCaseName != null && testCaseName.equals(testCase.getName()) == false) {
           continue;
         }
-        testCase.addTestRunListener(new TestRunListener() {
+        testCase.addTestRunListener(new TestRunListener()
+        {
 
           @Override
           public void beforeRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
@@ -338,8 +404,8 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder< ? >> extends Servlet
 
               String[] msg = result.getMessages();
               /**
-               * org.xmlsoap.schemas.soap.envelope.impl.EnvelopeImpl throws a IncompatibleClassChangeError. Unfortunatelly soapui throws
-               * away the stacktrace, so it is difficult to track down.
+               * org.xmlsoap.schemas.soap.envelope.impl.EnvelopeImpl throws a IncompatibleClassChangeError.
+               * Unfortunatelly soapui throws away the stacktrace, so it is difficult to track down.
                */
               boolean isClassLoaderProblem = false;
               if (msg != null) {
