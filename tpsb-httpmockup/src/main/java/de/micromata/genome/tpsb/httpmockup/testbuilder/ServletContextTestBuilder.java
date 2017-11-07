@@ -51,13 +51,13 @@ import de.micromata.genome.util.types.Pair;
  * 
  */
 @TpsbBuilder
-public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >> extends CommonTestBuilder<T>
+public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> extends CommonTestBuilder<T>
 {
   protected MockServletContext servletContext = new MockServletContext("unittest");
 
   protected RequestAcceptor acceptor = servletContext;
 
-  protected MockHttpServletRequest httpRequest = new MockHttpServletRequest();
+  protected MockHttpServletRequest httpRequest = new MockHttpServletRequest(servletContext);
 
   protected MockHttpServletResponse httpResponse;
 
@@ -82,7 +82,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
    * @param initParams
    * @return
    */
-  public T registerServlet(String name, String path, Class< ? extends HttpServlet> servletClass, String... initParams)
+  public T registerServlet(String name, String path, Class<? extends HttpServlet> servletClass, String... initParams)
   {
     Map<String, String> ips = new HashMap<String, String>();
 
@@ -94,6 +94,12 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
     return getBuilder();
   }
 
+  public T keepSession(boolean keep)
+  {
+    servletContext.keepSession(keep);
+    return getBuilder();
+  }
+
   /**
    * Register a servlet, all requests will passed through.
    * 
@@ -102,7 +108,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
    * @param initParams
    * @return
    */
-  public T registerFilter(String name, String path, Class< ? extends Filter> filterClass, String... initParams)
+  public T registerFilter(String name, String path, Class<? extends Filter> filterClass, String... initParams)
   {
     Map<String, String> ips = new HashMap<String, String>();
     for (Pair<String, String> me : keyValuesToPairList(initParams)) {
@@ -122,7 +128,8 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
    */
   public T createNewPostRequest(String... urlParams)
   {
-    httpRequest = new MockHttpServletRequest();
+
+    httpRequest = new MockHttpServletRequest(servletContext);
     StringBuilder sb = new StringBuilder();
     for (Pair<String, String> me : keyValuesToPairList(urlParams)) {
       if (sb.length() > 0) {
@@ -207,6 +214,12 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
     return getBuilder();
   }
 
+  public T setContextPath(String contextPath)
+  {
+    servletContext.setContextPath(contextPath);
+    return getBuilder();
+  }
+
   /**
    * Executes the Http request and store response in httpResponse.
    * 
@@ -216,6 +229,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
   {
     try {
       httpResponse = new MockHttpServletResponse();
+
       acceptor.acceptRequest(httpRequest, httpResponse);
       return getBuilder();
     } catch (RuntimeException ex) {
@@ -237,6 +251,17 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder< ? >>
     if (httpResponse.getStatus() != status) {
       fail("Expect http status " + status + "; got " + httpResponse.getStatus());
     }
+    return getBuilder();
+  }
+
+  /**
+   * Delete session associated.
+   * 
+   * @return
+   */
+  public T destroySession()
+  {
+    servletContext.setSession(null);
     return getBuilder();
   }
 

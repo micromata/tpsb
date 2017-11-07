@@ -16,8 +16,16 @@
 
 package de.micromata.genome.tpsb.httpmockup;
 
-import de.micromata.genome.tpsb.httpmockup.MockFilterMapDef.FilterDispatchFlags;
-import org.apache.log4j.Logger;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.EventListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
@@ -32,16 +40,11 @@ import javax.servlet.descriptor.JspConfigDescriptor;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.EventListener;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import de.micromata.genome.tpsb.httpmockup.MockFilterMapDef.FilterDispatchFlags;
 
 /**
  * A standalone servlet container.
@@ -55,6 +58,8 @@ public class MockServletContext implements ServletContext, RequestAcceptor
 
   private String contextName;
 
+  private String contextPath = "/";
+
   private Map<String, String> initParameters = new HashMap<String, String>();
 
   private Map<String, Object> attributes = new HashMap<String, Object>();
@@ -62,6 +67,14 @@ public class MockServletContext implements ServletContext, RequestAcceptor
   private MockServletsConfig servletsConfig = new MockServletsConfig();
 
   private MockFiltersConfig filtersConfig = new MockFiltersConfig();
+  /**
+   * If true, store session between requests.
+   */
+  private boolean keepSession = false;
+  /**
+   * Single session
+   */
+  private MockHttpSession session;
 
   /** Simple constructor that creates a new mock ServletContext with the supplied context name. */
   public MockServletContext(String contextName)
@@ -69,7 +82,8 @@ public class MockServletContext implements ServletContext, RequestAcceptor
     this.contextName = contextName;
   }
 
-  public MockServletContext addFilter(final String name, final Class< ? extends Filter> filterClass, final Map<String, String> initParams)
+  public MockServletContext addFilter(final String name, final Class<? extends Filter> filterClass,
+      final Map<String, String> initParams)
   {
 
     try {
@@ -84,11 +98,12 @@ public class MockServletContext implements ServletContext, RequestAcceptor
       this.filtersConfig.addFilter(name, filter);
       return this;
     } catch (final Exception ex) {
-      throw new RuntimeException("Exception in initializing filter: " + name + "; " + filterClass.getName() + "; " + ex.getMessage(), ex);
+      throw new RuntimeException(
+          "Exception in initializing filter: " + name + "; " + filterClass.getName() + "; " + ex.getMessage(), ex);
     }
   }
 
-  public MockServletContext addServlet(final String name, final Class< ? extends HttpServlet> servletClass,
+  public MockServletContext addServlet(final String name, final Class<? extends HttpServlet> servletClass,
       final Map<String, String> initParams)
   {
 
@@ -105,7 +120,8 @@ public class MockServletContext implements ServletContext, RequestAcceptor
       this.servletsConfig.addServlet(name, servlet);
       return this;
     } catch (final Exception ex) {
-      throw new RuntimeException("Exception in initializing filter: " + name + "; " + servletClass.getName() + "; " + ex.getMessage(), ex);
+      throw new RuntimeException(
+          "Exception in initializing filter: " + name + "; " + servletClass.getName() + "; " + ex.getMessage(), ex);
     }
   }
 
@@ -127,6 +143,12 @@ public class MockServletContext implements ServletContext, RequestAcceptor
     return this;
   }
 
+  public MockServletContext keepSession(boolean keep)
+  {
+    this.keepSession = keep;
+    return this;
+  }
+
   public void forward(final MockHttpServletRequest request, final MockHttpServletResponse response) throws Exception
   {
     final MockFilterChain fc = new MockFilterChain(this, FilterDispatchFlags.FORWARD);
@@ -134,18 +156,22 @@ public class MockServletContext implements ServletContext, RequestAcceptor
   }
 
   @Override
-  public void acceptRequest(final MockHttpServletRequest request, final MockHttpServletResponse response) throws IOException,
+  public void acceptRequest(final MockHttpServletRequest request, final MockHttpServletResponse response)
+      throws IOException,
       ServletException
   {
     final MockFilterChain fc = new MockFilterChain(this, FilterDispatchFlags.REQUEST);
     fc.doFilter(request, response);
   }
 
-  public void serveServlet(final HttpServletRequest req, final HttpServletResponse resp) throws IOException, ServletException
+  public void serveServlet(final HttpServletRequest req, final HttpServletResponse resp)
+      throws IOException, ServletException
   {
-    final String uri = req.getRequestURI();
-    final String localUri = uri;
-
+    String uri = req.getRequestURI();
+    String localUri = uri;
+    if (StringUtils.isNotBlank(req.getServletPath()) == true) {
+      localUri = req.getServletPath();
+    }
     final MockServletMapDef map = this.servletsConfig.getServletMappingByPath(localUri);
     if (map != null) {
       log.debug("Serve Servlet: " + map.getServletDef().getServlet().getClass().getName());
@@ -499,7 +525,12 @@ public class MockServletContext implements ServletContext, RequestAcceptor
   @Override
   public String getContextPath()
   {
-    return "/";
+    return contextPath;
+  }
+
+  public void setContextPath(String contextPath)
+  {
+    this.contextPath = contextPath;
   }
 
   public MockServletsConfig getServletsConfig()
@@ -521,4 +552,18 @@ public class MockServletContext implements ServletContext, RequestAcceptor
   {
     this.filtersConfig = filtersConfig;
   }
+
+  public MockHttpSession getSession()
+  {
+    if (keepSession == true) {
+      return session;
+    }
+    return new MockHttpSession(this);
+  }
+
+  public void setSession(MockHttpSession session)
+  {
+    this.session = session;
+  }
+
 }

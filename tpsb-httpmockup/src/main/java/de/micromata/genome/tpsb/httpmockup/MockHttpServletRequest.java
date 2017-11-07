@@ -16,23 +16,6 @@
 
 package de.micromata.genome.tpsb.httpmockup;
 
-import org.apache.commons.lang.CharEncoding;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -49,25 +32,43 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import org.apache.commons.lang.CharEncoding;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 /**
  * Extensions by r.kommer.
  * 
  * <p>
- * Mock implementation of an HttpServletRequest object. Allows for setting most values that are likely to be of interest (and can always be
- * subclassed to affect others). Of key interest and perhaps not completely obvious, the way to get request parameters into an instance of
- * MockHttpServletRequest is to fetch the parameter map using getParameterMap() and use the put() and putAll() methods on it. Values must be
- * String arrays. Examples follow:
+ * Mock implementation of an HttpServletRequest object. Allows for setting most values that are likely to be of interest
+ * (and can always be subclassed to affect others). Of key interest and perhaps not completely obvious, the way to get
+ * request parameters into an instance of MockHttpServletRequest is to fetch the parameter map using getParameterMap()
+ * and use the put() and putAll() methods on it. Values must be String arrays. Examples follow:
  * </p>
  * 
  * <pre>
  * MockHttpServletRequest req = new MockHttpServletRequest(&quot;/foo&quot;, &quot;/bar.action&quot;);
- * req.getParameterMap().put(&quot;param1&quot;, new String[] { &quot;value&quot;});
- * req.getParameterMap().put(&quot;param2&quot;, new String[] { &quot;value1&quot;, &quot;value2&quot;});
+ * req.getParameterMap().put(&quot;param1&quot;, new String[] { &quot;value&quot; });
+ * req.getParameterMap().put(&quot;param2&quot;, new String[] { &quot;value1&quot;, &quot;value2&quot; });
  * </pre>
  * 
  * <p>
- * It should also be noted that unless you generate an instance of MockHttpSession (or another implementation of HttpSession) and set it on
- * the request, then your request will <i>never</i> have a session associated with it.
+ * It should also be noted that unless you generate an instance of MockHttpSession (or another implementation of
+ * HttpSession) and set it on the request, then your request will <i>never</i> have a session associated with it.
  * </p>
  * 
  * @author Tim Fennell
@@ -92,8 +93,6 @@ public class MockHttpServletRequest implements HttpServletRequest
   private Map<String, String[]> parameters = new HashMap<String, String[]>();
 
   private String method = "POST";
-
-  private HttpSession session;
 
   private String chacarcterEncoding = CharEncoding.UTF_8;
 
@@ -122,9 +121,12 @@ public class MockHttpServletRequest implements HttpServletRequest
 
   private String queryString = "";
 
+  private MockServletContext servletContext;
+
   /**
-   * Minimal constructor that makes sense. Requires a context path (should be the same as the name of the servlet context, prepended with a
-   * '/') and a servlet path. E.g. new MockHttpServletRequest("/myapp", "/actionType/foo.action").
+   * Minimal constructor that makes sense. Requires a context path (should be the same as the name of the servlet
+   * context, prepended with a '/') and a servlet path. E.g. new MockHttpServletRequest("/myapp",
+   * "/actionType/foo.action").
    * 
    * @param contextPath
    * @param servletPath
@@ -138,6 +140,13 @@ public class MockHttpServletRequest implements HttpServletRequest
   public MockHttpServletRequest()
   {
     this("/", "/");
+  }
+
+  public MockHttpServletRequest(MockServletContext servletContext)
+  {
+    this("/", "/");
+    this.servletContext = servletContext;
+
   }
 
   /** Sets the auth type that will be reported by this request. */
@@ -167,8 +176,8 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   /**
-   * Allows headers to be set on the request. These will be returned by the various getXxHeader() methods. If the header is a date header it
-   * should be set with a Long. If the header is an Int header it should be set with an Integer.
+   * Allows headers to be set on the request. These will be returned by the various getXxHeader() methods. If the header
+   * is a date header it should be set with a Long. If the header is an Int header it should be set with an Integer.
    */
   public void addHeader(String name, Object value)
   {
@@ -266,6 +275,12 @@ public class MockHttpServletRequest implements HttpServletRequest
   @Override
   public String getContextPath()
   {
+    if (contextPath != null && "/".equals(contextPath) == false) {
+      return contextPath;
+    }
+    if (servletContext != null) {
+      return contextPath = servletContext.getContextPath();
+    }
     return this.contextPath;
   }
 
@@ -320,28 +335,49 @@ public class MockHttpServletRequest implements HttpServletRequest
   @Override
   public String getRequestedSessionId()
   {
-    if (this.session == null) {
+    MockHttpSession session = getMockServletContext().getSession();
+    if (session == null) {
       return null;
     }
-    return this.session.getId();
+    return session.getId();
   }
 
   /** Returns the request URI as defined by the servlet spec. */
   @Override
   public String getRequestURI()
   {
-    if (StringUtils.equals("/", this.contextPath) == true && StringUtils.startsWith(pathInfo, "/") == true) {
-      return pathInfo;
+    //    if (StringUtils.equals("/", this.contextPath) == true && StringUtils.startsWith(pathInfo, "/") == true) {
+    //      return pathInfo;
+    //    }
+
+    return joinPath(joinPath(this.getContextPath(), this.servletPath), this.pathInfo);
+  }
+
+  String joinPath(String first, String second)
+  {
+    if (StringUtils.isEmpty(first) == true) {
+      return second;
     }
-    return this.contextPath + this.pathInfo;
+    if (StringUtils.isEmpty(second) == true) {
+      return first;
+    }
+    if ("/".equals(first) == true && second.startsWith("/") == true) {
+      return second;
+    }
+
+    if (first.endsWith("/") == false && second.startsWith("/") == false) {
+      return first + "/" + second;
+    }
+    return first + second;
   }
 
   /** Returns (an attempt at) a reconstructed URL based on it's constituent parts. */
   @Override
   public StringBuffer getRequestURL()
   {
-    return new StringBuffer().append(this.protocol).append("://").append(this.serverName).append(":").append(this.serverPort)
-        .append(this.contextPath).append(this.servletPath).append(this.pathInfo);
+    return new StringBuffer().append(this.protocol).append("://").append(this.serverName).append(":")
+        .append(this.serverPort)
+        .append(this.getContextPath()).append(this.servletPath).append(this.pathInfo);
   }
 
   /** Gets the part of the path which matched the servlet. */
@@ -351,24 +387,32 @@ public class MockHttpServletRequest implements HttpServletRequest
     return this.servletPath;
   }
 
+  public void setServletPath(String servletPath)
+  {
+    this.servletPath = servletPath;
+  }
+
   /** Gets the session object attached to this request. */
   @Override
   public HttpSession getSession(boolean b)
   {
-    return this.session;
+    MockHttpSession session = getMockServletContext().getSession();
+    if (b == false) {
+      return session;
+    }
+
+    if (session == null) {
+      session = new MockHttpSession(getServletContext());
+      getMockServletContext().setSession(session);
+    }
+    return session;
   }
 
   /** Gets the session object attached to this request. */
   @Override
   public HttpSession getSession()
   {
-    return this.session;
-  }
-
-  /** Allows a session to be associated with the request. */
-  public void setSession(HttpSession session)
-  {
-    this.session = session;
+    return getSession(true);
   }
 
   /** Always returns true. */
@@ -477,8 +521,8 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   /**
-   * Provides access to the parameter map. Note that this returns a reference to the live, modifiable parameter map. As a result it can be
-   * used to insert parameters when constructing the request.
+   * Provides access to the parameter map. Note that this returns a reference to the live, modifiable parameter map. As
+   * a result it can be used to insert parameters when constructing the request.
    */
   @Override
   public Map<String, String[]> getParameterMap()
@@ -584,8 +628,8 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   /**
-   * Returns an instance of MockRequestDispatcher that just records what URLs are forwarded to or included. The results can be examined
-   * later by calling getForwardUrl() and getIncludedUrls().
+   * Returns an instance of MockRequestDispatcher that just records what URLs are forwarded to or included. The results
+   * can be examined later by calling getForwardUrl() and getIncludedUrls().
    */
   @Override
   public MockRequestDispatcher getRequestDispatcher(String url)
@@ -631,7 +675,17 @@ public class MockHttpServletRequest implements HttpServletRequest
   @Override
   public ServletContext getServletContext()
   {
-    return null;
+    return servletContext;
+  }
+
+  public MockServletContext getMockServletContext()
+  {
+    return servletContext;
+  }
+
+  public void setServletContext(MockServletContext servletContext)
+  {
+    this.servletContext = servletContext;
   }
 
   @Override
@@ -641,7 +695,8 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   @Override
-  public AsyncContext startAsync(final ServletRequest servletRequest, final ServletResponse servletResponse) throws IllegalStateException
+  public AsyncContext startAsync(final ServletRequest servletRequest, final ServletResponse servletResponse)
+      throws IllegalStateException
   {
     return null;
   }
@@ -745,7 +800,8 @@ public class MockHttpServletRequest implements HttpServletRequest
       return null;
     }
     final ByteArrayInputStream bis = new ByteArrayInputStream(requestData);
-    return new ServletInputStream() {
+    return new ServletInputStream()
+    {
 
       @Override
       public int read() throws IOException

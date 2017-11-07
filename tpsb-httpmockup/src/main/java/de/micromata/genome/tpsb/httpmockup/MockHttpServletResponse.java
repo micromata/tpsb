@@ -16,12 +16,6 @@
 
 package de.micromata.genome.tpsb.httpmockup;
 
-import org.apache.commons.lang.CharEncoding;
-import org.apache.log4j.Logger;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -30,6 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.CharEncoding;
+import org.apache.log4j.Logger;
 
 /**
  * Mockup servlet response.
@@ -169,7 +170,8 @@ public class MockHttpServletResponse implements HttpServletResponse
   }
 
   /**
-   * If a call was made to sendRedirect() this method will return the URL that was supplied. Otherwise it will return null.
+   * If a call was made to sendRedirect() this method will return the URL that was supplied. Otherwise it will return
+   * null.
    */
   public String getRedirectUrl()
   {
@@ -234,9 +236,9 @@ public class MockHttpServletResponse implements HttpServletResponse
   }
 
   /**
-   * Provides access to all headers that were set. The format is a Map which uses the header name as the key, and stores a List of Objects,
-   * one per header value. The Objects will be either Strings (if setHeader() was used), Integers (if setIntHeader() was used) or Longs (if
-   * setDateHeader() was used).
+   * Provides access to all headers that were set. The format is a Map which uses the header name as the key, and stores
+   * a List of Objects, one per header value. The Objects will be either Strings (if setHeader() was used), Integers (if
+   * setIntHeader() was used) or Longs (if setDateHeader() was used).
    */
   public Map<String, List<Object>> getHeaderMap()
   {
@@ -259,6 +261,7 @@ public class MockHttpServletResponse implements HttpServletResponse
   }
 
   /** Gets the status (or error) code if one was set. Defaults to 200 (HTTP OK). */
+  @Override
   public int getStatus()
   {
     return this.status;
@@ -317,8 +320,8 @@ public class MockHttpServletResponse implements HttpServletResponse
   }
 
   /**
-   * Returns a reference to a ServletOutputStream to be used for output. The output is captured and can be examined at the end of a test run
-   * by calling getOutputBytes() or getOutputString().
+   * Returns a reference to a ServletOutputStream to be used for output. The output is captured and can be examined at
+   * the end of a test run by calling getOutputBytes() or getOutputString().
    */
   @Override
   public ServletOutputStream getOutputStream() throws IOException
@@ -327,8 +330,8 @@ public class MockHttpServletResponse implements HttpServletResponse
   }
 
   /**
-   * Returns a reference to a PrintWriter to be used for character output. The output is captured and can be examined at the end of a test
-   * run by calling getOutputBytes() or getOutputString().
+   * Returns a reference to a PrintWriter to be used for character output. The output is captured and can be examined at
+   * the end of a test run by calling getOutputBytes() or getOutputString().
    */
   @Override
   public PrintWriter getWriter() throws IOException
@@ -416,4 +419,5 @@ public class MockHttpServletResponse implements HttpServletResponse
   {
     return this.locale;
   }
+
 }

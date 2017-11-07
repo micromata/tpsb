@@ -26,6 +26,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import de.micromata.genome.tpsb.httpmockup.MockFilterMapDef.FilterDispatchFlags;
@@ -57,9 +58,12 @@ public class MockFilterChain implements FilterChain
   @Override
   public void doFilter(final ServletRequest req, final ServletResponse resp) throws IOException, ServletException
   {
-    final HttpServletRequest hreq = (HttpServletRequest) req;
-    final String uri = hreq.getRequestURI();
-    final String localUri = uri;
+    HttpServletRequest hreq = (HttpServletRequest) req;
+    String uri = hreq.getRequestURI();
+    String localUri = uri;
+    if (StringUtils.isNotBlank(hreq.getServletPath()) && StringUtils.isNotBlank(hreq.getPathInfo()) == true) {
+      localUri = hreq.getServletPath() + hreq.getPathInfo();
+    }
     final MockFiltersConfig fc = this.mockupServletContext.getFiltersConfig();
 
     this.filterIndex = fc.getNextFilterMapDef(localUri, this.filterIndex, this.dispatcherFlag);

@@ -46,6 +46,7 @@ public class MockHttpSession implements HttpSession
   public MockHttpSession(ServletContext context)
   {
     this.context = context;
+
   }
 
   /** Returns the time in milliseconds when the session was created. */
