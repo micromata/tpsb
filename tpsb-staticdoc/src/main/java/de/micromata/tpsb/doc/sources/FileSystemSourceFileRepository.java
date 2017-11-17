@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.CharEncoding;
+import org.apache.commons.lang3.CharEncoding;
 
 import de.micromata.tpsb.doc.sources.JavaSourceFileHolder.Source;
 

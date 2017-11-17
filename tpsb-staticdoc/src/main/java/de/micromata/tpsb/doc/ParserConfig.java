@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.micromata.tpsb.doc.renderer.IParseableResultRenderer;
 import de.micromata.tpsb.doc.renderer.IResultRenderer;

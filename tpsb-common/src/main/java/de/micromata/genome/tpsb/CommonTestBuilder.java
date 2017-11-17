@@ -16,16 +16,6 @@
 
 package de.micromata.genome.tpsb;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.codehaus.groovy.control.CompilationFailedException;
-
 import de.micromata.genome.tpsb.annotations.TpsbBuilder;
 import de.micromata.genome.tpsb.annotations.TpsbIgnore;
 import de.micromata.genome.util.bean.PrivateBeanUtils;
@@ -34,6 +24,14 @@ import de.micromata.genome.util.runtime.CallableX;
 import de.micromata.genome.util.runtime.GroovyUtils;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.codehaus.groovy.control.CompilationFailedException;
 
 /**
  * Common testbuilder with testContext.
@@ -659,7 +657,8 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
   {
     sb.append("TestContexte:\n");
     for (Map.Entry<String, Object> me : testContext.entrySet()) {
-      sb.append("  ").append(me.getKey()).append(": ").append(ObjectUtils.toString(me.getValue())).append("\n");
+      sb.append("  ").append(me.getKey()).append(": ").append(me.getValue() == null
+          ? StringUtils.EMPTY : me.getValue().toString()).append("\n");
     }
   }
 

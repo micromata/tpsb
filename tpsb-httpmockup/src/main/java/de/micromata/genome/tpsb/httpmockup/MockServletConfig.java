@@ -19,11 +19,9 @@ package de.micromata.genome.tpsb.httpmockup;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-
-import org.apache.commons.collections15.iterators.IteratorEnumeration;
+import org.apache.commons.collections4.iterators.IteratorEnumeration;
 
 /**
  * Configuration of the servlets of a gwar

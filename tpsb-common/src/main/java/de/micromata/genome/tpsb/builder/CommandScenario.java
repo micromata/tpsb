@@ -3,8 +3,7 @@ package de.micromata.genome.tpsb.builder;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import de.micromata.genome.tpsb.CommonTestBuilder;
@@ -46,7 +45,7 @@ public class CommandScenario<T extends CommonTestBuilder<?>>extends IniLikeScena
    */
   public <C extends ScenarioCommand<?>> void registerCommand(String name, Class<C> commandClass)
   {
-    commands.put(name, commandClass);
+    commands.put(name, (Class<? extends ScenarioCommand<? extends CommandScenario<?>>>) commandClass);
   }
 
   private ScenarioCommand<? extends CommandScenario<?>> parseToCommand(String line, boolean populate,
@@ -77,7 +76,7 @@ public class CommandScenario<T extends CommonTestBuilder<?>>extends IniLikeScena
             if (StringUtils.startsWith(value, "${") == true && StringUtils.endsWith(value, "}") == true) {
               String expr = value.substring(2, value.length() - 1);
               Object evaluated = builder.eval(expr);
-              String sevaluated = ObjectUtils.toString(evaluated);
+              String sevaluated = evaluated == null ? StringUtils.EMPTY : evaluated.toString();
               me.setValue(sevaluated);
             }
           }

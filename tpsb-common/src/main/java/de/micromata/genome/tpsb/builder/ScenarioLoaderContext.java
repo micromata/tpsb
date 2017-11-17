@@ -28,8 +28,8 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.CharEncoding;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.StringUtils;
 
 import de.micromata.genome.util.runtime.LocalSettings;
 import de.micromata.genome.util.runtime.RuntimeIOException;

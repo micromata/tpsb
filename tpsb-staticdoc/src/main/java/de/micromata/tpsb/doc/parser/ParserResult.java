@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Ergebnis eines Parser-Laufs. Abbildung aller fuer einen Report relevanten AST Informationen

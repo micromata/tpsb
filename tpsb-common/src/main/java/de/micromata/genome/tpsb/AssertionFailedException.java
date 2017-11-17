@@ -16,7 +16,7 @@
 
 package de.micromata.genome.tpsb;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * An test assertion failed.

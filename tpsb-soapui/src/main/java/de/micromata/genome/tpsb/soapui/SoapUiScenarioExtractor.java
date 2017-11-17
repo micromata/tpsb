@@ -23,9 +23,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.CharEncoding;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import com.eviware.soapui.config.TestAssertionConfig;
@@ -117,7 +117,7 @@ public class SoapUiScenarioExtractor
 
   public SoapUiScenarioExtractor text(String s)
   {
-    sb.append(StringEscapeUtils.escapeHtml(s));
+    sb.append(StringEscapeUtils.escapeHtml4(s));
     return this;
   }
 

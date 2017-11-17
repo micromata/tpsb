@@ -16,13 +16,13 @@
 
 package de.micromata.genome.tpsb.executor;
 
+import groovy.lang.GroovyClassLoader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.manipulation.Filter;
@@ -30,8 +30,6 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runner.notification.StoppedByUserException;
 import org.junit.runners.BlockJUnit4ClassRunner;
-
-import groovy.lang.GroovyClassLoader;
 
 /**
  * A Main Java, which reads a groovy script from input, which contains a Junit class.
@@ -107,7 +105,7 @@ public class GroovyShellExecutor
         if (ex instanceof InvocationTargetException) {
           ex = ((InvocationTargetException) ex).getTargetException();
         }
-        stacktrace = ExceptionUtils.getFullStackTrace(failure.getException());
+        stacktrace = ExceptionUtils.getStackTrace(failure.getException());
         //sb.append(s);
         exmsgString = ex.getMessage();
       }
@@ -214,7 +212,7 @@ public class GroovyShellExecutor
           + ": "
           + ex.getMessage()
           + "\n"
-          + ExceptionUtils.getFullStackTrace(ex));
+          + ExceptionUtils.getStackTrace(ex));
     }
     System.out.println("--EOP--");
     System.out.flush();

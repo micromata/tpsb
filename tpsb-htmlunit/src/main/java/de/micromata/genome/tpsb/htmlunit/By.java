@@ -16,15 +16,13 @@
 
 package de.micromata.genome.tpsb.htmlunit;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.w3c.dom.Element;
-
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Adopt http://webdriver.googlecode.com/svn/trunk/common/src/java/org/openqa/selenium/By.java

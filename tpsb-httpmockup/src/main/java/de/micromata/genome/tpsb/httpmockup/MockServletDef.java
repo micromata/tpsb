@@ -18,7 +18,7 @@ package de.micromata.genome.tpsb.httpmockup;
 
 import javax.servlet.http.HttpServlet;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * web.xml config part

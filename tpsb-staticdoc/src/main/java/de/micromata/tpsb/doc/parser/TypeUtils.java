@@ -16,8 +16,8 @@
 
 package de.micromata.tpsb.doc.parser;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class TypeUtils
 {

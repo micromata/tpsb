@@ -18,7 +18,7 @@ package de.micromata.tpsb.doc.sources;
 
 import java.lang.annotation.Annotation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.github.javaparser.JavaParser;

@@ -27,7 +27,7 @@ import javax.servlet.Filter;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.codec.binary.StringUtils;
-import org.apache.commons.lang.CharEncoding;
+import org.apache.commons.lang3.CharEncoding;
 
 import de.micromata.genome.tpsb.CommonTestBuilder;
 import de.micromata.genome.tpsb.annotations.TpsbBuilder;

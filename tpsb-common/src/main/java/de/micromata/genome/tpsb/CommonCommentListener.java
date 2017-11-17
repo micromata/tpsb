@@ -16,7 +16,7 @@
 
 package de.micromata.genome.tpsb;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Default implemenattion for addCommentExpression(...)
@@ -37,6 +37,6 @@ public abstract class CommonCommentListener implements TpsbCommentListener
   protected String evaluate(TestBuilder< ? > builder, String expression)
   {
     Object o = CommonTestBuilder.evaluate(builder.getTestContext(), expression);
-    return ObjectUtils.toString(o);
+    return o == null ? StringUtils.EMPTY : o.toString();
   }
 }

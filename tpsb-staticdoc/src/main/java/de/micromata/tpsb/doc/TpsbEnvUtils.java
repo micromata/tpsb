@@ -23,9 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import de.micromata.genome.tpsb.annotations.TpsbIgnore;
@@ -140,28 +140,9 @@ public class TpsbEnvUtils
     ts.setTbJavaDocInfo(jdoc);
   }
 
-  private static FileInfo resolveGenericTypeFromMethodT(TpsbEnvironment env, String genericType, FileInfo currentBuilder, MethodInfo tm)
-  {
-    if (tm == null) {
-      return null;
-    }
-    if (tm.getTypeArgNames() == null) {
-      return null;
-    }
-    int pos = tm.getTypeArgNames().indexOf(genericType);
-    if (pos == -1) {
-      return null;
-    }
-    // TODO lookup for clazz.
-    return null;
-  }
-
   private static FileInfo resolveGenericType(TpsbEnvironment env, String genericType, FileInfo currentBuilder, MethodInfo tm)
   {
-    FileInfo fm = resolveGenericTypeFromMethodT(env, genericType, currentBuilder, tm);
-    if (fm != null) {
-      return fm;
-    }
+
     if (currentBuilder.getSuperTemplateArgs() == null) {
       return null;
     }
@@ -471,7 +452,7 @@ public class TpsbEnvUtils
     if (html == false) {
       return text;
     }
-    return StringEscapeUtils.escapeHtml(text);
+    return StringEscapeUtils.escapeHtml4(text);
   }
 
   private static String escapeJavaDoc(String text, boolean html)

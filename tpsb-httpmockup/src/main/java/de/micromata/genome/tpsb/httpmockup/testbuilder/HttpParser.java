@@ -19,7 +19,7 @@ package de.micromata.genome.tpsb.httpmockup.testbuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.micromata.genome.tpsb.builder.SimpleTextParser;
 import de.micromata.genome.util.types.Pair;

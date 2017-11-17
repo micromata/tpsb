@@ -19,8 +19,8 @@ package de.micromata.tpsb.doc.parser;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Repraesentiert die Parser-Information zu einem Parameter einer Java-Methoden-Signatur

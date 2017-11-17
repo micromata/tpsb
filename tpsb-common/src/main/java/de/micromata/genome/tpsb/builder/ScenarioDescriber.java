@@ -17,9 +17,8 @@
 package de.micromata.genome.tpsb.builder;
 
 import java.util.Stack;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * Describes a scenario.F
@@ -124,7 +123,7 @@ public class ScenarioDescriber
 
   public ScenarioDescriber text(String text)
   {
-    sb.append(StringEscapeUtils.escapeHtml(text));
+    sb.append(StringEscapeUtils.escapeHtml4(text));
     return this;
   }
 

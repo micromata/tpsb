@@ -49,32 +49,20 @@
     <de.micromata.tpsb.tpsb-htmlunit.version>${tpsb.version}</de.micromata.tpsb.tpsb-htmlunit.version>
     <de.micromata.tpsb.tpsb-httpmockup.version>${tpsb.version}</de.micromata.tpsb.tpsb-httpmockup.version>
 
-    <!-- Genome Version -->
-    <genome.version>2.3.0</genome.version>
-    <genome.mvn.plugin.version>2.2.1</genome.mvn.plugin.version>
-
     <!-- mgc versions -->
-    <mgc.version>2.5.2</mgc.version>
+    <mgc.version>2.6.0-SNAPSHOT</mgc.version>
 
 
     <log4j.version>1.2.17</log4j.version>
-    <junit.version>4.11</junit.version>
+    <junit.version>4.12</junit.version>
     <commons-validator.version>1.5.0</commons-validator.version>
     <cglib-nodep.version>2.1_3</cglib-nodep.version>
     <!-- JAVAX VERSIONS -->
     <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
-    <javax.servlet.jsp.api.version>2.2.1</javax.servlet.jsp.api.version>
-    <javax.mail.version>1.4.2</javax.mail.version>
-    <javax.servlet.jstl.version>1.1.2</javax.servlet.jstl.version>
-    <javax.activation.version>1.1</javax.activation.version>
 
-    <com.sun.xml.ws.jaxws-rt.version>2.2.1</com.sun.xml.ws.jaxws-rt.version>
-    <cglib_nodeb.version>2.1_3</cglib_nodeb.version>
-    <asm.version>3.2</asm.version>
     <net.sourceforge.collections_generic.version>4.01</net.sourceforge.collections_generic.version>
-    <log4j.version>1.2.17</log4j.version>
 
-    <!-- OLD 1.7er parser <javaparser.version>1.0.11</javaparser.version> -->
+
     <javaparser-core.version>2.2.2</javaparser-core.version>
     <velocity.version>1.7</velocity.version>
     <org.apache.poi.poi-ooxml.version>3.10-beta1</org.apache.poi.poi-ooxml.version>
@@ -90,34 +78,17 @@
     <commons-lang.version>2.6</commons-lang.version>
     <commons-io.version>2.4</commons-io.version>
     <commons-beanutils.version>1.9.1</commons-beanutils.version>
-    <commons-collections.version>3.2.1</commons-collections.version>
     <commons-codec.version>1.9</commons-codec.version>
-    <commons.exec.version>1.1</commons.exec.version>
-    <commons-dbcp.version>1.4</commons-dbcp.version>
-    <commons-net.version>3.1</commons-net.version>
-    <commons-vfs2.version>2.0</commons-vfs2.version>
     <commons-httpclient.version>3.1</commons-httpclient.version>
-    <commons-dbcp.version>1.4</commons-dbcp.version>
-    <commons-fileupload.version>1.2.2</commons-fileupload.version>
+    <commons-text.version>1.1</commons-text.version>
 
-    <taglibs.standard.version>1.1.2</taglibs.standard.version>
-    <spring.version>3.2.13.RELEASE</spring.version>
     <springframework.spring-aop.version>1.2.6</springframework.spring-aop.version>
 
-    <bouncycastle.version>140</bouncycastle.version>
-    <xerces.xmlParserAPIs.version>2.6.2</xerces.xmlParserAPIs.version>
-    <xerces.xercesImpl.version>2.9.1</xerces.xercesImpl.version>
-    <com.uwyn.jhighlight.version>1.0</com.uwyn.jhighlight.version>
-    <jmimemagic.version>0.1.2</jmimemagic.version>
 
-    <hsqldb.version>1.8.0.10</hsqldb.version>
-    <org.hibernate.hibernate-entitymanager.version>4.1.9.Final</org.hibernate.hibernate-entitymanager.version>
-    <hibernate-bundle.version>4.1.9.Final</hibernate-bundle.version>
-    <org.hibernate.javax.persistence.hibernate-jpa-2.0-api.version>1.0.1.Final</org.hibernate.javax.persistence.hibernate-jpa-2.0-api.version>
-    <org.slf4j.api.version>1.6.4</org.slf4j.api.version>
+    <xerces.xercesImpl.version>2.9.1</xerces.xercesImpl.version>
+
     <org.slf4j.log4j12.version>1.6.4</org.slf4j.log4j12.version>
 
-    <net.sourceforge.stripes.version>1.4.3</net.sourceforge.stripes.version>
     <wicket.version>6.20.0</wicket.version>
     <wicket.select2.version>2.2.3</wicket.select2.version>
 

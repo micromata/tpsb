@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import de.micromata.genome.tpsb.TpsbComment;
 import de.micromata.genome.util.runtime.RuntimeIOException;

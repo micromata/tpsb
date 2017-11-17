@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Element;
 
 import com.gargoylesoftware.htmlunit.Page;
