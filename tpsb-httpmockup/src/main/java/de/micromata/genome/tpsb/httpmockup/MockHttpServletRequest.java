@@ -34,6 +34,7 @@ import java.util.Set;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
+import javax.servlet.ReadListener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
@@ -43,6 +44,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.CharEncoding;
@@ -809,6 +811,20 @@ public class MockHttpServletRequest implements HttpServletRequest
         return bis.read();
       }
 
+      @Override
+      public boolean isFinished() {
+        return false;
+      }
+
+      @Override
+      public boolean isReady() {
+        return false;
+      }
+
+      @Override
+      public void setReadListener(ReadListener readListener) {
+
+      }
     };
 
   }
@@ -826,5 +842,20 @@ public class MockHttpServletRequest implements HttpServletRequest
   public void setContentType(String contentType)
   {
     this.contentType = contentType;
+  }
+
+  @Override
+  public String changeSessionId() {
+    return null;
+  }
+
+  @Override
+  public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
+    return null;
+  }
+
+  @Override
+  public long getContentLengthLong() {
+    return 0;
   }
 }

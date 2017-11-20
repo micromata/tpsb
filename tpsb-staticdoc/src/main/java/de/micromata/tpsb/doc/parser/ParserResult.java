@@ -22,9 +22,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.collections15.CollectionUtils;
-import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
 /**

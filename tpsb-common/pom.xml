@@ -21,10 +21,11 @@
     </dependency>
 
     <dependency>
-      <groupId>springframework</groupId>
+      <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
       <version>${springframework.spring-aop.version}</version>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

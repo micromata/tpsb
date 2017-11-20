@@ -18,6 +18,12 @@
 			<artifactId>htmlunit</artifactId>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<version>${net.sourceforge.htmlunit.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
     <dependency>

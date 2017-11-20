@@ -16,22 +16,20 @@
 
 package de.micromata.tpsb.doc.parser;
 
+import de.micromata.tpsb.doc.TpsbEnvironment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections15.CollectionUtils;
-import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import de.micromata.tpsb.doc.TpsbEnvironment;
 
 /**
  * Repraesentiert die Parser-Information zu einer Java-Datei

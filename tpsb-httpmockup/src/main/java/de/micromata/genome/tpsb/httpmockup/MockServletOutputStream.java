@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 
 /**
  * Adopted from stripes.
@@ -51,5 +52,15 @@ public class MockServletOutputStream extends ServletOutputStream
   public String getString()
   {
     return out.toString();
+  }
+
+  @Override
+  public boolean isReady() {
+    return false;
+  }
+
+  @Override
+  public void setWriteListener(WriteListener writeListener) {
+
   }
 }

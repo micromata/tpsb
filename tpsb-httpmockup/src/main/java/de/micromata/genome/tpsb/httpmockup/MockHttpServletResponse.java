@@ -420,4 +420,8 @@ public class MockHttpServletResponse implements HttpServletResponse
     return this.locale;
   }
 
+  @Override
+  public void setContentLengthLong(long len) {
+
+  }
 }

@@ -374,7 +374,7 @@ public abstract class HtmlPageBase<T extends HtmlPageBase< ? >> extends CommonTe
   {
     WebRequestSettings wr = htmlPage.getWebResponse().getRequestSettings();
     StringBuilder sb = new StringBuilder();
-    sb.append(wr.getHttpMethod().toString()).append(" ").append(wr.getURL().toExternalForm()).append("\n");
+    sb.append(wr.getHttpMethod().toString()).append(" ").append(wr.getUrl().toExternalForm()).append("\n");
 
     for (NameValuePair nv : wr.getRequestParameters()) {
       sb.append(nv.getName()).append("=").append(nv.getValue()).append("\n");

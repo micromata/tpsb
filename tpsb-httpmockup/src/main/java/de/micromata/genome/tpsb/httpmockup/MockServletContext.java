@@ -566,4 +566,8 @@ public class MockServletContext implements ServletContext, RequestAcceptor
     this.session = session;
   }
 
+  @Override
+  public String getVirtualServerName() {
+    return null;
+  }
 }

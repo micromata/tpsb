@@ -16,18 +16,6 @@
 
 package de.micromata.tpsb.doc;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections15.BidiMap;
-import org.apache.commons.collections15.bidimap.DualHashBidiMap;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 import de.micromata.tpsb.doc.parser.FileInfo;
 import de.micromata.tpsb.doc.parser.MethodInfo;
 import de.micromata.tpsb.doc.parser.ParameterInfo;
@@ -35,6 +23,16 @@ import de.micromata.tpsb.doc.parser.ParserResult;
 import de.micromata.tpsb.doc.parser.TestStepInfo;
 import de.micromata.tpsb.doc.parser.TypeUtils;
 import de.micromata.tpsb.doc.parser.japa.TestBuilderVisitor;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
 
 /**
  * Context zum Parserlauf

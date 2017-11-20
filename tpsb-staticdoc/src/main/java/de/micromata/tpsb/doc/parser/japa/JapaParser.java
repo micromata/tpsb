@@ -16,6 +16,14 @@
 
 package de.micromata.tpsb.doc.parser.japa;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
+import com.github.javaparser.ast.CompilationUnit;
+import de.micromata.tpsb.doc.ParserConfig;
+import de.micromata.tpsb.doc.ParserContext;
+import de.micromata.tpsb.doc.sources.ISourceFileFilter;
+import de.micromata.tpsb.doc.sources.ISourceFileRepository;
+import de.micromata.tpsb.doc.sources.JavaSourceFileHolder;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,23 +31,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.collections15.CollectionUtils;
-import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
-
-import de.micromata.tpsb.doc.ParserConfig;
-import de.micromata.tpsb.doc.ParserContext;
-import de.micromata.tpsb.doc.sources.ISourceFileFilter;
-import de.micromata.tpsb.doc.sources.ISourceFileRepository;
-import de.micromata.tpsb.doc.sources.JavaSourceFileHolder;
 
 /**
  * Java-Code Parser unter Verwendung der japa-library
@@ -108,15 +105,8 @@ public class JapaParser
       return Collections.emptyList();
     }
 
-    Collection<String> sourceFileNames = CollectionUtils.transformedCollection(javaSources,
-        new Transformer<JavaSourceFileHolder, String>()
-        {
-          @Override
-          public String transform(JavaSourceFileHolder f)
-          {
-            return f.toString();
-          }
-        });
+    Collection sourceFileNames = CollectionUtils.transformingCollection(javaSources,
+        (Transformer) input -> input.toString());
     log.info("Java Dateien gefunden: " + javaSources.size() + ": \n\t" + StringUtils.join(sourceFileNames, "\n\t"));
     return javaSources;
   }

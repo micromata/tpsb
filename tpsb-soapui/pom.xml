@@ -50,9 +50,9 @@
     </dependency>
 
     <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>${commons-digester.version}</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-digester3</artifactId>
+      <version>${commons-digester3.version}</version>
     </dependency>
     <dependency>
       <groupId>xmlbeans</groupId>
