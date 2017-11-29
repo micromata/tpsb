@@ -75,6 +75,10 @@ public class MockServletContext implements ServletContext, RequestAcceptor
    * Single session
    */
   private MockHttpSession session;
+  /**
+   * if true, include and forwards are executed.
+   */
+  private boolean executeDispatchRequest;
 
   /** Simple constructor that creates a new mock ServletContext with the supplied context name. */
   public MockServletContext(String contextName)
@@ -170,9 +174,16 @@ public class MockServletContext implements ServletContext, RequestAcceptor
     String uri = req.getRequestURI();
     String localUri = uri;
     if (StringUtils.isNotBlank(req.getServletPath()) == true) {
-      localUri = req.getServletPath();
+      if (StringUtils.isNotBlank(req.getPathInfo()) == true) {
+        localUri = req.getServletPath() + req.getPathInfo();
+      } else {
+        localUri = req.getServletPath();
+      }
     }
-    final MockServletMapDef map = this.servletsConfig.getServletMappingByPath(localUri);
+    MockServletMapDef map = this.servletsConfig.getServletMappingByPath(localUri);
+    if (map == null) {
+      map = this.servletsConfig.getServletMappingByPath(uri);
+    }
     if (map != null) {
       log.debug("Serve Servlet: " + map.getServletDef().getServlet().getClass().getName());
       map.getServletDef().getServlet().service(req, resp);
@@ -250,14 +261,14 @@ public class MockServletContext implements ServletContext, RequestAcceptor
   @Override
   public RequestDispatcher getRequestDispatcher(String url)
   {
-    return new MockRequestDispatcher(url);
+    return new MockRequestDispatcher(url, this);
   }
 
   /** Returns a MockRequestDispatcher for the named servlet provided. */
   @Override
   public RequestDispatcher getNamedDispatcher(String name)
   {
-    return new MockRequestDispatcher(name);
+    return new MockRequestDispatcher(name, this);
   }
 
   /** Deprecated method always returns null. */
@@ -567,7 +578,19 @@ public class MockServletContext implements ServletContext, RequestAcceptor
   }
 
   @Override
-  public String getVirtualServerName() {
+  public String getVirtualServerName()
+  {
     return null;
   }
+
+  public boolean isExecuteDispatchRequest()
+  {
+    return executeDispatchRequest;
+  }
+
+  public void setExecuteDispatchRequest(boolean executeDispatchRequest)
+  {
+    this.executeDispatchRequest = executeDispatchRequest;
+  }
+
 }

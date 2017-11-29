@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -270,19 +271,23 @@ public class MockHttpServletResponse implements HttpServletResponse
   @Override
   public String getHeader(final String name)
   {
+    List<Object> hd = headers.get(name);
+    if (hd != null && hd.isEmpty() == false) {
+      return Objects.toString(hd.get(0));
+    }
     return null;
   }
 
   @Override
   public Collection<String> getHeaders(final String name)
   {
-    return null;
+    return headers.keySet();
   }
 
   @Override
   public Collection<String> getHeaderNames()
   {
-    return null;
+    return headers.keySet();
   }
 
   /** Gets the error message if one was set with setStatus() or sendError(). */
@@ -421,7 +426,8 @@ public class MockHttpServletResponse implements HttpServletResponse
   }
 
   @Override
-  public void setContentLengthLong(long len) {
+  public void setContentLengthLong(long len)
+  {
 
   }
 }

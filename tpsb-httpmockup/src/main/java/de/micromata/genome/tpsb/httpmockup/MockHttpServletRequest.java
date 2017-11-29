@@ -47,6 +47,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -76,7 +77,7 @@ import org.apache.log4j.Logger;
  * @author Tim Fennell
  * @since Stripes 1.1.1
  */
-public class MockHttpServletRequest implements HttpServletRequest
+public class MockHttpServletRequest implements HttpServletRequest, HttpRequestMockupBase
 {
   private final Logger log = Logger.getLogger(MockHttpServletRequest.class);
 
@@ -146,7 +147,7 @@ public class MockHttpServletRequest implements HttpServletRequest
 
   public MockHttpServletRequest(MockServletContext servletContext)
   {
-    this("/", "/");
+    this(servletContext.getContextPath(), "/");
     this.servletContext = servletContext;
 
   }
@@ -248,6 +249,7 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   /** Sets the path info. Defaults to the empty string. */
+  @Override
   public void setPathInfo(String pathInfo)
   {
     this.pathInfo = pathInfo;
@@ -287,6 +289,7 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   /** Sets the query string set on the request; this value is not parsed for anything. */
+  @Override
   public void setQueryString(String queryString)
   {
     this.queryString = queryString;
@@ -389,6 +392,7 @@ public class MockHttpServletRequest implements HttpServletRequest
     return this.servletPath;
   }
 
+  @Override
   public void setServletPath(String servletPath)
   {
     this.servletPath = servletPath;
@@ -636,7 +640,7 @@ public class MockHttpServletRequest implements HttpServletRequest
   @Override
   public MockRequestDispatcher getRequestDispatcher(String url)
   {
-    return new MockRequestDispatcher(url);
+    return new MockRequestDispatcher(url, servletContext);
   }
 
   /** Always returns the path passed in without any alteration. */
@@ -812,21 +816,52 @@ public class MockHttpServletRequest implements HttpServletRequest
       }
 
       @Override
-      public boolean isFinished() {
+      public boolean isFinished()
+      {
         return false;
       }
 
       @Override
-      public boolean isReady() {
+      public boolean isReady()
+      {
         return false;
       }
 
       @Override
-      public void setReadListener(ReadListener readListener) {
+      public void setReadListener(ReadListener readListener)
+      {
 
       }
     };
 
+  }
+
+  private String joinpath(String first, String second)
+  {
+    if (StringUtils.isBlank(first) == true) {
+      return second;
+    }
+    if (StringUtils.isBlank(second) == true) {
+      return first;
+    }
+    return first + "/" + second;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb = new StringBuilder();
+    String p = joinpath(joinpath(contextPath, servletPath), pathInfo) + StringUtils.defaultString(queryString);
+    sb.append(method).append(" ").append(p).append(" HTTP/1.1\n");
+    for (Map.Entry<String, Object> me : headers.entrySet()) {
+      sb.append(me.getKey()).append(": ").append(me.getValue()).append("\n");
+    }
+    sb.append("\n");
+    if (this.requestData != null) {
+
+      sb.append(new String(this.requestData));
+    }
+    return sb.toString();
   }
 
   public byte[] getRequestData()
@@ -845,17 +880,30 @@ public class MockHttpServletRequest implements HttpServletRequest
   }
 
   @Override
-  public String changeSessionId() {
+  public String changeSessionId()
+  {
     return null;
   }
 
   @Override
-  public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
+  public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException
+  {
     return null;
   }
 
   @Override
-  public long getContentLengthLong() {
+  public long getContentLengthLong()
+  {
     return 0;
+  }
+
+  public void addRequestParameter(String k, String v)
+  {
+    String[] params = parameters.get(k);
+    if (params == null) {
+      parameters.put(k, new String[] { v });
+    } else {
+      parameters.put(k, ArrayUtils.add(params, v));
+    }
   }
 }

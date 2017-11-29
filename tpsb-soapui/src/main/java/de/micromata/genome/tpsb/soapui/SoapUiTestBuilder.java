@@ -45,6 +45,7 @@ import com.eviware.soapui.model.testsuite.TestSuite;
 import de.micromata.genome.tpsb.annotations.TpsbBuilder;
 import de.micromata.genome.tpsb.annotations.TpsbIgnore;
 import de.micromata.genome.tpsb.builder.ScenarioLoaderContext;
+import de.micromata.genome.tpsb.httpmockup.MockupHttpRequestUtils;
 import de.micromata.genome.tpsb.httpmockup.testbuilder.ServletContextTestBuilder;
 import de.micromata.genome.util.types.Holder;
 
@@ -82,46 +83,7 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
 
   public T initWithUri(String uri)
   {
-    if (baseUrl == null || uri == null) {
-      return getBuilder();
-    }
-    String urip = uri;
-    int par = urip.indexOf('?');
-    if (par != -1) {
-      String requeststr = urip.substring(par);
-      urip = urip.substring(0, par);
-      httpRequest.setQueryString(requeststr);
-    }
-
-    if (urip.startsWith(baseUrl) == true) {
-      String spath = urip.substring(baseUrl.length());
-
-      String ctxpath = servletContext.getContextPath();
-      if (spath.startsWith(ctxpath) == true) {
-        httpRequest.setServletPath(servletPrefix);
-        String pathInfo = spath;
-        if (ctxpath.length() > 1) {
-          pathInfo = spath.substring(ctxpath.length());
-        }
-        if (servletPrefix.equals("") == false && pathInfo.startsWith(servletPrefix) == true) {
-          pathInfo = pathInfo.substring(servletPrefix.length());
-        }
-        httpRequest.setPathInfo(pathInfo);
-      }
-
-    }
-    //    String ts = urip;
-    //    if (uri.startsWith("http://") == true) {
-    //      ts = ts.substring("http://".length());
-    //    }
-    //    if (uri.startsWith("https://") == true) {
-    //      ts = ts.substring("https://".length());
-    //    }
-    //    int idx = ts.indexOf('/');
-    //    if (idx != -1) {
-    //      ts = ts.substring(idx);
-    //    }
-
+    MockupHttpRequestUtils.initWithUri(httpRequest, baseUrl, servletPrefix, uri);
     return getBuilder();
   }
 
@@ -207,6 +169,24 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
         + ".";
   }
 
+  @Override
+  public T createNewPostRequest(String... urlParams)
+  {
+    if (currentSoapUITestStep != null) {
+      String target = "target/" + currentSoapUITestStep.getTestCase().getTestSuite().getProject().getName() + "/"
+          + currentSoapUITestStep.getTestCase().getTestSuite().getName() + "/"
+          + currentSoapUITestStep.getTestCase().getName();
+      setRequestResponseLogBaseDir(target);
+      setRequestResponseLogBaseName(currentSoapUITestStep.getName());
+    } else {
+      LOG.warn("No currentSoapUITestStep set");
+      String target = "target/unkown/unkown";
+      setRequestResponseLogBaseDir(target);
+      setRequestResponseLogBaseName("");
+    }
+    return super.createNewPostRequest(urlParams);
+  }
+
   @TpsbIgnore
   protected BasicHttpResponse filterBasicHttpResponse(BasicHttpResponse httpresponse)
   {
@@ -273,20 +253,28 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
   @TpsbIgnore
   public void setTransport()
   {
-    HttpClientRequestTransport previousHttpTransport;
-    HttpClientRequestTransport previousHttpsTransport;
+    HttpClientRequestTransport previousHttpTransport = null;
+    HttpClientRequestTransport previousHttpsTransport = null;
     try {
       previousHttpTransport = (HttpClientRequestTransport) RequestTransportRegistry.getTransport("http");
+      previousHttpsTransport = (HttpClientRequestTransport) RequestTransportRegistry.getTransport("https");
       if ((previousHttpTransport instanceof DelegateToSoapUiTestBuilderHttpClientRequestTransport) == false) {
         if (disableLocalDispatch == false) {
           HttpClientRequestTransport newHttpTransport = createHttpClientRequestTransport(previousHttpTransport);
           RequestTransportRegistry.addTransport("http", newHttpTransport);
 
-          previousHttpsTransport = (HttpClientRequestTransport) RequestTransportRegistry.getTransport("https");
           HttpClientRequestTransport newHttpsTransport = createHttpClientRequestTransport(previousHttpsTransport);
 
           RequestTransportRegistry.addTransport("https", newHttpsTransport);
         }
+      } else {
+        if (disableLocalDispatch == false) {
+          DelegateToSoapUiTestBuilderHttpClientRequestTransport dlc = (DelegateToSoapUiTestBuilderHttpClientRequestTransport) previousHttpTransport;
+          dlc.setTestBuilder(this);
+          DelegateToSoapUiTestBuilderHttpClientRequestTransport dlch = (DelegateToSoapUiTestBuilderHttpClientRequestTransport) previousHttpsTransport;
+          dlch.setTestBuilder(this);
+        }
+
       }
     } catch (MissingTransportException ex) {
       throw new IllegalArgumentException("Cannot get http transport from soapui transport registry: " + ex.getMessage(),
@@ -432,7 +420,6 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
         PropertiesMap map = new PropertiesMap();
         final TestRunner runner = testCase.run(map, false);
 
-        runner.start(false);
         Status status = runner.getStatus();
         if (status != Status.FINISHED && failureCount.get() > 0) {
           failedOne = true;
@@ -443,11 +430,6 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     if (failedOne == true) {
       fail(errorOut.toString());
     }
-    //      } catch (RuntimeException ex) {
-    //        throw ex;
-    //      } catch (Exception ex) {
-    //        throw new RuntimeException(ex);
-    //      }
 
   }
 
@@ -472,4 +454,5 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     }
 
   }
+
 }
