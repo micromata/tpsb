@@ -45,6 +45,13 @@
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit.vintage.version}</version>
+      <type>jar</type>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>log4j</groupId>

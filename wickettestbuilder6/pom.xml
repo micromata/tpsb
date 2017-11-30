@@ -93,6 +93,13 @@
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit.vintage.version}</version>
+      <type>jar</type>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
