@@ -16,20 +16,19 @@
 
 package de.micromata.genome.tpsb;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 /**
  * A simple test
  * 
  * @author roger
  * 
  */
-public class MyTest
+class MyTest
 {
   @Test
-  public void testFirst()
+  void testFirst()
   {
-    new CommonTestBuilder<CommonTestBuilder< ? >>() //
+    new CommonTestBuilder<>() //
         .setTestContextVar("dummy", "VALUE") //
         .createBuilder(MyTestBuilder.class) //
         .validateTestContextVar("dummy", "VALUE") //
