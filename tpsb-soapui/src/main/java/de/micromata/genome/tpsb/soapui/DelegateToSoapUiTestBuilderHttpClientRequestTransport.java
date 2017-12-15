@@ -144,8 +144,6 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
     if (soaphaedera != null && soaphaedera.length > 0) {
       soapAction = method.getHeaders("SOAPAction")[0].getValue();
     }
-    String m = method.getMethod();
-    System.err.println("exec: " + method);
     String uri = method.getURI().toString();
     //    testBuilder.initWithUri(uri);
     testBuilder//
