@@ -350,30 +350,32 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
           @Override
           public void beforeRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
           {
-            currentSoapUIRunContext = runContext;
+            soapUiBeforeRun(testRunner, runContext);
           }
 
           @Override
           public void afterRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
           {
-            currentSoapUIRunContext = null;
+            soapUiAfterRun(testRunner, runContext);
           }
 
           @Override
           public void beforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext)
           {
-            currentSoapUIRunContext = runContext;
+            soapUiBeforeStep(testRunner, runContext);
+
           }
 
           @Override
           public void beforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStep testStep)
           {
-            currentSoapUITestStep = testStep;
+            soapUiBeforeStep(testRunner, runContext, testStep);
           }
 
           @Override
           public void afterStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStepResult result)
           {
+            soapUiAfterStep(testRunner, runContext, result);
             TestStepStatus status = result.getStatus();
             String desc = result.getTestStep().getName();
 
@@ -430,6 +432,37 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     if (failedOne == true) {
       fail(errorOut.toString());
     }
+
+  }
+
+  protected void soapUiBeforeRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = runContext;
+  }
+
+  protected void soapUiAfterRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = null;
+  }
+
+  protected void soapUiBeforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = runContext;
+
+  }
+
+  protected void soapUiBeforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStep testStep)
+  {
+    currentSoapUITestStep = testStep;
+  }
+
+  protected void soapUiAfterStep(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = runContext;
+  }
+
+  public void soapUiAfterStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStepResult result)
+  {
 
   }
 
