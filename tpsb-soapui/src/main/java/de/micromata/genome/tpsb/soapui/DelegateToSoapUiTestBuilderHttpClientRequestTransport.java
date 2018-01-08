@@ -127,7 +127,7 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
 
   }
 
-  private HttpResponse execute(ExtendedHttpMethod method, HttpContext httpContext,
+  private HttpResponse execute(SubmitContext submitContext, ExtendedHttpMethod method, HttpContext httpContext,
       Map<String, String> httpRequestParameter) throws Exception
   {
     boolean passtoremote = false;
@@ -147,7 +147,7 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
     String uri = method.getURI().toString();
     //    testBuilder.initWithUri(uri);
     testBuilder//
-        .createNewPostRequest() //
+        .createNewPostRequestIntern(submitContext) //
         .initWithUri(uri)
         .setRequestMethod(method.getMethod())
         .setRequestData(reqData);
@@ -306,7 +306,7 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
       }
 
       // submit!
-      httpResponse = execute(httpMethod, httpContext, httpRequestParameter);
+      httpResponse = execute(submitContext, httpMethod, httpContext, httpRequestParameter);
 
       if (httpMethod.getMetrics() != null) {
         httpMethod.getMetrics().getReadTimer().stop();

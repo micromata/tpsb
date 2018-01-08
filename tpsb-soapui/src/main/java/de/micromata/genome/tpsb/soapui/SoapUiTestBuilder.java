@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.message.BasicHttpResponse;
+import org.apache.log4j.Logger;
 
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.submit.RequestTransportRegistry;
 import com.eviware.soapui.impl.wsdl.submit.RequestTransportRegistry.MissingTransportException;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.HttpClientRequestTransport;
 import com.eviware.soapui.impl.wsdl.teststeps.assertions.basic.SchemaComplianceAssertion;
+import com.eviware.soapui.model.iface.SubmitContext;
 import com.eviware.soapui.model.support.PropertiesMap;
 import com.eviware.soapui.model.testsuite.TestCase;
 import com.eviware.soapui.model.testsuite.TestCaseRunContext;
@@ -59,6 +61,7 @@ import de.micromata.genome.util.types.Holder;
 @TpsbBuilder
 public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletContextTestBuilder<T>
 {
+  private static final Logger LOG = Logger.getLogger(SoapUiTestBuilder.class);
   private ScenarioLoaderContext scenarioLoader = new ScenarioLoaderContext("dev/extrc/test/soapui", ".xml");
 
   private boolean disableLocalDispatch = false;
@@ -66,7 +69,7 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
   protected TestStep currentSoapUITestStep = null;
 
   protected TestCaseRunContext currentSoapUIRunContext = null;
-
+  protected TestCase currentTestCase = null;
   private byte[] lastRequest;
 
   private byte[] lastResponse;
@@ -172,10 +175,22 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
   @Override
   public T createNewPostRequest(String... urlParams)
   {
-    if (currentSoapUITestStep != null) {
-      String target = "target/" + currentSoapUITestStep.getTestCase().getTestSuite().getProject().getName() + "/"
-          + currentSoapUITestStep.getTestCase().getTestSuite().getName() + "/"
-          + currentSoapUITestStep.getTestCase().getName();
+    return createNewPostRequestIntern(null);
+  }
+
+  public T createNewPostRequestIntern(SubmitContext submitContext, String... urlParams)
+  {
+    // for path use original called testcase, not currently executed testcase.
+    TestCase cts = currentTestCase;
+    if (cts == null) {
+      cts = currentSoapUITestStep.getTestCase();
+    }
+    if (currentSoapUITestStep != null && cts != null) {
+      String curStepName = currentSoapUITestStep.getName();
+
+      String target = "target/" + cts.getTestSuite().getProject().getName() + "/"
+          + cts.getTestSuite().getName() + "/"
+          + cts.getName();
       setRequestResponseLogBaseDir(target);
       setRequestResponseLogBaseName(currentSoapUITestStep.getName());
     } else {
@@ -337,10 +352,18 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     boolean failedOne = false;
     final Holder<Integer> failureCount = new Holder<Integer>(0);
     for (TestSuite testSuite : tslist) {
+      if (testSuite.isDisabled() == true) {
+        LOG.info("Skip disabled test suite");
+        continue;
+      }
       if (testSuiteName != null && testSuiteName.equals(testSuite.getName()) == false) {
         continue;
       }
       for (TestCase testCase : testSuite.getTestCaseList()) {
+        if (testCase.isDisabled() == true) {
+          LOG.info("Skip disabled test case");
+          continue;
+        }
         if (testCaseName != null && testCaseName.equals(testCase.getName()) == false) {
           continue;
         }
@@ -420,6 +443,7 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
 
         });
         PropertiesMap map = new PropertiesMap();
+        currentTestCase = testCase;
         final TestRunner runner = testCase.run(map, false);
 
         Status status = runner.getStatus();
