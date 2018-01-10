@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.message.BasicHttpResponse;
+import org.apache.log4j.Logger;
 
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.submit.RequestTransportRegistry;
 import com.eviware.soapui.impl.wsdl.submit.RequestTransportRegistry.MissingTransportException;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.HttpClientRequestTransport;
 import com.eviware.soapui.impl.wsdl.teststeps.assertions.basic.SchemaComplianceAssertion;
+import com.eviware.soapui.model.iface.SubmitContext;
 import com.eviware.soapui.model.support.PropertiesMap;
 import com.eviware.soapui.model.testsuite.TestCase;
 import com.eviware.soapui.model.testsuite.TestCaseRunContext;
@@ -45,6 +47,7 @@ import com.eviware.soapui.model.testsuite.TestSuite;
 import de.micromata.genome.tpsb.annotations.TpsbBuilder;
 import de.micromata.genome.tpsb.annotations.TpsbIgnore;
 import de.micromata.genome.tpsb.builder.ScenarioLoaderContext;
+import de.micromata.genome.tpsb.httpmockup.MockupHttpRequestUtils;
 import de.micromata.genome.tpsb.httpmockup.testbuilder.ServletContextTestBuilder;
 import de.micromata.genome.util.types.Holder;
 
@@ -58,6 +61,7 @@ import de.micromata.genome.util.types.Holder;
 @TpsbBuilder
 public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletContextTestBuilder<T>
 {
+  private static final Logger LOG = Logger.getLogger(SoapUiTestBuilder.class);
   private ScenarioLoaderContext scenarioLoader = new ScenarioLoaderContext("dev/extrc/test/soapui", ".xml");
 
   private boolean disableLocalDispatch = false;
@@ -65,7 +69,7 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
   protected TestStep currentSoapUITestStep = null;
 
   protected TestCaseRunContext currentSoapUIRunContext = null;
-
+  protected TestCase currentTestCase = null;
   private byte[] lastRequest;
 
   private byte[] lastResponse;
@@ -82,46 +86,7 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
 
   public T initWithUri(String uri)
   {
-    if (baseUrl == null || uri == null) {
-      return getBuilder();
-    }
-    String urip = uri;
-    int par = urip.indexOf('?');
-    if (par != -1) {
-      String requeststr = urip.substring(par);
-      urip = urip.substring(0, par);
-      httpRequest.setQueryString(requeststr);
-    }
-
-    if (urip.startsWith(baseUrl) == true) {
-      String spath = urip.substring(baseUrl.length());
-
-      String ctxpath = servletContext.getContextPath();
-      if (spath.startsWith(ctxpath) == true) {
-        httpRequest.setServletPath(servletPrefix);
-        String pathInfo = spath;
-        if (ctxpath.length() > 1) {
-          pathInfo = spath.substring(ctxpath.length());
-        }
-        if (servletPrefix.equals("") == false && pathInfo.startsWith(servletPrefix) == true) {
-          pathInfo = pathInfo.substring(servletPrefix.length());
-        }
-        httpRequest.setPathInfo(pathInfo);
-      }
-
-    }
-    //    String ts = urip;
-    //    if (uri.startsWith("http://") == true) {
-    //      ts = ts.substring("http://".length());
-    //    }
-    //    if (uri.startsWith("https://") == true) {
-    //      ts = ts.substring("https://".length());
-    //    }
-    //    int idx = ts.indexOf('/');
-    //    if (idx != -1) {
-    //      ts = ts.substring(idx);
-    //    }
-
+    MockupHttpRequestUtils.initWithUri(httpRequest, baseUrl, servletPrefix, uri);
     return getBuilder();
   }
 
@@ -207,6 +172,36 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
         + ".";
   }
 
+  @Override
+  public T createNewPostRequest(String... urlParams)
+  {
+    return createNewPostRequestIntern(null);
+  }
+
+  public T createNewPostRequestIntern(SubmitContext submitContext, String... urlParams)
+  {
+    // for path use original called testcase, not currently executed testcase.
+    TestCase cts = currentTestCase;
+    if (cts == null) {
+      cts = currentSoapUITestStep.getTestCase();
+    }
+    if (currentSoapUITestStep != null && cts != null) {
+      String curStepName = currentSoapUITestStep.getName();
+
+      String target = "target/" + cts.getTestSuite().getProject().getName() + "/"
+          + cts.getTestSuite().getName() + "/"
+          + cts.getName();
+      setRequestResponseLogBaseDir(target);
+      setRequestResponseLogBaseName(currentSoapUITestStep.getName());
+    } else {
+      LOG.warn("No currentSoapUITestStep set");
+      String target = "target/unkown/unkown";
+      setRequestResponseLogBaseDir(target);
+      setRequestResponseLogBaseName("");
+    }
+    return super.createNewPostRequest(urlParams);
+  }
+
   @TpsbIgnore
   protected BasicHttpResponse filterBasicHttpResponse(BasicHttpResponse httpresponse)
   {
@@ -273,20 +268,28 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
   @TpsbIgnore
   public void setTransport()
   {
-    HttpClientRequestTransport previousHttpTransport;
-    HttpClientRequestTransport previousHttpsTransport;
+    HttpClientRequestTransport previousHttpTransport = null;
+    HttpClientRequestTransport previousHttpsTransport = null;
     try {
       previousHttpTransport = (HttpClientRequestTransport) RequestTransportRegistry.getTransport("http");
+      previousHttpsTransport = (HttpClientRequestTransport) RequestTransportRegistry.getTransport("https");
       if ((previousHttpTransport instanceof DelegateToSoapUiTestBuilderHttpClientRequestTransport) == false) {
         if (disableLocalDispatch == false) {
           HttpClientRequestTransport newHttpTransport = createHttpClientRequestTransport(previousHttpTransport);
           RequestTransportRegistry.addTransport("http", newHttpTransport);
 
-          previousHttpsTransport = (HttpClientRequestTransport) RequestTransportRegistry.getTransport("https");
           HttpClientRequestTransport newHttpsTransport = createHttpClientRequestTransport(previousHttpsTransport);
 
           RequestTransportRegistry.addTransport("https", newHttpsTransport);
         }
+      } else {
+        if (disableLocalDispatch == false) {
+          DelegateToSoapUiTestBuilderHttpClientRequestTransport dlc = (DelegateToSoapUiTestBuilderHttpClientRequestTransport) previousHttpTransport;
+          dlc.setTestBuilder(this);
+          DelegateToSoapUiTestBuilderHttpClientRequestTransport dlch = (DelegateToSoapUiTestBuilderHttpClientRequestTransport) previousHttpsTransport;
+          dlch.setTestBuilder(this);
+        }
+
       }
     } catch (MissingTransportException ex) {
       throw new IllegalArgumentException("Cannot get http transport from soapui transport registry: " + ex.getMessage(),
@@ -349,10 +352,18 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     boolean failedOne = false;
     final Holder<Integer> failureCount = new Holder<Integer>(0);
     for (TestSuite testSuite : tslist) {
+      if (testSuite.isDisabled() == true) {
+        LOG.info("Skip disabled test suite");
+        continue;
+      }
       if (testSuiteName != null && testSuiteName.equals(testSuite.getName()) == false) {
         continue;
       }
       for (TestCase testCase : testSuite.getTestCaseList()) {
+        if (testCase.isDisabled() == true) {
+          LOG.info("Skip disabled test case");
+          continue;
+        }
         if (testCaseName != null && testCaseName.equals(testCase.getName()) == false) {
           continue;
         }
@@ -362,30 +373,32 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
           @Override
           public void beforeRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
           {
-            currentSoapUIRunContext = runContext;
+            soapUiBeforeRun(testRunner, runContext);
           }
 
           @Override
           public void afterRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
           {
-            currentSoapUIRunContext = null;
+            soapUiAfterRun(testRunner, runContext);
           }
 
           @Override
           public void beforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext)
           {
-            currentSoapUIRunContext = runContext;
+            soapUiBeforeStep(testRunner, runContext);
+
           }
 
           @Override
           public void beforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStep testStep)
           {
-            currentSoapUITestStep = testStep;
+            soapUiBeforeStep(testRunner, runContext, testStep);
           }
 
           @Override
           public void afterStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStepResult result)
           {
+            soapUiAfterStep(testRunner, runContext, result);
             TestStepStatus status = result.getStatus();
             String desc = result.getTestStep().getName();
 
@@ -430,9 +443,9 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
 
         });
         PropertiesMap map = new PropertiesMap();
+        currentTestCase = testCase;
         final TestRunner runner = testCase.run(map, false);
 
-        runner.start(false);
         Status status = runner.getStatus();
         if (status != Status.FINISHED && failureCount.get() > 0) {
           failedOne = true;
@@ -443,11 +456,37 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     if (failedOne == true) {
       fail(errorOut.toString());
     }
-    //      } catch (RuntimeException ex) {
-    //        throw ex;
-    //      } catch (Exception ex) {
-    //        throw new RuntimeException(ex);
-    //      }
+
+  }
+
+  protected void soapUiBeforeRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = runContext;
+  }
+
+  protected void soapUiAfterRun(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = null;
+  }
+
+  protected void soapUiBeforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = runContext;
+
+  }
+
+  protected void soapUiBeforeStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStep testStep)
+  {
+    currentSoapUITestStep = testStep;
+  }
+
+  protected void soapUiAfterStep(TestCaseRunner testRunner, TestCaseRunContext runContext)
+  {
+    currentSoapUIRunContext = runContext;
+  }
+
+  public void soapUiAfterStep(TestCaseRunner testRunner, TestCaseRunContext runContext, TestStepResult result)
+  {
 
   }
 
@@ -472,4 +511,5 @@ public class SoapUiTestBuilder<T extends SoapUiTestBuilder<?>> extends ServletCo
     }
 
   }
+
 }

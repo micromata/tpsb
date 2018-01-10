@@ -19,9 +19,12 @@ package de.micromata.genome.tpsb.soapui;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
@@ -36,6 +39,8 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import com.eviware.soapui.SoapUI;
+import com.eviware.soapui.impl.rest.RestRequestInterface.RequestMethod;
+import com.eviware.soapui.impl.rest.support.RestParamProperty;
 import com.eviware.soapui.impl.support.AbstractHttpRequestInterface;
 import com.eviware.soapui.impl.wsdl.AbstractWsdlModelItem;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
@@ -45,11 +50,13 @@ import com.eviware.soapui.impl.wsdl.submit.transports.http.ExtendedHttpMethod;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.HttpClientRequestTransport;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.SinglePartHttpResponse;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.support.attachments.MimeMessageResponse;
+import com.eviware.soapui.impl.wsdl.submit.transports.http.support.methods.ExtendedGetMethod;
 import com.eviware.soapui.impl.wsdl.submit.transports.http.support.methods.ExtendedPostMethod;
 import com.eviware.soapui.impl.wsdl.support.PathUtils;
 import com.eviware.soapui.impl.wsdl.support.http.HttpClientSupport;
 import com.eviware.soapui.impl.wsdl.support.http.SoapUIHttpRoute;
 import com.eviware.soapui.impl.wsdl.support.wss.WssCrypto;
+import com.eviware.soapui.impl.wsdl.teststeps.HttpTestRequest;
 import com.eviware.soapui.model.iface.Request;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.model.iface.SubmitContext;
@@ -120,14 +127,18 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
 
   }
 
-  private HttpResponse execute(ExtendedHttpMethod method, HttpContext httpContext) throws Exception
+  private HttpResponse execute(SubmitContext submitContext, ExtendedHttpMethod method, HttpContext httpContext,
+      Map<String, String> httpRequestParameter) throws Exception
   {
     boolean passtoremote = false;
     if (passtoremote == true) {
       return HttpClientSupport.execute(method, httpContext);
 
     }
-    byte[] reqData = filterRequestData(IOUtils.toByteArray(method.getRequestEntity().getContent()));
+    byte[] reqData = null;
+    if (method.getRequestEntity() != null && method.getRequestEntity().getContent() != null) {
+      reqData = filterRequestData(IOUtils.toByteArray(method.getRequestEntity().getContent()));
+    }
     Header[] soaphaedera = method.getHeaders("SOAPAction");
     String soapAction = "";
     if (soaphaedera != null && soaphaedera.length > 0) {
@@ -136,15 +147,18 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
     String uri = method.getURI().toString();
     //    testBuilder.initWithUri(uri);
     testBuilder//
-        .createNewPostRequest() //
+        .createNewPostRequestIntern(submitContext) //
         .initWithUri(uri)
-        .setRequestData(reqData) //
-        .addRequestHeader("SOAPAction", soapAction) //
-    ;
+        .setRequestMethod(method.getMethod())
+        .setRequestData(reqData);
+    if (StringUtils.isNotBlank(soapAction) == true) {
+      testBuilder.addRequestHeader("SOAPAction", soapAction);
+    }
     Header[] allHeaders = method.getAllHeaders();
     for (Header h : allHeaders) {
       testBuilder.addRequestHeader(h.getName(), h.getValue());
     }
+    httpRequestParameter.forEach((k, v) -> testBuilder.getHttpRequest().addRequestParameter(k, v));
     MockHttpServletResponse httpr = testBuilder.executeServletRequest() //
         .getHttpResponse();
 
@@ -173,14 +187,27 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
       return super.sendRequest(submitContext, request);
     }
     AbstractHttpRequestInterface<?> httpRequest = (AbstractHttpRequestInterface<?>) request;
+    RequestMethod rm = httpRequest.getMethod();
+
+    ExtendedHttpMethod httpMethod;
+    switch (rm) {
+      case POST: {
+        ExtendedPostMethod extendedPostMethod = new ExtendedPostMethod();
+        extendedPostMethod.setAfterRequestInjection(httpRequest.getAfterRequestInjection());
+        httpMethod = extendedPostMethod;
+        break;
+      }
+      case GET: {
+        ExtendedGetMethod extendedGetMethod = new ExtendedGetMethod();
+        //        extendedGetMethod.setAfterRequestInjection(httpRequest.getAfterRequestInjection());
+        httpMethod = extendedGetMethod;
+        break;
+      }
+      default:
+        throw new IllegalArgumentException("Unsupported HTTP methd: " + rm);
+    }
 
     HttpClientSupport.SoapUIHttpClient httpClient = HttpClientSupport.getHttpClient();
-
-    ExtendedPostMethod extendedPostMethod = new ExtendedPostMethod();
-
-    extendedPostMethod.setAfterRequestInjection(httpRequest.getAfterRequestInjection());
-
-    ExtendedHttpMethod httpMethod = extendedPostMethod;
 
     boolean createdContext = false;
     HttpContext httpContext = (HttpContext) submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
@@ -194,7 +221,8 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
       httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
     }
 
-    String localAddress = System.getProperty("soapui.bind.address", httpRequest.getBindAddress());
+    String localAddress = System.getProperty("soapui.bind.address",
+        httpRequest.getBindAddress());
     if (localAddress == null || localAddress.trim().length() == 0) {
       localAddress = SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS, null);
     }
@@ -205,6 +233,16 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
         httpMethod.getParams().setParameter(ConnRoutePNames.LOCAL_ADDRESS, InetAddress.getByName(localAddress));
       } catch (Exception e) {
         SoapUI.logError(e, "Failed to set localAddress to [" + localAddress + "]");
+      }
+    }
+    Map<String, String> httpRequestParameter = new HashMap<>();
+    if (httpRequest instanceof HttpTestRequest) {
+      HttpTestRequest tr = (HttpTestRequest) httpRequest;
+      for (String key : tr.getParams().keySet()) {
+        RestParamProperty val = tr.getParams().get(key);
+        String sval = val.getValue();
+        sval = PropertyExpander.expandProperties(submitContext, sval);
+        httpRequestParameter.put(key, sval);
       }
     }
 
@@ -268,7 +306,7 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
       }
 
       // submit!
-      httpResponse = execute(httpMethod, httpContext);
+      httpResponse = execute(submitContext, httpMethod, httpContext, httpRequestParameter);
 
       if (httpMethod.getMetrics() != null) {
         httpMethod.getMetrics().getReadTimer().stop();
@@ -354,6 +392,16 @@ public class DelegateToSoapUiTestBuilderHttpClientRequestTransport extends Deleg
     }
 
     submitContext.setProperty(BaseHttpRequestTransport.RESPONSE, response);
+  }
+
+  public SoapUiTestBuilder<?> getTestBuilder()
+  {
+    return testBuilder;
+  }
+
+  public void setTestBuilder(SoapUiTestBuilder<?> testBuilder)
+  {
+    this.testBuilder = testBuilder;
   }
 
 }
