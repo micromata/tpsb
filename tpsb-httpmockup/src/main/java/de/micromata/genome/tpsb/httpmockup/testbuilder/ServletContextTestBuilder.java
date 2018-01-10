@@ -16,18 +16,25 @@
 
 package de.micromata.genome.tpsb.httpmockup.testbuilder;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Filter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import de.micromata.genome.tpsb.CommonTestBuilder;
 import de.micromata.genome.tpsb.annotations.TpsbBuilder;
@@ -37,6 +44,7 @@ import de.micromata.genome.tpsb.httpmockup.MockFilterMapDef.FilterDispatchFlags;
 import de.micromata.genome.tpsb.httpmockup.MockHttpServletRequest;
 import de.micromata.genome.tpsb.httpmockup.MockHttpServletResponse;
 import de.micromata.genome.tpsb.httpmockup.MockServletContext;
+import de.micromata.genome.tpsb.httpmockup.MockupHttpRequestUtils;
 import de.micromata.genome.tpsb.httpmockup.RequestAcceptor;
 import de.micromata.genome.util.types.Pair;
 
@@ -53,6 +61,7 @@ import de.micromata.genome.util.types.Pair;
 @TpsbBuilder
 public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> extends CommonTestBuilder<T>
 {
+  protected static final Logger LOG = Logger.getLogger(ServletContextTestBuilder.class);
   protected MockServletContext servletContext = new MockServletContext("unittest");
 
   protected RequestAcceptor acceptor = servletContext;
@@ -60,6 +69,13 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   protected MockHttpServletRequest httpRequest = new MockHttpServletRequest(servletContext);
 
   protected MockHttpServletResponse httpResponse;
+  protected int reqResponseCounter = 0;
+  private boolean writeRequestResponseLog = false;
+  private String requestResponseLogBaseDir = "target";
+  private String requestResponseLogBaseName = "";
+  private boolean followRedirects = false;
+  private boolean storeCookies = true;
+  private Map<String, Cookie> cookies = new HashMap<>();
 
   protected List<Pair<String, String>> keyValuesToPairList(String... initParams)
   {
@@ -146,6 +162,14 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
     return getBuilder();
   }
 
+  public T createNewGetRequest(String url)
+  {
+    httpRequest = new MockHttpServletRequest(servletContext);
+    httpRequest.setMethod("GET");
+    MockupHttpRequestUtils.parseRequestUrlToRequest(httpRequest, url);
+    return getBuilder();
+  }
+
   /**
    * If remote url is set, HttpClient will be used to send requests.
    * 
@@ -197,7 +221,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
    */
   public T setRequestData(String data)
   {
-    httpRequest.setRequestData(StringUtils.getBytesUtf8(data));
+    httpRequest.setRequestData(org.apache.commons.codec.binary.StringUtils.getBytesUtf8(data));
     return getBuilder();
   }
 
@@ -227,16 +251,107 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
    */
   public T executeServletRequest()
   {
-    try {
-      httpResponse = new MockHttpServletResponse();
+    executeServletIntern(0);
 
+    return getBuilder();
+  }
+
+  private void checkRedirect(int recCount)
+  {
+    if (followRedirects == false || recCount > 3) {
+      return;
+    }
+    if (httpResponse.getStatus() != 302) {
+      return;
+    }
+    String loc = httpResponse.getHeader("Location");
+    if (StringUtils.isBlank(loc) == true) {
+      return;
+    }
+    createNewGetRequest(loc);
+    executeServletIntern(++recCount);
+  }
+
+  protected void executeServletIntern(int recCount)
+  {
+    try {
+      applyCookies();
+      httpResponse = new MockHttpServletResponse();
+      ++reqResponseCounter;
+      writeRequestToLog();
       acceptor.acceptRequest(httpRequest, httpResponse);
-      return getBuilder();
+      storeCookies();
+      writeResponseToLog();
+      checkRedirect(recCount);
     } catch (RuntimeException ex) {
       ex.printStackTrace();
       throw ex;
     } catch (Exception ex) {
       throw new RuntimeException(ex);
+    }
+  }
+
+  private void applyCookies()
+  {
+
+    if (storeCookies == false) {
+      return;
+    }
+    httpRequest.setCookies(cookies.values().toArray(new Cookie[] {}));
+  }
+
+  private void storeCookies()
+  {
+    if (storeCookies == false) {
+      return;
+    }
+    Cookie[] cooks = httpResponse.getCookies();
+    if (cooks == null) {
+      return;
+    }
+    for (Cookie c : cooks) {
+      cookies.put(c.getName(), c);
+    }
+  }
+
+  private boolean prepareForLog()
+  {
+    if (writeRequestResponseLog == false) {
+      return false;
+    }
+    File f = new File(this.requestResponseLogBaseDir);
+    if (f.exists() == false) {
+      return f.mkdirs();
+    }
+    return true;
+
+  }
+
+  private void writeResponseToLog()
+  {
+    if (prepareForLog() == false) {
+      return;
+    }
+    String filen = "" + reqResponseCounter + "_" + requestResponseLogBaseName + "_Response.txt";
+    Path p = Paths.get(getRequestResponseLogBaseDir(), filen);
+    try {
+      FileUtils.write(p.toFile(), this.httpResponse.toString());
+    } catch (IOException e) {
+      LOG.error("Cannot write response log: " + e.getMessage(), e);
+    }
+  }
+
+  private void writeRequestToLog()
+  {
+    if (prepareForLog() == false) {
+      return;
+    }
+    String filen = "" + reqResponseCounter + "_" + requestResponseLogBaseName + "_Request.txt";
+    Path p = Paths.get(getRequestResponseLogBaseDir(), filen);
+    try {
+      FileUtils.write(p.toFile(), this.httpRequest.toString());
+    } catch (IOException e) {
+      LOG.error("Cannot write Request log: " + e.getMessage(), e);
     }
   }
 
@@ -300,4 +415,60 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   {
     this.httpResponse = httpResponse;
   }
+
+  public boolean isWriteRequestResponseLog()
+  {
+    return writeRequestResponseLog;
+  }
+
+  public T setWriteRequestResponseLog(boolean writeRequestResponseLog)
+  {
+    this.writeRequestResponseLog = writeRequestResponseLog;
+    return getBuilder();
+  }
+
+  public String getRequestResponseLogBaseDir()
+  {
+    return requestResponseLogBaseDir;
+  }
+
+  public T setRequestResponseLogBaseDir(String requestResponseLogBaseDir)
+  {
+    this.requestResponseLogBaseDir = requestResponseLogBaseDir;
+    return getBuilder();
+  }
+
+  public String getRequestResponseLogBaseName()
+  {
+    return requestResponseLogBaseName;
+  }
+
+  public T setRequestResponseLogBaseName(String requestResponseLogBaseName)
+  {
+    this.requestResponseLogBaseName = requestResponseLogBaseName;
+    return getBuilder();
+  }
+
+  public boolean isFollowRedirects()
+  {
+    return followRedirects;
+  }
+
+  public T setFollowRedirects(boolean followRedirects)
+  {
+    this.followRedirects = followRedirects;
+    return getBuilder();
+  }
+
+  public boolean isStoreCookies()
+  {
+    return storeCookies;
+  }
+
+  public T setStoreCookies(boolean storeCookies)
+  {
+    this.storeCookies = storeCookies;
+    return getBuilder();
+  }
+
 }
