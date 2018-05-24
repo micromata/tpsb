@@ -273,10 +273,9 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-
     <repository>
       <id>eviware</id>
-      <url>http://www.eviware.com/repository/maven2/</url>
+      <url>http://smartbearsoftware.com/repository/maven2</url>
     </repository>
   </repositories>
 
