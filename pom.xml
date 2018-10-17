@@ -77,7 +77,7 @@
     <commons-io.version>2.6</commons-io.version>
     <commons-beanutils.version>1.9.3</commons-beanutils.version>
     <commons-codec.version>1.11</commons-codec.version>
-    <commons-httpclient.version>3.1</commons-httpclient.version>
+    <commons-httpclient4.version>4.5.6</commons-httpclient4.version>
     <commons-text.version>1.1</commons-text.version>
 
     <springframework.spring-aop.version>5.0.1.RELEASE</springframework.spring-aop.version>

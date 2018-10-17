@@ -16,12 +16,17 @@
 
 package de.micromata.genome.tpsb.httpClient;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 
 import de.micromata.genome.tpsb.CommonTestBuilder;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.EntityUtils;
 
 /**
  * Http Client builder.
@@ -31,7 +36,7 @@ import de.micromata.genome.tpsb.CommonTestBuilder;
  */
 public class HttpClientTestBuilder extends CommonTestBuilder<HttpClientTestBuilder>
 {
-  private HttpClient httpClient;
+  private CloseableHttpClient httpClient;
 
   private int connectionTimeout = 1000;
 
@@ -43,17 +48,22 @@ public class HttpClientTestBuilder extends CommonTestBuilder<HttpClientTestBuild
 
   private int lastHttpStatus;
 
-  public HttpClientTestBuilder createHttpClient()
-  {
-    MultiThreadedHttpConnectionManager conManager = new MultiThreadedHttpConnectionManager();
-    HttpConnectionManagerParams params = conManager.getParams();
-    params.setConnectionTimeout(connectionTimeout);
-    params.setSoTimeout(readTimeout);
-    params.setMaxTotalConnections(maxTotalConnection);
+  private byte[] lastResponseBody;
 
-    httpClient = new HttpClient(conManager);
+  public HttpClientTestBuilder createHttpClient() {
+    PoolingHttpClientConnectionManager conManager = new PoolingHttpClientConnectionManager();
 
-    params.setMaxConnectionsPerHost(httpClient.getHostConfiguration(), maxPerHostConnection);
+    conManager.setMaxTotal(maxTotalConnection);
+    conManager.setDefaultMaxPerRoute(maxPerHostConnection);
+
+    final RequestConfig requestConfig = RequestConfig.custom()
+        .setConnectTimeout(connectionTimeout)
+        .setSocketTimeout(readTimeout).build();
+    final HttpClientBuilder httpClientBuilder = HttpClients.custom().setConnectionManager(conManager) //
+        .setDefaultRequestConfig(requestConfig);
+
+    httpClient = httpClientBuilder.build();
+
     return getBuilder();
 
   }
@@ -66,11 +76,13 @@ public class HttpClientTestBuilder extends CommonTestBuilder<HttpClientTestBuild
     createHttpClient();
   }
 
-  public HttpClientTestBuilder executeMethod(HttpMethod method)
+  public HttpClientTestBuilder executeMethod(HttpRequestBase method)
   {
     initHttpClient();
     try {
-      lastHttpStatus = httpClient.executeMethod(method);
+      final CloseableHttpResponse response = httpClient.execute(method);
+      lastResponseBody = EntityUtils.toByteArray(response.getEntity());
+      lastHttpStatus = response.getStatusLine().getStatusCode();
     } catch (RuntimeException ex) {
       throw ex;
     } catch (Exception ex) {
@@ -84,7 +96,7 @@ public class HttpClientTestBuilder extends CommonTestBuilder<HttpClientTestBuild
     return httpClient;
   }
 
-  public HttpClientTestBuilder setHttpClient(HttpClient httpClient)
+  public HttpClientTestBuilder setHttpClient(CloseableHttpClient httpClient)
   {
     this.httpClient = httpClient;
     return getBuilder();
@@ -132,5 +144,13 @@ public class HttpClientTestBuilder extends CommonTestBuilder<HttpClientTestBuild
   {
     this.maxPerHostConnection = maxPerHostConnection;
     return getBuilder();
+  }
+
+  public int getLastHttpStatus() {
+    return lastHttpStatus;
+  }
+
+  public byte[] getLastResponseBody() {
+    return lastResponseBody;
   }
 }
