@@ -191,7 +191,7 @@ public class FileInfo extends AnnotatedBase
   {
     Collection<MethodInfo> methods = getAllMethodInfos(methodName);
 
-    if (org.apache.commons.collections.CollectionUtils.isEmpty(methods)) {
+    if (CollectionUtils.isEmpty(methods)) {
       return null;
     }
 
