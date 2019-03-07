@@ -20,7 +20,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * In case of T goTo(Class<T> target) defines possibility of target types.
+ * In case of T goTo(Class&lt;T&gt; target) defines possibility of target types.
  * 
  * @author roger
  * 

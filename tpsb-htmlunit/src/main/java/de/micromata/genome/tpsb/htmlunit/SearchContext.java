@@ -26,7 +26,7 @@ public interface SearchContext
   List<Element> findElements(By by);
 
   /**
-   * Find the first {@link WebElement} using the given method.
+   * Find the first {@link Element} using the given method.
    * 
    * @param by The locating mechanism
    * @return The first matching element on the current context

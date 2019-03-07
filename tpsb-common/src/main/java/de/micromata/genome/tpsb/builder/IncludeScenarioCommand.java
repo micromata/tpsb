@@ -9,7 +9,7 @@ import de.micromata.genome.util.bean.PrivateBeanUtils;
 /**
  * Include and execute scenario.
  * 
- * @param <S>
+ * @param <S> the type of the {@link CommandScenario}
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  */
 @TpsbComment("Inkludiert ein anderes Scenario")

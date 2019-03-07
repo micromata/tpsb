@@ -37,7 +37,7 @@ public @interface TpsbScenarioSuiteFiles {
    * 
    * <code>a/b/${0}_props.txt</code> is ok. <code>a/b/blub${0}_props.txt</code> is not ok.
    * 
-   * @return
+   * @return the file pattern
    */
   String filePattern() default "${0}";
 }

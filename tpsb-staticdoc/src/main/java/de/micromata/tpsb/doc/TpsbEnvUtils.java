@@ -344,8 +344,9 @@ public class TpsbEnvUtils
 
   /**
    * 
-   * @param mi
-   * @param param
+   * @param mi the methodinfo
+   * @param pi the parameter info
+   * @param projectRoot the root of the project
    * @return null, if no dropdownlist should be shown
    */
   public static List<String> getPossibleValue(String projectRoot, MethodInfo mi, ParameterInfo pi)
@@ -547,10 +548,10 @@ public class TpsbEnvUtils
 
   /**
    * 
-   * @param mi
-   * @param html
+   * @param jdoc the {@link JavaDocInfo} contining the java doc
+   * @param html the description of the java doc as html
    * @param excludedTags tagnames (with @) which should not included. if first excludedTags is "all" no tags are appended
-   * @return
+   * @return the java doc description as a {@link String}
    */
   public static String getJavaDocDescription(JavaDocInfo jdoc, boolean html, String... excludedTags)
   {
@@ -561,10 +562,10 @@ public class TpsbEnvUtils
 
   /**
    * 
-   * @param mi
-   * @param html
+   * @param mi the {@link AnnotatedBase}
+   * @param html when true return the content as html
    * @param excludedTags tagnames (with @) which should not included. if first excludedTags is "all" no tags are appended
-   * @return
+   * @return the java doc description
    */
   public static String getJavaDocDescription(AnnotatedBase mi, boolean html, String... excludedTags)
   {

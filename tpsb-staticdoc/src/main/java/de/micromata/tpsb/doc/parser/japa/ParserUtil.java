@@ -185,9 +185,9 @@ public class ParserUtil
    * org.apache.commons.io.FilenameUtils.concat(String, String) does some normalization, we don't want. here a more
    * simple way.
    * 
-   * @param base
-   * @param add
-   * @return
+   * @param base the base of the file
+   * @param add the path to add to the base
+   * @return the concatenated file path
    */
   public static String concatFileName(String base, String add)
   {
@@ -212,8 +212,8 @@ public class ParserUtil
   /**
    * Looks for // comments above given source text
    * 
-   * @param sourceText
-   * @param lineNo
+   * @param sourceText the source as a text
+   * @param lineNo the line number to look at
    * @return null if none found
    */
   public static String lookupInlineCode(String sourceText, int lineNo)

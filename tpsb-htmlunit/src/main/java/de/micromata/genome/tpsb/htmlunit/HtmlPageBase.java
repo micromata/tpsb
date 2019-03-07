@@ -101,6 +101,8 @@ public abstract class HtmlPageBase<T extends HtmlPageBase< ? >> extends CommonTe
 
   /**
    * Load pending content
+   *
+   * @return the builder
    */
   public T loadLinkedContent()
   {
@@ -243,11 +245,11 @@ public abstract class HtmlPageBase<T extends HtmlPageBase< ? >> extends CommonTe
   /**
    * This method switch on JavaScript
    * 
-   * @param <X>
-   * @param id
-   * @param targetClazz
-   * @return
-   * @throws Exception
+   * @param <X> the type of the {@link HtmlPageBase}
+   * @param id the id of the javascript button
+   * @param targetClazz the class of the target
+   * @return the {@link HtmlPageBase} which is returned after the button was clicked
+   * @throws Exception when an error happened
    */
   public <X extends HtmlPageBase< ? >> X clickJavaScriptButtonById(String id, Class<X> targetClazz) throws Exception
   {
@@ -432,8 +434,10 @@ public abstract class HtmlPageBase<T extends HtmlPageBase< ? >> extends CommonTe
    * @param htmlSelect the concerned html select
    * @param index the index of the option that is to change
    * @param isSelected true if the option is to become selected
+   * @param <X> the type of the {@link HtmlPageBase}
+   * @param targetClazz the target class
    * @return return this page
-   * @throws Exception
+   * @throws Exception when an error happened
    */
   protected <X extends HtmlPageBase< ? >> X selectOption(HtmlSelect htmlSelect, int index, boolean isSelected, Class<X> targetClazz)
       throws Exception

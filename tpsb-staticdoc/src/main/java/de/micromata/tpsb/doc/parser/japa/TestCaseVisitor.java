@@ -144,9 +144,9 @@ public class TestCaseVisitor extends TestBuilderVisitor
   }
 
   /**
-   * Checks if the methods is a test method ==> Either starts with test or has an annotation @Test
+   * Checks if the methods is a test method ==&gt; Either starts with test or has an annotation @Test
    * 
-   * @param n
+   * @param n the methoddeclaration which is to test if it is a test
    * @return true if it is a test method TODO consider check if the test method is void, etc and with no args?
    */
   protected boolean isTest(MethodDeclaration n)

@@ -31,7 +31,7 @@ public class GenomeConsoleApp extends HtmlWebTestApp<GenomeConsoleApp>
   /**
    * Open the genome console
    * 
-   * @return
+   * @return the {@link GenomeLoginPage}
    */
   public GenomeLoginPage doGoLoginPage()
   {

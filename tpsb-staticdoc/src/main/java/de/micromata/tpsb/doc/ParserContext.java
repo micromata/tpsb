@@ -268,7 +268,7 @@ public class ParserContext
    * Felddeklarationen)
    * 
    * @param varName Name der Variablen
-   * @return
+   * @return the type of the variable as a {@link String}
    */
   public String getTypeOfVariable(String varName)
   {

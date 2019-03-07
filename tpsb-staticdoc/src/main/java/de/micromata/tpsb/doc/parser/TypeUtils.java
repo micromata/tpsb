@@ -32,7 +32,7 @@ public class TypeUtils
 
   /**
    * 
-   * @param fqname
+   * @param fqname the full qualified name of the package
    * @return null if no package
    */
   public static String getPackageFromFqClassName(String fqname)
@@ -101,8 +101,8 @@ public class TypeUtils
   /**
    * Checks if s is quoted "asdfasdf" and removed it.
    * 
-   * @param s
-   * @return
+   * @param s the string to unquote
+   * @return the string without the quotes
    */
   public static String unqoteString(String s)
   {

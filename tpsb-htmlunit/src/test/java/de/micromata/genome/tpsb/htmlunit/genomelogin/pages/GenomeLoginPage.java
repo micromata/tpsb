@@ -47,7 +47,7 @@ public class GenomeLoginPage extends HtmlPageBase<GenomeLoginPage>
   /**
    * sets the user name
    * 
-   * @param user
+   * @param user the user to set
    * @return this page
    */
   public GenomeLoginPage setUserName(String user)
@@ -62,7 +62,7 @@ public class GenomeLoginPage extends HtmlPageBase<GenomeLoginPage>
   /**
    * sets the user password
    * 
-   * @param pass
+   * @param pass the password for the user
    * @return this page
    */
   public GenomeLoginPage setPasswort(String pass)
@@ -74,7 +74,7 @@ public class GenomeLoginPage extends HtmlPageBase<GenomeLoginPage>
   /**
    * Submit the page and do login
    * 
-   * @param <X>
+   * @param <X> the type of the {@link HtmlPageBase}
    * @param targetClazz expected page type
    * @return expected page or error
    */

@@ -44,7 +44,7 @@ public class MethodInfo extends AnnotatedBase
   private String returnType;
 
   /**
-   * public <X> X getValX(Class<X> class);
+   * public &lt;X&gt; X getValX(Class&lt;X&gt; class);
    */
   private List<String> typeArgNames;
 

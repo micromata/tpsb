@@ -14,7 +14,7 @@ import de.micromata.genome.util.types.Pair;
 /**
  * Abstract for the CommandSceanrio.
  * 
- * @param <S>
+ * @param <S> the type of the {@link CommandScenario}
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  */
 public abstract class AbstractScenarioCommand<S extends CommandScenario<?>> implements ScenarioCommand<S>

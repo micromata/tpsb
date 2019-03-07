@@ -16,6 +16,7 @@
 
 package de.micromata.genome.tpsb;
 
+import de.micromata.genome.util.runtime.CallableX;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.framework.ProxyFactory;
@@ -23,7 +24,7 @@ import org.springframework.aop.framework.ProxyFactory;
 /**
  * Intercepts a TestBuilder expect an exception. See
  *
- * @see CommonTestBuilder.runWithExpectedException
+ * @see CommonTestBuilder#runWithExpectedException(Class, CallableX) 
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  *
  */
