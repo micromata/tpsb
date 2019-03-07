@@ -29,8 +29,8 @@ public interface IParseableResultRenderer extends IResultRenderer
   public IResultParser getParser();
   /**
    * Render a single FileInfo
-   * @param obj
-   * @param cfg
+   * @param obj the obj
+   * @param cfg the parser configuration
    */
   void renderObject(Object obj, ParserConfig cfg);
 

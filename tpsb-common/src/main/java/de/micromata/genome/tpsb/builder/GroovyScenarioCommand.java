@@ -23,7 +23,7 @@ import de.micromata.genome.util.types.Pair;
  * 
  * Is also a section and a file given, both are executed (at first the content of the file, after that the section).
  * 
- * @param <S>
+ * @param <S> type of the {@link CommandScenario}
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  */
 @TpsbComment("Execute Scenario."
@@ -53,7 +53,7 @@ public class GroovyScenarioCommand<S extends CommandScenario<?>>extends Abstract
 
   /**
    * 
-   * @param scenario
+   * @param scenario the scenario to use
    * @return Comment, Code
    */
   private Pair<String, String> getCode(S scenario)
@@ -94,6 +94,7 @@ public class GroovyScenarioCommand<S extends CommandScenario<?>>extends Abstract
    * 
    * @param scenario the scenario
    * @param code the code
+   * @param  <S> the {@link CommandScenario}
    */
   public static <S extends CommandScenario<?>> void executeGroovy(S scenario, String code)
   {

@@ -24,7 +24,7 @@ import de.micromata.genome.util.types.Pair;
 /**
  * Internal parser to parse a IniLikeScenario from text.
  * 
- * See {@see IniLikeScenario}.
+ * See {@link IniLikeScenario}.
  * 
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  * 

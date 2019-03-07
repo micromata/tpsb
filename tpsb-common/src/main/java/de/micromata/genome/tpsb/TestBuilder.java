@@ -29,16 +29,17 @@ public interface TestBuilder<T extends TestBuilder< ? >>
   /**
    * Creates a new Testbuilder via default constructor and copies testcontext and populates the fields.
    * 
-   * @param clazz
-   * @return
+   * @param clazz the class of the builder to create
+   * @param <X> the type of the builder
+   * @return the builder instance
    */
   public <X> X createBuilder(Class<X> clazz);
 
   /**
    * set a context variable.
    * 
-   * @param varName
-   * @param value
+   * @param varName the name of the variable to set in the current context
+   * @param value   the value of the variable to set in the current context
    * @return this
    */
   public T setTestContextVar(String varName, Object value);
@@ -46,7 +47,7 @@ public interface TestBuilder<T extends TestBuilder< ? >>
   /**
    * get a context var
    * 
-   * @param varName
+   * @param varName the name of the variable to get from the current contexz
    * @return the variable or null if not exists
    */
   public Object getTestContextVar(String varName);
@@ -54,7 +55,7 @@ public interface TestBuilder<T extends TestBuilder< ? >>
   /**
    * Return the test context as map
    * 
-   * @return
+   * @return the complete context as a map
    */
   public Map<String, Object> getTestContext();
 }

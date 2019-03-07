@@ -49,12 +49,12 @@ public class FileInfo extends AnnotatedBase
   private String superClassName;
 
   /**
-   * class X<T, B> MyClass. T, B will be here
+   * class X&lt;T, B&gt; MyClass. T, B will be here
    */
   private List<String> typeArgNames;
 
   /**
-   * extends Super<First,Second> etc.
+   * extends Super&lt;First,Second&gt; etc.
    */
   private List<String> superTemplateArgs;
 
@@ -191,7 +191,7 @@ public class FileInfo extends AnnotatedBase
   {
     Collection<MethodInfo> methods = getAllMethodInfos(methodName);
 
-    if (org.apache.commons.collections.CollectionUtils.isEmpty(methods)) {
+    if (CollectionUtils.isEmpty(methods)) {
       return null;
     }
 

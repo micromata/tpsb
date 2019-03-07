@@ -131,8 +131,8 @@ public class MockHttpServletRequest implements HttpServletRequest, HttpRequestMo
    * context, prepended with a '/') and a servlet path. E.g. new MockHttpServletRequest("/myapp",
    * "/actionType/foo.action").
    * 
-   * @param contextPath
-   * @param servletPath
+   * @param contextPath the path of the context
+   * @param servletPath the path of the servlet
    */
   public MockHttpServletRequest(String contextPath, String servletPath)
   {

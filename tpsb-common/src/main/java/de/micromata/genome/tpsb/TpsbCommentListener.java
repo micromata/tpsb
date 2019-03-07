@@ -35,8 +35,8 @@ public interface TpsbCommentListener
   /**
    * Inside addCommentRaw(...) the expression will be evaluated. The evaluated will be call addCommentText()
    * 
-   * @param builder
-   * @param text
+   * @param builder the builder where to add the comment to
+   * @param text the text to add as a comment
    */
   public void addCommentText(TestBuilder< ? > builder, String text);
 }
