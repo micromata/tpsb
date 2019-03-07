@@ -103,7 +103,7 @@ public class MicrosoftWordRenderer extends AbstractResultRenderer {
 	/**
 	 * Fügt eine Zusammenfassung hinzu.
 	 * 
-	 * @param parserResult
+	 * @param parserResult the result of the parser
 	 */
 	private void addSummaryPage(ParserResult parserResult) {
 		addH1("Zusammenfassung");
@@ -117,7 +117,7 @@ public class MicrosoftWordRenderer extends AbstractResultRenderer {
 	/**
 	 * Fügt die Testcases in die Word-Vorlage ein
 	 * 
-	 * @param parserResult
+	 * @param parserResult the result of the parser
 	 */
 	private void addTestCases(ParserResult parserResult) {
 		for (FileInfo fInfo : parserResult) {
@@ -152,7 +152,7 @@ public class MicrosoftWordRenderer extends AbstractResultRenderer {
 	/**
 	 * Fügt einzele Tests aus einem Test-Case hinzu
 	 * 
-	 * @param fInfo
+	 * @param fInfo the file information
 	 */
 	private void addTestMethods(FileInfo fInfo) {
 		for (MethodInfo mInfo : fInfo.getMethodInfos()) {

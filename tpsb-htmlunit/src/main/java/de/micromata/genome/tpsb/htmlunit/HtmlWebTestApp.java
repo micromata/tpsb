@@ -58,9 +58,9 @@ public class HtmlWebTestApp<T extends HtmlWebTestApp< ? >> extends CommonTestBui
   /**
    * Load the given page.
    * 
-   * @param <P>
-   * @param expected
-   * @return
+   * @param <P> the type of the {@link HtmlPageBase}
+   * @param expected what class is excepted to be loaded by the page
+   * @return the loaded page
    */
   public <P extends HtmlPageBase< ? >> P doLoadPage(Class<P> expected)
   {

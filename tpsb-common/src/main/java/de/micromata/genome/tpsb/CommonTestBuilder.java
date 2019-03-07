@@ -38,7 +38,7 @@ import org.codehaus.groovy.control.CompilationFailedException;
  * 
  * @author roger
  * 
- * @param <T>
+ * @param <T> the type of the testbuilder
  */
 @TpsbBuilder
 public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBuilder<T>
@@ -225,6 +225,7 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
    * 
    * @param name of the builder in the test context.
    * @param exprectedType type of the test builder.
+   * @param <X> the type of the testbuilder
    * @return builder x
    */
   public <X extends CommonTestBuilder<?>> X returnToStoredTestBuilder(String name, Class<X> exprectedType)
@@ -261,6 +262,7 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
    * 
    * @param name the name
    * @param exprectedType the exprected type
+   * @param <X> the type of the testbuilder
    * @return x
    */
   public <X extends CommonTestBuilder<?>> X switchToStoredTestBuilder(String name, Class<X> exprectedType)
@@ -364,7 +366,7 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
    * 
    * @param expression boolean
    * @param message Message to fail
-   * @return
+   * @return failimpl when an error happened or the builder itself
    */
   public T validateFalse(boolean expression, String message)
   {
@@ -378,9 +380,9 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
   /**
    * Validates that both values are equal.
    * 
-   * @param expected
-   * @param given
-   * @return
+   * @param expected what to expect
+   * @param given what to check if it matches the expected
+   * @return failimpl when it does not match or the builder
    */
   public T validateEquals(Object expected, Object given)
   {
@@ -392,10 +394,10 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
 
   /**
    * Validates that both values are not equal.
-   * 
-   * @param expected
-   * @param given
-   * @return
+   *
+   * @param expected what to expect
+   * @param given what to check if it matches the expected
+   * @return failimpl when it does not match or the builder
    */
   public T validateNotEquals(Object expected, Object given)
   {
@@ -420,6 +422,7 @@ public class CommonTestBuilder<T extends CommonTestBuilder<?>>implements TestBui
    * 
    * @param expectEx expected exception.
    * @param callable callback
+   * @param <EX> the type of the exception
    * @return t
    */
   @TpsbIgnore

@@ -177,7 +177,7 @@ public class SimpleTextParser
   /**
    * skip until one of the character can be found.
    * 
-   * @param cs
+   * @param cs the chars to look for when they are found it is skiped
    * @return found character or 0 for endofstream.
    */
   public char skipUntil(char... cs)
@@ -235,7 +235,7 @@ public class SimpleTextParser
   /**
    * rest of the unparsed string.
    * 
-   * @return
+   * @return the rest of the unparsed string
    */
   public String rest()
   {

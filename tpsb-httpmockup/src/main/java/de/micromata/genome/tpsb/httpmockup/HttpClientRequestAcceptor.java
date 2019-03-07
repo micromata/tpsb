@@ -16,18 +16,14 @@
 
 package de.micromata.genome.tpsb.httpmockup;
 
+import de.micromata.genome.tpsb.httpClient.HttpClientTestBuilder;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
-
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import de.micromata.genome.tpsb.httpClient.HttpClientTestBuilder;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
 
 /**
  * RequestAcceptor implemented by HttpClient.
@@ -46,12 +42,12 @@ public class HttpClientRequestAcceptor implements RequestAcceptor
     this.baseUrl = baseUrl;
   }
 
-  private HttpMethod buildMethod(MockHttpServletRequest request)
+  private HttpPost buildMethod(MockHttpServletRequest request)
   {
-    HttpMethod ret;
+    HttpPost ret;
     if (StringUtils.equals(request.getMethod(), "POST") == true) {
-      PostMethod pm = new PostMethod(baseUrl + request.getPathInfo());
-      pm.setRequestEntity(new ByteArrayRequestEntity(request.getRequestData()));
+      HttpPost pm = new HttpPost(baseUrl + request.getPathInfo());
+      pm.setEntity(new ByteArrayEntity(request.getRequestData()));
       ret = pm;
     } else {
       throw new UnsupportedOperationException("Currently only POST methods are supported");
@@ -62,10 +58,10 @@ public class HttpClientRequestAcceptor implements RequestAcceptor
   @Override
   public void acceptRequest(MockHttpServletRequest request, MockHttpServletResponse response) throws IOException, ServletException
   {
-    HttpMethod method = buildMethod(request);
+    HttpPost method = buildMethod(request);
     httpClient.executeMethod(method);
-    response.setStatus(method.getStatusCode());
-    byte[] data = method.getResponseBody();
+    response.setStatus(httpClient.getLastHttpStatus());
+    byte[] data = httpClient.getLastResponseBody();
     if (data != null) {
       IOUtils.copy(new ByteArrayInputStream(data), response.getOutputStream());
     }

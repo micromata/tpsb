@@ -35,8 +35,8 @@ public class SoapUIUtils
   /**
    * Disable Assertions in the project.
    * 
-   * @param project
-   * @param msgassert
+   * @param project the {@link WsdlProject} to disable
+   * @param msgassert the message assert
    */
   public static void disableSoapConformAssertions(WsdlProject project, Class< ? extends WsdlMessageAssertion> msgassert)
   {

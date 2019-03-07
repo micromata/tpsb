@@ -214,7 +214,7 @@ public abstract class By
   /**
    * Find many elements.
    * 
-   * @param context A context to use to find the element
+   * @param page A context to use to find the element
    * @return A list of WebElements matching the selector
    */
   public abstract List<Element> findElements(HtmlPage page);

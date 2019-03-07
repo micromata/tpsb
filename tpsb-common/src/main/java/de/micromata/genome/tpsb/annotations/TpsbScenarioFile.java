@@ -36,14 +36,14 @@ public @interface TpsbScenarioFile {
    * 
    * ${0} to ${n} addresses the arguments.
    * 
-   * @return
+   * @return the file pattern
    */
   String filePattern() default "${0}";
 
   /**
    * fully qualified class name of the renderer. Has to be implement ScenarioRenderer.
    * 
-   * @return
+   * @return the name of the class
    */
   String scenarioRendererClass() default "de.micromata.genome.tpsb.builder.PreTextScenarioRenderer";
 }

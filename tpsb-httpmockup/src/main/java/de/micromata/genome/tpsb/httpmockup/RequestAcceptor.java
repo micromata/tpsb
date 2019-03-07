@@ -31,9 +31,9 @@ public interface RequestAcceptor
   /**
    * Accept
    * 
-   * @param request
-   * @param response
-   * @throws Exception
+   * @param request the mock implementation of a request
+   * @param response the mock implementation of the response
+   * @throws IOException when an error happened during accepting the request
    */
   public void acceptRequest(final MockHttpServletRequest request, final MockHttpServletResponse response) throws IOException,
       ServletException;

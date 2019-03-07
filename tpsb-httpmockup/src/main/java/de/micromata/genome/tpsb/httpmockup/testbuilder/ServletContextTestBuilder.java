@@ -93,10 +93,10 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Register the servlet all requests will dispatched.
    * 
-   * @param servletClass
-   * @param name
-   * @param initParams
-   * @return
+   * @param servletClass  the class of the servlet to register
+   * @param name the name of the servlet to register
+   * @param initParams the initial parameters of the servlet
+   * @return the servlet which was registered
    */
   public T registerServlet(String name, String path, Class<? extends HttpServlet> servletClass, String... initParams)
   {
@@ -119,10 +119,10 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Register a servlet, all requests will passed through.
    * 
-   * @param filterClass
-   * @param name
-   * @param initParams
-   * @return
+   * @param filterClass the class of the filter to register
+   * @param name the name of the filter to register
+   * @param initParams the parameter to initialize the filter with
+   * @return the registered filter
    */
   public T registerFilter(String name, String path, Class<? extends Filter> filterClass, String... initParams)
   {
@@ -174,7 +174,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
    * If remote url is set, HttpClient will be used to send requests.
    * 
    * @param baseUrl base url without servlet path.
-   * @return
+   * @return the builder itstelf
    */
   public T setRemoteUrl(String baseUrl)
   {
@@ -185,8 +185,8 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * sets the HTTP method.
    * 
-   * @param method
-   * @return
+   * @param method the method to request
+   * @return the builder
    */
   public T setRequestMethod(String method)
   {
@@ -203,9 +203,9 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Add a request header.
    * 
-   * @param key
-   * @param value
-   * @return
+   * @param key the key to add to the header
+   * @param value the value to add to the header
+   * @return the builder
    */
   public T addRequestHeader(String key, String value)
   {
@@ -216,8 +216,8 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Sets the request data as utf-8 bytes.
    * 
-   * @param data
-   * @return
+   * @param data the data to set on the reuest
+   * @return the builder
    */
   public T setRequestData(String data)
   {
@@ -228,8 +228,8 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Sets the request data as utf-8 bytes.
    * 
-   * @param data
-   * @return
+   * @param data the data to set
+   * @return the builder itself
    */
   @TpsbIgnore
   public T setRequestData(byte[] data)
@@ -247,7 +247,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Executes the Http request and store response in httpResponse.
    * 
-   * @return
+   * @return the builder
    */
   public T executeServletRequest()
   {
@@ -358,8 +358,8 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Check if http status in response is given.
    * 
-   * @param status
-   * @return
+   * @param status the status of the reponse
+   * @return the builder
    */
   public T validateResponseStatus(int status)
   {
@@ -372,7 +372,7 @@ public class ServletContextTestBuilder<T extends ServletContextTestBuilder<?>> e
   /**
    * Delete session associated.
    * 
-   * @return
+   * @return the builder
    */
   public T destroySession()
   {

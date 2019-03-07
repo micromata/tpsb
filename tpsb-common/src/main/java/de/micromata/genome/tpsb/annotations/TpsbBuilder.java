@@ -29,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
  *         Ein TestBuilder immer über eine TestApp-Klasse erzeugt. Intern hält der jeweilige TestBuilder auch eine Instanz einer TestApp.
  *         Der Unterschied zwischen einer TestApp und einem TestBuilder ist lediglich, dass ein TestBuilder nicht direkt erzeugt werden
  *         kann. 2.2.2 Schnittstellen getTestApp(): Gibt die Anwendung zurück. getX(): einfacher Getter setX(X x): einfacher Setter
- *         loadScenario(X scenario): Lädt Testdaten. List<X> listScenarios(): Wird intern ggf. verwendet um eine Auswahl zur Verfügung
+ *         loadScenario(X scenario): Lädt Testdaten. List&lt;X&gt; listScenarios(): Wird intern ggf. verwendet um eine Auswahl zur Verfügung
  *         stehende Scenarios zur Verfügung zu stellen. enableMockupX(): Aktiviert einen Mockup. disableMockupX(): Deaktiviert einen Mockup.
  *         doX(): Löst eine Action aus. doX(Class target): Löst eine Aktion aus. Es wird erwartet, dass der Rückgabetyp des Aufrufes target
  *         class entspricht, der wiederum ein TestBuilder ist. Analog eines Form-Submits auf einer Seite. Falls die Action fehlschlägt - wie

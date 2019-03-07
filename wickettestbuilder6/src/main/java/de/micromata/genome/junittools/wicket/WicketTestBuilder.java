@@ -66,8 +66,8 @@ public class WicketTestBuilder<T extends WicketTestBuilder<?>>extends CommonTest
   /**
    * TODO RK make them protected.
    * 
-   * @param pageClass
-   * @return
+   * @param page the page where to go to
+   * @return the page
    */
   @Deprecated
   public T _goToPage(Page page)
@@ -79,8 +79,8 @@ public class WicketTestBuilder<T extends WicketTestBuilder<?>>extends CommonTest
   /**
    * TODO RK make them protected.
    * 
-   * @param pageClass
-   * @return
+   * @param pageClass the class of the page where to go to
+   * @return the page the 
    */
   public T _gotoPage(Class<? extends Page> pageClass)
   {
@@ -97,8 +97,9 @@ public class WicketTestBuilder<T extends WicketTestBuilder<?>>extends CommonTest
   /**
    * TODO RK make them protected.
    * 
-   * @param pageClass
-   * @return
+   * @param pageClass the class which to validate
+   * @return the builder
+   * @throws TpsbWicketWrongPageException when the page is not the requested
    */
   @Deprecated
   public T _validateRenderedPage(Class<? extends Page> pageClass) throws TpsbWicketWrongPageException
@@ -279,8 +280,8 @@ public class WicketTestBuilder<T extends WicketTestBuilder<?>>extends CommonTest
 
   /**
    * @deprecated validateMatchingLastRenderedResponse(matcher);
-   * @param searchString
-   * @return
+   * @param searchString the string to look for
+   * @return the builder
    */
   @Deprecated
   public T _validateLastRenderedResponseContains(String searchString)
@@ -315,7 +316,7 @@ public class WicketTestBuilder<T extends WicketTestBuilder<?>>extends CommonTest
   /**
    * Prueft, ob der Matcherausdruck auf den HTML-Ausgabe der aktuellen Seite entspricht.
    * 
-   * @param matcherExpression Matcherausdruck (BooleanListRulesFactory)
+   * @param matcher Matcherausdruck (BooleanListRulesFactory)
    * @return builder.
    */
   public T _validateMatchingLastRenderedResponse(Matcher<String> matcher)

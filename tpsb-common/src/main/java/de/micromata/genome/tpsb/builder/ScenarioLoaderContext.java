@@ -113,8 +113,8 @@ public class ScenarioLoaderContext
   /**
    * Load a scenario property file.
    * 
-   * @param id
-   * @return
+   * @param id the id of the scenario properties
+   * @return a map with the properties
    */
   public Map<String, String> loadLocalPropertiesScenario(String id)
   {
@@ -197,7 +197,7 @@ public class ScenarioLoaderContext
   /**
    * load all matching scenario files.
    * 
-   * @return id (file name withouth path and suffix) -> testfile.
+   * @return id (file name withouth path and suffix) -&lt;testfile.
    */
   public Map<String, File> scenarioFiles()
   {

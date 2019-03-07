@@ -15,7 +15,7 @@ import de.micromata.genome.util.text.PipeValueList;
  * 
  * @author Roger Rene Kommer (r.kommer.extern@micromata.de)
  *
- * @param <T>
+ * @param <T> the type of the {@link CommonTestBuilder}
  */
 public class CommandScenario<T extends CommonTestBuilder<?>>extends IniLikeScenario
 {
