@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/micromata/tpsb.svg?branch=master)](https://travis-ci.org/micromata/tpsb)
+
 # About
 TPSB is a testing framework to write unittest with fluent pattern.
 
